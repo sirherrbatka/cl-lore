@@ -16,8 +16,10 @@
                              (:file "variables")
                              (:file "mapping")
                              (:file "generics")
+                             (:file "make-functions")
                              (:file "impl")))
                (:module "api"
                 :components ((:file "syntax-functions")
                              (:file "html")
-                             (:file "interface-variables")))))
+                             (:file "interface-variables")
+                             (:file "macros")))))
