@@ -15,7 +15,9 @@
                 :components ((:file "classes")
                              (:file "variables")
                              (:file "mapping")
-                             (:file "generics")))
+                             (:file "generics")
+                             (:file "impl")))
                (:module "api"
                 :components ((:file "syntax-functions")
+                             (:file "html")
                              (:file "interface-variables")))))

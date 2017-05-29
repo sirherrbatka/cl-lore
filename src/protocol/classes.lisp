@@ -54,7 +54,7 @@
             :reader read-labels)))
 
 
-(defclass fundamental-decorator ()
+(defclass fundamental-decorator (fundamental-element)
   ((%content :initarg :content
              :accessor access-content)))
 
@@ -75,3 +75,10 @@
   ((%label-name :initarg :label-name
                 :type string
                 :accessor access-label-name)))
+
+
+(defclass file ()
+  ((%content :initarg :content
+             :accessor access-content)
+   (%path :initarg :path
+          :accessor access-path)))

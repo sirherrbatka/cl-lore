@@ -2,5 +2,5 @@
 
 
 (defpackage :cl-lore
-  (:use #:common-lisp)
+  (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:export))
