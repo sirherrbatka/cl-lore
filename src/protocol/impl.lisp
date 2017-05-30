@@ -188,8 +188,8 @@
                    (callback read-callback)) controller
     (unless (slot-boundp controller '%parent)
       (error "Stack controller does not grant access to stack"))
-    (controller-push-tree parent description (~>> (funcall callback value)
-                                                  (push-decorator value)))
+    (let ((value (funcall callback value)))
+      (controller-push-tree parent description value))
     controller))
 
 
