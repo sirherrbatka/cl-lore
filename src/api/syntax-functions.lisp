@@ -10,25 +10,25 @@
 
 
 (defun end-document ()
-  (multiple-value-bind (value desc) (front-stack *stack*)
+  (multiple-value-bind (value desc) (controller-front *stack*)
     (unless (string= desc "root")
       (error "Closing wrong tree. Was trying to close tree ~a, but last tree is ~a"
              "root" desc)))
-  (pop-stack *stack*))
+  (controller-pop-tree *stack*))
 
 
 (defun end (what)
-  (multiple-value-bind (value desc) (front-stack *stack*)
+  (multiple-value-bind (value desc) (controller-front *stack*)
     (unless (string= desc what)
       (error "Closing wrong tree. Was trying to close tree ~a, but last tree is ~a"
              what desc))
     (pop-stack *stack*)
-    (push-child *stack* value)))
+    (controller-push-tree *stack* value)))
 
 
 (defun title (text)
   (declare (type string text))
-  (setf (access-title (front-stack *stack*))
+  (setf (access-title (controller-front *stack*))
         (make-instance 'leaf-node
                        :traits (list <title-trait>)
                        :content text)))
@@ -36,17 +36,17 @@
 
 (defun emphasis (text)
   (declare (type string text))
-  (make 'leaf-node
-        :traits (list <emphasis-trait>)
-        :content text))
+  (controller-return *stack*
+                     (make 'leaf-node
+                           :traits (list <emphasis-trait>)
+                           :content text)))
 
 
 (defun par (&rest content)
   (let ((result (make 'paragraph-node)))
     (dolist (c content)
       (push-child result c))
-    (push-child *stack*
-                result)))
+    (controller-return *stack* result)))
 
 
 (defun symb (symbol-name))
