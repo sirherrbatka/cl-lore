@@ -41,6 +41,7 @@
                            :traits (list <emphasis-trait>)
                            :content text)))
 
+
 (def-without-stack par nil (&rest content)
   (let ((result (make 'paragraph-node)))
      (dolist (c content)
