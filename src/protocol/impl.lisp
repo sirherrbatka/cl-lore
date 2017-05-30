@@ -176,13 +176,13 @@
   value)
 
 
-(defmethod controller-push-tree ((controller abstract-stack-controller) (description string) value)
+(defmethod controller-push-tree ((controller abstract-stack-controller) (description string) (value tree-node))
   (with-accessors ((content access-stack)) controller
     (push (list* description value) content))
   controller)
 
 
-(defmethod controller-push-tree ((controller proxy-stack-controller) (description string) value)
+(defmethod controller-push-tree ((controller proxy-stack-controller) (description string) (value tree-node))
   (with-accessors ((content access-stack)
                    (parent read-parent)
                    (callback read-callback)) controller

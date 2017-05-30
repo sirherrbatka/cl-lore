@@ -104,24 +104,6 @@
   ())
 
 
-(defclass temporary-stack-box (stack-box)
-  ((%children :initform (vect)
-              :reader read-children
-              :type vector)
-   (%parent-stack :type stack-box
-                  :initarg :parent-stack
-                  :reader read-parent-stack)
-   (%decorator-callback :type (-> (t) fundamental-decorator)
-                        :initarg :decorator-callback
-                        :reader read-decorator-callback)))
-
-
-(defun make-temporary-stack-box (parent callback)
-  (make 'temporary-stack-box
-        :parent-stack parent
-        :decorator-callback callback))
-
-
 (defclass internal-reference (fundamental-decorator)
   ((%label-name :initarg :label-name
                 :type string

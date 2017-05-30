@@ -2,11 +2,11 @@
 
 
 (defun begin (what)
-  (push-stack what (make-node what) *stack*))
+  (controller-push-tree what (make-node what) *stack*))
 
 
 (defun begin-document ()
-  (push-stack "root" (make 'root-node) *stack*))
+  (controller-push-tree "root" (make 'root-node) *stack*))
 
 
 (defun end-document ()
