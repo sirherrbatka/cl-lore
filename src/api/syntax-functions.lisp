@@ -23,7 +23,7 @@
       (error "Closing wrong tree. Was trying to close tree ~a, but last tree is ~a"
              what desc))
     (pop-stack *stack*)
-    (push-children (front-stack *stack*)
+    (push-children *stack*
                    value)))
 
 
@@ -46,7 +46,7 @@
   (let ((result (make 'paragraph-node)))
     (dolist (c content)
       (push-children result c))
-    (push-children (front-stack *stack*)
+    (push-children *stack*
                    result)))
 
 

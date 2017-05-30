@@ -90,6 +90,11 @@
   (vector-push-extend children (read-children node)))
 
 
+(defmethod push-children ((stack stack-box) children)
+  (let ((elt (front-stack stack)))
+    (push-children elt children)))
+
+
 (defmethod push-stack ((desc string)
                        (obj tree-node)
                        (stack stack-box))
