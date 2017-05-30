@@ -2,6 +2,7 @@
 
 
 (defgeneric scan-element (output element parents))
+(defgeneric push-decorator (element decorator))
 (defgeneric process-element (generator output element parents))
 (defgeneric push-stack (desc obj stack))
 (defgeneric save-output (output))

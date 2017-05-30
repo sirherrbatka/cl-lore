@@ -186,8 +186,10 @@
   (with-accessors ((content access-stack)
                    (parent read-parent)
                    (callback read-callback)) controller
-    (call-next-method)
-    (controller-push-tree parent description (funcall callback value))
+    (unless (slot-boundp controller '%parent)
+      (error "Stack controller does not grant access to stack"))
+    (controller-push-tree parent description (~>> (funcall callback value)
+                                                  (push-decorator value)))
     controller))
 
 
@@ -202,13 +204,15 @@
 
 (defmethod controller-pop-tree ((controller proxy-stack-controller))
   (with-accessors ((parent read-parent)) controller)
-  (call-next-method)
+  (unless (slot-boundp controller '%parent)
+    (error "Stack controller does not grant access to stack"))
   (controller-pop-tree parent))
 
 
 (defmethod controller-empty-p ((controller abstact-stack-controller))
-  (with-accessors ((content access-stack)) controller
-    (null content)))
+  (if (slot-boundp controller '%parent)
+      (controller-empty-p (read-parent controller))
+      t))
 
 
 (defmethod controller-front ((controller abstract-stack-controller))
@@ -218,4 +222,15 @@
     (let ((result (first content)))
       (values (cdr result)
               (car result)))))
+
+
+(defmethod controller-front ((controller proxy-stack-controller))
+  (unless (slot-boundp controller '%parent)
+    (error "Stack controller does not grant access to stack"))
+  (controller-front (read-parent controller)))
+
+
+(defmethod push-decorator ((element fundamental-element) (decorator fundamental-decorator))
+  (vector-push-extend decorator (read-decorators element))
+  element)
 

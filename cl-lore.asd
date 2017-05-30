@@ -19,7 +19,8 @@
                              (:file "make-functions")
                              (:file "impl")))
                (:module "api"
-                :components ((:file "syntax-functions")
+                :components ((:file "utility")
+                             (:file "syntax-functions")
                              (:file "html")
                              (:file "interface-variables")
                              (:file "macros")))))

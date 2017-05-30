@@ -41,11 +41,10 @@
                            :traits (list <emphasis-trait>)
                            :content text)))
 
-
-(defun par (&rest content)
+(def-without-stack par nil (&rest content)
   (let ((result (make 'paragraph-node)))
-    (dolist (c content)
-      (push-child result c))
+     (dolist (c content)
+       (push-child result c))
     (controller-return *stack* result)))
 
 
@@ -53,6 +52,3 @@
 
 
 (defgeneric refer (from text))
-
-
-

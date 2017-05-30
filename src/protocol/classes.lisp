@@ -2,7 +2,9 @@
 
 
 (defclass fundamental-element ()
-  ())
+  ((%decorators :initform (vect)
+                :type vector
+                :reader read-decorators)))
 
 
 (defclass fundamental-text-trait ()
@@ -58,9 +60,8 @@
             :reader read-labels)))
 
 
-(defclass fundamental-decorator (fundamental-element)
-  ((%content :initarg :content
-             :accessor access-content)))
+(defclass fundamental-decorator ()
+  ())
 
 
 (defclass label (fundamental-decorator)
@@ -79,29 +80,17 @@
            :type list)))
 
 
-(defclass internal-stack-controller (fundamental-stack-controller)
-  ())
-
-
 (defclass top-stack-controller (abstract-stack-controller)
   ())
 
 
-(defclass proxy-stack-controller ()
+(defclass proxy-stack-controller (fundmental-stack-controller)
   ((%parent :initarg :parent
             :type fundamental-stack-controller
             :reader read-parent)
    (%callback :initarg :callback
               :type (-> (t) fundamental-decorator)
               :reader read-callback)))
-
-
-(defclass proxy-internal-stack-controller (proxy-stack-controller internal-stack-controller)
-  ())
-
-
-(defclass proxy-abstract-stack-controller (proxy-stack-controller abstract-stack-controller)
-  ())
 
 
 (defclass internal-reference (fundamental-decorator)
