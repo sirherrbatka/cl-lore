@@ -162,17 +162,7 @@
 (defmethod controller-return ((controller abstract-stack-controller) value)
   (let ((tree (controller-front controller)))
     (push-child tree value))
-  value)
-
-
-(defmethod controller-return ((controller proxy-stack-controller) value)
-  (with-accessors ((callback read-callback)
-                   (parent read-parent)) controller
-    (let ((value (funcall callback value)))
-      (call-next-method controller value))))
-
-
-(defmethod controller-return ((controller internal-stack-controller) value)
+  (setf *register* value)
   value)
 
 
@@ -180,6 +170,16 @@
   (with-accessors ((content access-stack)) controller
     (push (list* description value) content))
   controller)
+
+
+(defmethod controller-return ((controller proxy-stack-controller) value)
+  (with-accessors ((content access-stack)
+                   (parent read-parent)
+                   (callback read-callback)) controller
+    (let ((value (funcall callback value)))
+      (if (slot-boundp controller '%parent)
+          (controller-return parent value)
+          (setf *register* value)))))
 
 
 (defmethod controller-push-tree ((controller proxy-stack-controller) (description string) (value tree-node))

@@ -4,3 +4,4 @@
 (defvar *stack*)
 (defvar *tmp-stack*)
 (defvar *node-definitions*)
+(defvar *register* nil)

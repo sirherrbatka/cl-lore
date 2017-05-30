@@ -8,6 +8,7 @@
     `(let ((*tmp-stack* *stack*) (*stack* ,stack))
        ,@body)))
 
+
 (defmacro with-proxy-stack (proxy-function &rest body)
   (let ((stack (if proxy-function
                    `(make 'proxy-stack-controller :parent *stack* :callback ',proxy-function)
