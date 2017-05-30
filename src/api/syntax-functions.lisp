@@ -34,19 +34,17 @@
                        :content text)))
 
 
-(defun emphasis (text)
-  (declare (type string text))
-  (controller-return *stack*
-                     (make 'leaf-node
-                           :traits (list <emphasis-trait>)
-                           :content text)))
+(def-syntax emphasis (text)
+  (ret (make 'leaf-node
+             :traits (list <emphasis-trait>)
+             :content text)))
 
 
 (def-without-stack par nil (&rest content)
   (let ((result (make 'paragraph-node)))
      (dolist (c content)
        (push-child result c))
-    (controller-return *stack* result)))
+    (ret result)))
 
 
 (defun symb (symbol-name))

@@ -16,12 +16,17 @@
        ,@body)))
 
 
+(defmacro def-syntax (name lambda-list &body body)
+  `(defun ,name ,lambda-list
+     (flet ((ret (arg)
+              (controller-return *stack* arg)))
+       ,@body)))
+
+
 (defmacro def-with-stack (name function lambda-list &body body)
   (let ((fname (intern (string-upcase (concat "%" (symbol-name name))))))
     `(progn
-       (defun ,fname ,lambda-list
-         (let ((*stack* *tmp-stack*))
-           ,@body))
+       (def-syntax ,fname ,lambda-list ,@body)
        (defmacro ,name (&body body)
          `(with-proxy-stack ,,function (,',fname ,@body))))))
 
@@ -30,7 +35,8 @@
   (let ((fname (intern (string-upcase (concat "%" (symbol-name name))))))
     `(progn
        (defun ,fname ,lambda-list
-         (let ((*stack* *tmp-stack*))
+         (flet ((ret (arg)
+                  (controller-return *tmp-stack* arg)))
            ,@body))
        (defmacro ,name (&body body)
          `(without-stack ,,function (,',fname ,@body))))))
