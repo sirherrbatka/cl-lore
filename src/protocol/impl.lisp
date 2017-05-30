@@ -69,12 +69,6 @@
   output)
 
 
-(defmethod scan-element ((output fundamental-output)
-                         (element fundamental-decorator)
-                         parents)
-  (scan-element output (access-content element) parents))
-
-
 (defmethod process-element ((generator fundamental-output-generator)
                             (output fundamental-output)
                             (element fundamental-decorator)
@@ -104,31 +98,6 @@
                     (funcall callback (cdr elt))
                     parent)))
     stack))
-
-
-(defmethod push-stack ((desc string)
-                       (obj tree-node)
-                       (stack stack-box))
-  (push (list* desc obj) (access-content stack))
-  stack)
-
-
-(defmethod pop-stack ((stack stack-box))
-  (with-accessors ((content access-content)) stack
-    (when (null content)
-      (error "Can't pop empty stack!"))
-    (let ((result (pop content)))
-      (values (cdr result)
-              (car result)))))
-
-
-(defmethod front-stack ((Stack stack-box))
-  (with-accessors ((content access-content)) stack
-    (when (null content)
-      (error "Can't access front in empty stack!"))
-    (let ((result (first content)))
-      (values (cdr result)
-              (car result)))))
 
 
 (defmethod process-element ((generator fundamental-output-generator)
