@@ -89,7 +89,7 @@
             :type fundamental-stack-controller
             :reader read-parent)
    (%callback :initarg :callback
-              :type (-> (t) fundamental-decorator)
+              :type (-> (t) t)
               :reader read-callback)))
 
 
