@@ -82,17 +82,28 @@
   (process-element generator output (access-content element) parents))
 
 
-(defmethod push-children ((node tree-node) (children fundamental-element))
+(defmethod push-child  ((node tree-node) (children fundamental-element))
   (vector-push-extend children (read-children node)))
 
 
-(defmethod push-children ((node tree-node) (children string))
+(defmethod push-child  ((node tree-node) (children string))
   (vector-push-extend children (read-children node)))
 
 
-(defmethod push-children ((stack stack-box) children)
-  (let ((elt (front-stack stack)))
-    (push-children elt children)))
+(defmethod merge-into-parent-stack ((stack temporary-stack-box))
+  (with-accessors ((content access-content)
+                   (parent read-parent-stack)
+                   (callback read-decorator-callback)
+                   (children read-children)) stack
+    (iterate
+      (for child in-vector children)
+      (push-child parent child))
+    (let ((stack-content (reverse content)))
+      (dolist (elt stack-content)
+        (push-stack (car elt)
+                    (funcall callback (cdr elt))
+                    parent)))
+    stack))
 
 
 (defmethod push-stack ((desc string)
@@ -136,17 +147,75 @@
     (before-trait generator output trait parents)))
 
 
-(defmethod process-element :after  ((generator fundamental-output-generator)
-                                    (output fundamental-output)
-                                    (element leaf-node)
-                                    parents)
+(defmethod process-element :after ((generator fundamental-output-generator)
+                                   (output fundamental-output)
+                                   (element leaf-node)
+                                   parents)
   (dolist (trait (access-traits element))
     (after-trait generator output trait parents)))
 
 
-(defmethod empty-stack-p ((stack stack-box))
-  (null (access-content stack)))
-
-
 (defmethod has-children ((tree tree-node))
   (emptyp (read-children tree)))
+
+
+(defmethod controller-return ((controller abstract-stack-controller) value)
+  (let ((tree (controller-front controller)))
+    (push-child tree value))
+  value)
+
+
+(defmethod controller-return ((controller proxy-stack-controller) value)
+  (with-accessors ((callback read-callback)
+                   (parent read-parent)) controller
+    (let ((value (funcall callback value)))
+      (call-next-method controller value))))
+
+
+(defmethod controller-return ((controller internal-stack-controller) value)
+  value)
+
+
+(defmethod controller-push-tree ((controller abstract-stack-controller) (description string) value)
+  (with-accessors ((content access-stack)) controller
+    (push (list* description value) content))
+  controller)
+
+
+(defmethod controller-push-tree ((controller proxy-stack-controller) (description string) value)
+  (with-accessors ((content access-stack)
+                   (parent read-parent)
+                   (callback read-callback)) controller
+    (call-next-method)
+    (controller-push-tree parent description (funcall callback value))
+    controller))
+
+
+(defmethod controller-pop-tree ((controller abstract-stack-controller))
+  (with-accessors ((content access-stack)) controller
+    (when (null content)
+      (error "Can't pop empty stack!"))
+    (let ((result (pop content)))
+      (values (cdr result)
+              (car result)))))
+
+
+(defmethod controller-pop-tree ((controller proxy-stack-controller))
+  (with-accessors ((parent read-parent)) controller)
+  (call-next-method)
+  (controller-pop-tree parent))
+
+
+(defmethod controller-empty-p ((controller abstact-stack-controller))
+  (with-accessors ((content access-stack)) controller
+    (null content)))
+
+
+(defmethod controller-front ((controller abstract-stack-controller))
+  (with-accessors ((content access-stack)) controller
+    (when (null content)
+      (error "Can't access front in empty stack!"))
+    (let ((result (first content)))
+      (values (cdr result)
+              (car result)))))
+

@@ -69,10 +69,57 @@
           :type string)))
 
 
-(defclass stack-box ()
-  ((%content :initform nil
-             :accessor access-content
-             :type list)))
+(defclass fundamental-stack-controller ()
+  ())
+
+
+(defclass abstract-stack-controller ()
+  ((%stack :initform nil
+           :accessor access-stack
+           :type list)))
+
+
+(defclass internal-stack-controller (fundamental-stack-controller)
+  ())
+
+
+(defclass top-stack-controller (abstract-stack-controller)
+  ())
+
+
+(defclass proxy-stack-controller ()
+  ((%parent :initarg :parent
+            :type fundamental-stack-controller
+            :reader read-parent)
+   (%callback :initarg :callback
+              :type (-> (t) fundamental-decorator)
+              :reader read-callback)))
+
+
+(defclass proxy-internal-stack-controller (proxy-stack-controller internal-stack-controller)
+  ())
+
+
+(defclass proxy-abstract-stack-controller (proxy-stack-controller abstract-stack-controller)
+  ())
+
+
+(defclass temporary-stack-box (stack-box)
+  ((%children :initform (vect)
+              :reader read-children
+              :type vector)
+   (%parent-stack :type stack-box
+                  :initarg :parent-stack
+                  :reader read-parent-stack)
+   (%decorator-callback :type (-> (t) fundamental-decorator)
+                        :initarg :decorator-callback
+                        :reader read-decorator-callback)))
+
+
+(defun make-temporary-stack-box (parent callback)
+  (make 'temporary-stack-box
+        :parent-stack parent
+        :decorator-callback callback))
 
 
 (defclass internal-reference (fundamental-decorator)

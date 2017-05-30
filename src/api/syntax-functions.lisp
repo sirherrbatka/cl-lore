@@ -23,8 +23,7 @@
       (error "Closing wrong tree. Was trying to close tree ~a, but last tree is ~a"
              what desc))
     (pop-stack *stack*)
-    (push-children *stack*
-                   value)))
+    (push-child *stack* value)))
 
 
 (defun title (text)
@@ -45,9 +44,9 @@
 (defun par (&rest content)
   (let ((result (make 'paragraph-node)))
     (dolist (c content)
-      (push-children result c))
-    (push-children *stack*
-                   result)))
+      (push-child result c))
+    (push-child *stack*
+                result)))
 
 
 (defun symb (symbol-name))
