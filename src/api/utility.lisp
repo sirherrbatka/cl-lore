@@ -1,8 +1,6 @@
 (in-package #:cl-lore)
 
 
-(defmacro with-intercepted-stack (callback &body body)
-  (once-only (callback)
-    `(let ((*stack* (make-temporary-stack-box *stack* ,callback)))
-       ,@body))
- bb)
+(defmacro without-stack (proxy-function &rest body))
+
+(defmacro with-proxy-stack (proxy-function &rest body))
