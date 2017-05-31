@@ -10,7 +10,9 @@
 
 
 (defun end-document ()
-  (controller-pop-tree *stack* "root"))
+  (let ((result (controller-pop-tree *stack* "root")))
+    (setf *register* nil)
+    result))
 
 
 (defun end (what)
