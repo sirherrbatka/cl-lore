@@ -2,28 +2,20 @@
 
 
 (defun begin (what)
-  (controller-push-tree what (make-node what) *stack*))
+  (controller-push-tree *stack* what (make-node what)))
 
 
 (defun begin-document ()
-  (controller-push-tree "root" (make 'root-node) *stack*))
+  (controller-push-tree *stack* "root" (make 'root-node)))
 
 
 (defun end-document ()
-  (multiple-value-bind (value desc) (controller-front *stack*)
-    (unless (string= desc "root")
-      (error "Closing wrong tree. Was trying to close tree ~a, but last tree is ~a"
-             "root" desc)))
-  (controller-pop-tree *stack*))
+  (controller-pop-tree *stack* "root"))
 
 
 (defun end (what)
-  (multiple-value-bind (value desc) (controller-front *stack*)
-    (unless (string= desc what)
-      (error "Closing wrong tree. Was trying to close tree ~a, but last tree is ~a"
-             what desc))
-    (pop-stack *stack*)
-    (controller-push-tree *stack* value)))
+  (let ((value (controller-pop-tree *stack* what)))
+    (controller-return *stack* value)))
 
 
 (defun title (text)

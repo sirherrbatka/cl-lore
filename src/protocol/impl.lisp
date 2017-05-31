@@ -84,22 +84,6 @@
   (vector-push-extend children (read-children node)))
 
 
-(defmethod merge-into-parent-stack ((stack temporary-stack-box))
-  (with-accessors ((content access-content)
-                   (parent read-parent-stack)
-                   (callback read-decorator-callback)
-                   (children read-children)) stack
-    (iterate
-      (for child in-vector children)
-      (push-child parent child))
-    (let ((stack-content (reverse content)))
-      (dolist (elt stack-content)
-        (push-stack (car elt)
-                    (funcall callback (cdr elt))
-                    parent)))
-    stack))
-
-
 (defmethod process-element ((generator fundamental-output-generator)
                             (output fundamental-output)
                             (element leaf-node)
@@ -138,6 +122,7 @@
 (defmethod controller-push-tree ((controller abstract-stack-controller) (description string) (value tree-node))
   (with-accessors ((content access-stack)) controller
     (push (list* description value) content))
+  (setf *register* value)
   controller)
 
 
@@ -145,7 +130,9 @@
   (with-accessors ((content access-stack)
                    (parent read-parent)
                    (callback read-callback)) controller
-    (let ((value (funcall callback value)))
+    (let ((value (if (slot-boundp controller '%callback)
+                     (funcall callback value)
+                     value)))
       (if (slot-boundp controller '%parent)
           (controller-return parent value)
           (setf *register* value)))))
@@ -162,23 +149,27 @@
     controller))
 
 
-(defmethod controller-pop-tree ((controller abstract-stack-controller))
+(defmethod controller-pop-tree ((controller abstract-stack-controller) (description string))
   (with-accessors ((content access-stack)) controller
     (when (null content)
       (error "Can't pop empty stack!"))
     (let ((result (pop content)))
+      (unless (string= description (car result))
+        (error "Wanted to pop ~a but last element on stack is ~a"
+               description
+               (car result)))
       (values (cdr result)
               (car result)))))
 
 
-(defmethod controller-pop-tree ((controller proxy-stack-controller))
+(defmethod controller-pop-tree ((controller proxy-stack-controller) (description string))
   (with-accessors ((parent read-parent)) controller)
   (unless (slot-boundp controller '%parent)
     (error "Stack controller does not grant access to stack"))
-  (controller-pop-tree parent))
+  (controller-pop-tree parent description))
 
 
-(defmethod controller-empty-p ((controller abstact-stack-controller))
+(defmethod controller-empty-p ((controller abstract-stack-controller))
   (if (slot-boundp controller '%parent)
       (controller-empty-p (read-parent controller))
       t))

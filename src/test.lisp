@@ -1,6 +1,5 @@
 (in-package #:cl-lore)
-(scribble:enable-scribble-syntax)
-
+(named-readtables:in-readtable :scribble)
 
 (defun test-syntax ()
   (document <html-output-generator> <standard-names> out

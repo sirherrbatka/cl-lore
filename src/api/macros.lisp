@@ -4,7 +4,7 @@
 (defmacro document (generator names output &body body)
   (with-gensyms (!document)
     (once-only (names generator)
-      `(let ((*stack* (make-instance 'stack-box))
+      `(let ((*stack* (make-instance 'abstract-stack-controller))
              (*node-definitions* ,names)
              (,output (make-output ,generator)))
          (begin-document)

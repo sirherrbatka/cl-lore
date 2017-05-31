@@ -74,7 +74,7 @@
   ())
 
 
-(defclass abstract-stack-controller ()
+(defclass abstract-stack-controller (fundamental-stack-controller)
   ((%stack :initform nil
            :accessor access-stack
            :type list)))
@@ -84,7 +84,7 @@
   ())
 
 
-(defclass proxy-stack-controller (fundmental-stack-controller)
+(defclass proxy-stack-controller (fundamental-stack-controller)
   ((%parent :initarg :parent
             :type fundamental-stack-controller
             :reader read-parent)
