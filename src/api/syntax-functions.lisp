@@ -43,3 +43,10 @@
 
 
 (defgeneric refer (from text))
+
+
+(defun label (name)
+  (declare (type string name))
+  (push-decorator *register*
+                  (make 'label
+                        :name name)))
