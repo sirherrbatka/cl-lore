@@ -85,7 +85,7 @@
     (iterate:iter
       (for elt in-vector (read-children element))
       (process-element generator output elt parents)))
-  output)
+  element)
 
 
 (defmethod process-element ((generator fundamental-output-generator)
