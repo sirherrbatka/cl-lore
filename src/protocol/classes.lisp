@@ -60,7 +60,7 @@
             :reader read-labels)))
 
 
-(defclass html-output-generator (fundamental-output)
+(defclass html-output-generator (fundamental-output-generator)
   ())
 
 

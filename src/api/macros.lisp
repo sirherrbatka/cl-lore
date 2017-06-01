@@ -7,9 +7,12 @@
       `(let ((*stack* (make-instance 'abstract-stack-controller))
              (*node-definitions* ,names)
              (,output (make-output ,generator)))
-         (begin-document)
-         ,@body
-         (end-document)))))
+         (let ((,!document
+                 (progn
+                   (begin-document)
+                   ,@body
+                   (end-document))))
+           (process-element ,generator ,output ,!document nil))))))
 
 ;; (let ((,!document (pop-stack *stack*)))
 ;;   (scan-element ,output ,!document nil)

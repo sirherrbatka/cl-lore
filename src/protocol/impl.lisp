@@ -115,16 +115,17 @@
                                     (output fundamental-output)
                                     (element leaf-node)
                                     parents)
-  (dolist (trait (access-traits element))
-    (before-trait generator output trait parents)))
+  (and nil
+       (dolist (trait (access-traits element))
+         (before-trait generator output trait parents))))
 
 
 (defmethod process-element :after ((generator fundamental-output-generator)
                                    (output fundamental-output)
                                    (element leaf-node)
                                    parents)
-  (dolist (trait (access-traits element))
-    (after-trait generator output trait parents)))
+  (and nil (dolist (trait (access-traits element)))
+      (after-trait generator output trait parents)))
 
 
 (defmethod has-children ((tree tree-node))
