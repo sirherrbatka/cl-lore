@@ -43,9 +43,9 @@
 
 
 (defmethod scan-element ((output fundamental-output) (element tree-node) parents)
-  (let ((parents (cons element section-node)))
+  (let ((parents (cons element parents)))
     (iterate:iter
-      (for elt in-vector (read-children))
+      (for elt in-vector (read-children element))
       (scan-element output elt parents)))
   output)
 
@@ -59,12 +59,13 @@
   element)
 
 
-(defmethod process-element :before ((generator fundamental-output-generator)
-                                    (output fundamental-output)
-                                    (element section-node)
-                                    parents)
+(defmethod process-element ((generator fundamental-output-generator)
+                            (output fundamental-output)
+                            (element section-node)
+                            parents)
   (when (slot-boundp element '%title)
-    (process-element generator output (access-title element) (cons element parents))))
+    (process-element generator output (access-title element) (cons element parents)))
+  (call-next-method))
 
 
 (defmethod process-element ((generator fundamental-output-generator)
@@ -115,17 +116,59 @@
                                     (output fundamental-output)
                                     (element leaf-node)
                                     parents)
-  (and nil
-       (dolist (trait (access-traits element))
-         (before-trait generator output trait parents))))
+  (dolist (trait (access-traits element))
+    (before-trait generator output trait parents)))
 
 
 (defmethod process-element :after ((generator fundamental-output-generator)
                                    (output fundamental-output)
                                    (element leaf-node)
                                    parents)
-  (and nil (dolist (trait (access-traits element)))
-      (after-trait generator output trait parents)))
+  (dolist (trait (access-traits element))
+    (after-trait generator output trait parents)))
+
+
+(let ((html-headers #(("<h1>" . "</h1>")
+                      ("<h2>" . "</h2>")
+                      ("<h3>" . "</h3>")
+                      ("<h4>" . "</h4>")
+                      ("<h5>" . "</h5>")
+                      ("<h6>" . "</h6>"))))
+  (defmethod after-trait ((generator html-output-generator)
+                          (output html-output)
+                          (trait title-trait)
+                          parents)
+    (let ((section-depth (min 5 (1- (iterate
+                                      (for parent in parents)
+                                      (count (typep parent 'section-node)))))))
+      (format (read-stream output) "~a"
+              (car (aref html-headers section-depth)))))
+
+
+  (defmethod before-trait ((generator html-output-generator)
+                           (output html-output)
+                           (trait title-trait)
+                           parents)
+    (let ((section-depth (min 5 (1- (iterate
+                                      (for parent in parents)
+                                      (count (typep parent 'section-node)))))))
+      (format (read-stream output) "~a"
+              (cdr (aref html-headers section-depth))))))
+
+
+(defmethod after-trait ((generator html-output-generator)
+                        (output html-output)
+                        (trait emphasis-trait)
+                        parents)
+  (format (read-stream output) "</b>"))
+
+
+
+(defmethod before-trait ((generator html-output-generator)
+                         (output html-output)
+                         (trait emphasis-trait)
+                         parents)
+  (format (read-stream output) "<b>"))
 
 
 (defmethod has-children ((tree tree-node))
@@ -183,10 +226,10 @@
 
 
 (defmethod controller-pop-tree ((controller proxy-stack-controller) (description string))
-  (with-accessors ((parent read-parent)) controller)
-  (unless (slot-boundp controller '%parent)
-    (error "Stack controller does not grant access to stack"))
-  (controller-pop-tree parent description))
+  (with-accessors ((parent read-parent)) controller
+    (unless (slot-boundp controller '%parent)
+      (error "Stack controller does not grant access to stack"))
+    (controller-pop-tree parent description)))
 
 
 (defmethod controller-empty-p ((controller abstract-stack-controller))

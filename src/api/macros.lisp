@@ -12,7 +12,10 @@
                    (begin-document)
                    ,@body
                    (end-document))))
-           (process-element ,generator ,output ,!document nil))))))
+           (process-element ,generator ,output ,!document nil)
+           (~> ,output
+               read-stream
+               get-output-stream-string))))))
 
 ;; (let ((,!document (pop-stack *stack*)))
 ;;   (scan-element ,output ,!document nil)
