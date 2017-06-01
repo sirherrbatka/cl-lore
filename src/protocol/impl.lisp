@@ -63,7 +63,8 @@
                                     (output fundamental-output)
                                     (element section-node)
                                     parents)
-  (process-element generator output (access-title element) (cons element parents)))
+  (when (slot-boundp element '%title)
+    (process-element generator output (access-title element) (cons element parents))))
 
 
 (defmethod process-element ((generator fundamental-output-generator)
