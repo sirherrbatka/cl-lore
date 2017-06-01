@@ -50,22 +50,40 @@
   output)
 
 
-(defmethod process-element ((generator fundamental-output-generator)
-                            (output fundamental-output)
-                            (element section-node)
+(defmethod process-element ((generator html-output-generator)
+                            (output html-output)
+                            (element string)
                             parents)
-  (process-element generator output (access-title element) (cons element parents))
-  (call-next-method))
+  (with-accessors ((stream read-stream)) output
+    (format stream "~a" (cl-who:escape-string element)))
+  element)
+
+
+(defmethod process-element :before ((generator fundamental-output-generator)
+                                    (output fundamental-output)
+                                    (element section-node)
+                                    parents)
+  (process-element generator output (access-title element) (cons element parents)))
+
+
+(defmethod process-element ((generator fundamental-output-generator)
+                            (output html-output)
+                            (element paragraph-node)
+                            parents)
+  (with-accessors ((stream read-stream)) output
+    (format stream "<p>")
+    (call-next-method)
+    (format stream "<p>")))
 
 
 (defmethod process-element ((generator fundamental-output-generator)
                             (output fundamental-output)
                             (element tree-node)
                             parents)
-  (let ((parents (cons element section-node)))
+  (let ((parents (cons element parents)))
     (iterate:iter
-      (for elt in-vector (read-children))
-      (scan-element output elt parents)))
+      (for elt in-vector (read-children element))
+      (process-element generator output elt parents)))
   output)
 
 
@@ -89,7 +107,7 @@
                             (element leaf-node)
                             parents)
   (let ((data (access-content element)))
-    (process-element generator output element parents)))
+    (process-element generator output data parents)))
 
 
 (defmethod process-element :before ((generator fundamental-output-generator)

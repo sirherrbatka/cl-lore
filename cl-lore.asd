@@ -7,7 +7,7 @@
   :license "MIT"
   :author "Lisp Mechanics"
   :maintainer "Lisp Mechanics"
-  :depends-on (:iterate :alexandria :serapeum :scribble)
+  :depends-on (:iterate :alexandria :serapeum :scribble :cl-who)
   :serial T
   :pathname "src"
   :components ((:file "package")
