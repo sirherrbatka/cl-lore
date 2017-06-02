@@ -22,10 +22,9 @@
 
 (defun title (text)
   (declare (type string text))
-  (setf (access-title (controller-front *stack*))
-        (make-instance 'leaf-node
-                       :traits (list <title-trait>)
-                       :content text)))
+  (ret (make-instance 'leaf-node
+                      :traits (list <title-trait>)
+                      :content text)))
 
 
 (def-syntax emphasis (text)

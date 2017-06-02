@@ -37,11 +37,6 @@
                 :initial-value (list parent (reverse (cons element (cadar path))))))))
 
 
-(defmethod scan-element ((output fundamental-output) (element section-node) parents)
-  (add-to-index output element parents)
-  (call-next-method))
-
-
 (defmethod scan-element ((output fundamental-output) (element tree-node) parents)
   (let ((parents (cons element parents)))
     (iterate:iter
@@ -140,7 +135,8 @@
                           parents)
     (let ((section-depth (min 5 (1- (iterate
                                       (for parent in parents)
-                                      (count (typep parent 'section-node)))))))
+                                      (count (and (typep parent 'tree-node)
+                                                  (has-title parent))))))))
       (format (read-stream output) "~a"
               (car (aref html-headers section-depth)))))
 
@@ -151,7 +147,8 @@
                            parents)
     (let ((section-depth (min 5 (1- (iterate
                                       (for parent in parents)
-                                      (count (typep parent 'section-node)))))))
+                                      (count (and (typep parent 'tree-node)
+                                                  (has-title parent))))))))
       (format (read-stream output) "~a"
               (cdr (aref html-headers section-depth))))))
 

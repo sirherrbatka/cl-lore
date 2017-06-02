@@ -38,15 +38,6 @@
   ())
 
 
-(defclass paragraph-node (tree-node)
-  ())
-
-
-(defclass section-node (tree-node)
-  ((%title :initarg :title
-           :accessor access-title)))
-
-
 (defclass fundamental-output-generator ()
   ())
 
