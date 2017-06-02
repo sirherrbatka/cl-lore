@@ -20,22 +20,21 @@
     (controller-return *stack* value)))
 
 
-(defun title (text)
-  (declare (type string text))
-  (setf (access-title (controller-front *stack*))
-        (make-instance 'leaf-node
-                       :traits (list <title-trait>)
-                       :content text)))
+(def-syntax title (text)
+  (ret (make-instance 'leaf-node
+                      :traits (vect <title-trait>)
+                      :content text)))
 
 
 (def-syntax emphasis (text)
   (ret (make 'leaf-node
-             :traits (list <emphasis-trait>)
+             :traits (vect <emphasis-trait>)
              :content text)))
 
 
 (def-without-stack par nil (&rest content)
-  (let ((result (make 'paragraph-node)))
+  (let ((result (make 'tree-node
+                      :traits (vect <paragraph-trait>))))
      (dolist (c content)
        (push-child result c))
     (ret result)))

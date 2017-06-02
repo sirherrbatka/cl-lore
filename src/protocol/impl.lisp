@@ -37,11 +37,6 @@
                 :initial-value (list parent (reverse (cons element (cadar path))))))))
 
 
-(defmethod scan-element ((output fundamental-output) (element section-node) parents)
-  (add-to-index output element parents)
-  (call-next-method))
-
-
 (defmethod scan-element ((output fundamental-output) (element tree-node) parents)
   (let ((parents (cons element parents)))
     (iterate:iter
@@ -54,28 +49,9 @@
                             (output html-output)
                             (element string)
                             parents)
-  (with-accessors ((stream read-stream)) output
+  (with-accessors ((stream read-out-stream)) output
     (format stream "~a" (cl-who:escape-string element)))
   element)
-
-
-(defmethod process-element ((generator fundamental-output-generator)
-                            (output fundamental-output)
-                            (element section-node)
-                            parents)
-  (when (slot-boundp element '%title)
-    (process-element generator output (access-title element) (cons element parents)))
-  (call-next-method))
-
-
-(defmethod process-element ((generator fundamental-output-generator)
-                            (output html-output)
-                            (element paragraph-node)
-                            parents)
-  (with-accessors ((stream read-stream)) output
-    (format stream "<p>")
-    (call-next-method)
-    (format stream "<p>")))
 
 
 (defmethod process-element ((generator fundamental-output-generator)
@@ -114,17 +90,19 @@
 
 (defmethod process-element :before ((generator fundamental-output-generator)
                                     (output fundamental-output)
-                                    (element leaf-node)
+                                    (element fundamental-element)
                                     parents)
-  (dolist (trait (access-traits element))
+  (iterate
+    (for trait in-vector (read-traits element))
     (before-trait generator output trait parents)))
 
 
 (defmethod process-element :after ((generator fundamental-output-generator)
                                    (output fundamental-output)
-                                   (element leaf-node)
+                                   (element fundamental-element)
                                    parents)
-  (dolist (trait (access-traits element))
+  (iterate
+    (for trait in-vector (read-traits element))
     (after-trait generator output trait parents)))
 
 
@@ -149,10 +127,12 @@
                            (output html-output)
                            (trait title-trait)
                            parents)
-    (let ((section-depth (min 5 (1- (iterate
-                                      (for parent in parents)
-                                      (count (typep parent 'section-node)))))))
-      (format (read-stream output) "~a"
+    (let ((section-depth
+            (min 5 (iterate
+                     (for parent in parents)
+                     (count (and (typep parent 'tree-node)
+                                 (has-title parent)))))))
+      (format (read-out-stream output) "~a"
               (car (aref html-headers section-depth))))))
 
 
@@ -160,15 +140,28 @@
                         (output html-output)
                         (trait emphasis-trait)
                         parents)
-  (format (read-stream output) "</b>"))
-
+  (format (read-out-stream output) "</b>"))
 
 
 (defmethod before-trait ((generator html-output-generator)
                          (output html-output)
                          (trait emphasis-trait)
                          parents)
-  (format (read-stream output) "<b>"))
+  (format (read-out-stream output) "<b>"))
+
+
+(defmethod before-trait ((generator html-output-generator)
+                         (output html-output)
+                         (trait paragraph-trait)
+                         parents)
+  (format (read-out-stream output) "<p>"))
+
+
+(defmethod after-trait ((generator html-output-generator)
+                        (output html-output)
+                        (trait paragraph-trait)
+                        parents)
+  (format (read-out-stream output) "</p>"))
 
 
 (defmethod has-children ((tree tree-node))
@@ -257,3 +250,18 @@
   (vector-push-extend decorator (read-decorators element))
   element)
 
+
+(defmethod is-a-title ((node leaf-node))
+  (iterate
+    (for trait in-vector (read-traits node))
+    (when (typep trait 'title-trait)
+      (leave t)))
+  nil)
+
+
+(defmethod has-title ((node tree-node))
+  (iterate
+    (for child in-vector (read-children node))
+    (when (is-a-title child)
+      (leave t)))
+  nil)
