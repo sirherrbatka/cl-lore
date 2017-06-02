@@ -142,7 +142,7 @@
                                       (for parent in parents)
                                       (count (typep parent 'section-node)))))))
       (format (read-stream output) "~a"
-              (car (aref html-headers section-depth)))))
+              (cdr (aref html-headers section-depth)))))
 
 
   (defmethod before-trait ((generator html-output-generator)
@@ -153,7 +153,7 @@
                                       (for parent in parents)
                                       (count (typep parent 'section-node)))))))
       (format (read-stream output) "~a"
-              (cdr (aref html-headers section-depth))))))
+              (car (aref html-headers section-depth))))))
 
 
 (defmethod after-trait ((generator html-output-generator)
