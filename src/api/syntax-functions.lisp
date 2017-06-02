@@ -20,8 +20,7 @@
     (controller-return *stack* value)))
 
 
-(defun title (text)
-  (declare (type string text))
+(def-syntax title (text)
   (ret (make-instance 'leaf-node
                       :traits (list <title-trait>)
                       :content text)))

@@ -59,18 +59,11 @@
                             (element section-node)
                             parents)
   (when (slot-boundp element '%title)
-    (process-element generator output (access-title element) (cons element parents)))
+    (process-element generator
+                     output
+                     (access-title element)
+                     (cons element parents)))
   (call-next-method))
-
-
-(defmethod process-element ((generator fundamental-output-generator)
-                            (output html-output)
-                            (element paragraph-node)
-                            parents)
-  (with-accessors ((stream read-stream)) output
-    (format stream "<p>")
-    (call-next-method)
-    (format stream "<p>")))
 
 
 (defmethod process-element ((generator fundamental-output-generator)
@@ -133,10 +126,11 @@
                           (output html-output)
                           (trait title-trait)
                           parents)
-    (let ((section-depth (min 5 (1- (iterate
-                                      (for parent in parents)
-                                      (count (and (typep parent 'tree-node)
-                                                  (has-title parent))))))))
+    (let ((section-depth (min 5 (max 0
+                                     (1- (iterate
+                                           (for parent in parents)
+                                           (count (and (typep parent 'tree-node)
+                                                       (has-title parent)))))))))
       (format (read-stream output) "~a"
               (car (aref html-headers section-depth)))))
 
@@ -145,10 +139,11 @@
                            (output html-output)
                            (trait title-trait)
                            parents)
-    (let ((section-depth (min 5 (1- (iterate
-                                      (for parent in parents)
-                                      (count (and (typep parent 'tree-node)
-                                                  (has-title parent))))))))
+    (let ((section-depth (min 5 (max 0
+                                     (1- (iterate
+                                           (for parent in parents)
+                                           (count (and (typep parent 'tree-node)
+                                                       (has-title parent)))))))))
       (format (read-stream output) "~a"
               (cdr (aref html-headers section-depth))))))
 
@@ -254,3 +249,18 @@
   (vector-push-extend decorator (read-decorators element))
   element)
 
+
+(defmethod is-a-title ((node leaf-node))
+  (iterate
+    (for trait in (access-traits node))
+    (when (typep trait 'title-trait)
+      (leave t)))
+  nil)
+
+
+(defmethod has-title ((node tree-node))
+  (iterate
+    (for child in-vector (read-children node))
+    (when (is-a-title child)
+      (leave t)))
+  nil)
