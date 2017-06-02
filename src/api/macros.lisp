@@ -14,7 +14,7 @@
                    (end-document))))
            (process-element ,generator ,output ,!document nil)
            (~> ,output
-               read-stream
+               read-out-stream
                get-output-stream-string))))))
 
 ;; (let ((,!document (pop-stack *stack*)))

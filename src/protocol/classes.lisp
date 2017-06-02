@@ -4,34 +4,38 @@
 (defclass fundamental-element ()
   ((%decorators :initform (vect)
                 :type vector
-                :reader read-decorators)))
-
-
-(defclass fundamental-text-trait ()
-  ())
-
-
-(defclass emphasis-trait ()
-  ())
-
-
-(defclass title-trait ()
-  ())
-
-
-(defclass leaf-node (fundamental-element)
-  ((%content :initarg :content
-             :accessor access-content)
+                :reader read-decorators)
    (%traits :type vector
             :initform (vect)
             :initarg :traits
             :accessor read-traits)))
 
 
+(defclass fundamental-trait ()
+  ())
+
+
+(defclass emphasis-trait (fundamental-trait)
+  ())
+
+
+(defclass title-trait (fundamental-trait)
+  ())
+
+
+(defclass leaf-node (fundamental-element)
+  ((%content :initarg :content
+             :accessor access-content)))
+
+
 (defclass tree-node (fundamental-element)
   ((%children :initform (vect)
               :initarg :children
               :accessor read-children)))
+
+
+(defclass paragraph-trait (fundamental-trait)
+  ())
 
 
 (defclass root-node (tree-node)
@@ -56,8 +60,8 @@
 
 
 (defclass html-output (fundamental-output)
-  ((%stream :initform (make-string-output-stream)
-            :reader read-stream)))
+  ((%out-stream :initform (make-string-output-stream)
+                :reader read-out-stream)))
 
 
 (defclass fundamental-decorator ()

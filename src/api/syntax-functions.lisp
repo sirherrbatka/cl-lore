@@ -33,7 +33,8 @@
 
 
 (def-without-stack par nil (&rest content)
-  (let ((result (make 'paragraph-node)))
+  (let ((result (make 'tree-node
+                      :traits (vect <paragraph-trait>))))
      (dolist (c content)
        (push-child result c))
     (ret result)))
