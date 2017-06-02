@@ -22,10 +22,10 @@
 (defclass leaf-node (fundamental-element)
   ((%content :initarg :content
              :accessor access-content)
-   (%traits :type list
-            :initform nil
+   (%traits :type vector
+            :initform (vect)
             :initarg :traits
-            :accessor access-traits)))
+            :accessor read-traits)))
 
 
 (defclass tree-node (fundamental-element)

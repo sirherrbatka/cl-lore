@@ -22,13 +22,13 @@
 
 (def-syntax title (text)
   (ret (make-instance 'leaf-node
-                      :traits (list <title-trait>)
+                      :traits (vect <title-trait>)
                       :content text)))
 
 
 (def-syntax emphasis (text)
   (ret (make 'leaf-node
-             :traits (list <emphasis-trait>)
+             :traits (vect <emphasis-trait>)
              :content text)))
 
 

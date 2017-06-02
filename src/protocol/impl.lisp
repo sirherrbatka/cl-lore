@@ -104,7 +104,8 @@
                                     (output fundamental-output)
                                     (element leaf-node)
                                     parents)
-  (dolist (trait (access-traits element))
+  (iterate
+    (for trait in-vector (read-traits element))
     (before-trait generator output trait parents)))
 
 
@@ -112,7 +113,8 @@
                                    (output fundamental-output)
                                    (element leaf-node)
                                    parents)
-  (dolist (trait (access-traits element))
+  (iterate
+    (for trait in-vector (read-traits element))
     (after-trait generator output trait parents)))
 
 
@@ -252,7 +254,7 @@
 
 (defmethod is-a-title ((node leaf-node))
   (iterate
-    (for trait in (access-traits node))
+    (for trait in-vector (read-traits node))
     (when (typep trait 'title-trait)
       (leave t)))
   nil)
