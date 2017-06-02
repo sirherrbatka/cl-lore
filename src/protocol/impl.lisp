@@ -116,10 +116,10 @@
                           (output html-output)
                           (trait title-trait)
                           parents)
-    (let ((section-depth (min 5 (1- (iterate
-                                      (for parent in parents)
-                                      (count (typep parent 'section-node)))))))
-      (format (read-stream output) "~a"
+    (let ((section-depth (min 5 (iterate
+                                  (for parent in parents)
+                                  (count (has-title parent))))))
+      (format (read-out-stream output) "~a"
               (cdr (aref html-headers section-depth)))))
 
 
@@ -130,8 +130,7 @@
     (let ((section-depth
             (min 5 (iterate
                      (for parent in parents)
-                     (count (and (typep parent 'tree-node)
-                                 (has-title parent)))))))
+                     (count (has-title parent))))))
       (format (read-out-stream output) "~a"
               (car (aref html-headers section-depth))))))
 
