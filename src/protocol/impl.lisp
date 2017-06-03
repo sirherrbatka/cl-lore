@@ -65,11 +65,29 @@
   element)
 
 
+(defmethod process-element :after ((generator html-output-generator)
+                                   (output html-output)
+                                   (element leaf-node)
+                                   parents)
+  (with-accessors ((out read-out-stream)) output
+    (format out "~%")))
+
+
 (defmethod process-element ((generator fundamental-output-generator)
                             (output fundamental-output)
                             (element fundamental-decorator)
                             parents)
   (process-element generator output (access-content element) parents))
+
+
+(defmethod process-element ((generator html-output-generator)
+                            (output html-output)
+                            (element root-node)
+                            parents)
+  (with-accessors ((out read-out-stream)) output
+    (format out "<!DOCTYPE html>~%<html>~%")
+    (call-next-method)
+    (format out "~%</html>")))
 
 
 (defmethod push-child  ((node tree-node) (children fundamental-element))
@@ -174,7 +192,9 @@
   value)
 
 
-(defmethod controller-push-tree ((controller abstract-stack-controller) (description string) (value tree-node))
+(defmethod controller-push-tree ((controller abstract-stack-controller)
+                                 (description string)
+                                 (value tree-node))
   (with-accessors ((content access-stack)) controller
     (push (list* description value) content))
   (setf *register* value)
@@ -193,7 +213,9 @@
           (setf *register* value)))))
 
 
-(defmethod controller-push-tree ((controller proxy-stack-controller) (description string) (value tree-node))
+(defmethod controller-push-tree ((controller proxy-stack-controller)
+                                 (description string)
+                                 (value tree-node))
   (with-accessors ((content access-stack)
                    (parent read-parent)
                    (callback read-callback)) controller
@@ -204,7 +226,8 @@
     controller))
 
 
-(defmethod controller-pop-tree ((controller abstract-stack-controller) (description string))
+(defmethod controller-pop-tree ((controller abstract-stack-controller)
+                                (description string))
   (with-accessors ((content access-stack)) controller
     (when (null content)
       (error "Can't pop empty stack!"))
