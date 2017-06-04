@@ -34,6 +34,12 @@
               :accessor read-children)))
 
 
+(defclass chunk-node (tree-node)
+  ((%title :initarg :title
+           :accessor access-title
+           :type leaf-node)))
+
+
 (defclass paragraph-trait (fundamental-trait)
   ())
 
@@ -85,7 +91,9 @@
 
 
 (defclass top-stack-controller (abstract-stack-controller)
-  ())
+  ((%count :initform 0
+           :accessor access-count
+           :type positive-fixnum)))
 
 
 (defclass proxy-stack-controller (fundamental-stack-controller)
@@ -108,3 +116,9 @@
              :accessor access-content)
    (%path :initarg :path
           :accessor access-path)))
+
+
+(defclass chunks-collection ()
+  ((%content :initform (make-hash-table :test 'equal)
+             :reader read-content
+             :type hash-table)))

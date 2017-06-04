@@ -54,6 +54,15 @@
   element)
 
 
+(defmethod process-element ((generator html-output-generator)
+                            (output html-output)
+                            (element chunk-node)
+                            parents)
+  (when (has-title element)
+    (process-element generator output (access-title element) parents))
+  (call-next-method))
+
+
 (defmethod process-element ((generator fundamental-output-generator)
                             (output fundamental-output)
                             (element tree-node)
@@ -86,6 +95,7 @@
                             parents)
   (with-accessors ((out read-out-stream)) output
     (format out "<!DOCTYPE html>~%<html>~%")
+    (format out "<head><meta charset=\"utf-8\"></head>~%")
     (call-next-method)
     (format out "~%</html>")))
 
@@ -192,6 +202,14 @@
   value)
 
 
+(defmethod controller-return ((controller top-stack-controller) value)
+  (with-accessors ((content access-content)
+                   (count access-count)) controller
+    (if (zerop count)
+        value
+        (call-next-method))))
+
+
 (defmethod controller-push-tree ((controller abstract-stack-controller)
                                  (description string)
                                  (value tree-node))
@@ -226,6 +244,19 @@
     controller))
 
 
+(defmethod controller-push-tree ((controller top-stack-controller)
+                                 (description string)
+                                 (value tree-node))
+  (prog1 (call-next-method)
+    (incf (access-count controller))))
+
+
+(defmethod controller-pop-tree ((controller top-stack-controller)
+                                (description string))
+  (prog1 (call-next-method)
+    (decf (access-count controller))))
+
+
 (defmethod controller-pop-tree ((controller abstract-stack-controller)
                                 (description string))
   (with-accessors ((content access-stack)) controller
@@ -240,11 +271,32 @@
               (car result)))))
 
 
+(defmethod controller-pop-anything ((controller abstract-stack-controller))
+  (with-accessors ((content access-stack)) controller
+    (when (null content)
+      (error "Can't pop empty stack!"))
+    (let ((result (pop content)))
+      (values (cdr result)
+              (car result)))))
+
+
+(defmethod controller-pop-anything ((controller top-stack-controller))
+  (prog1 (call-next-method)
+    (decf (access-count controller))))
+
+
 (defmethod controller-pop-tree ((controller proxy-stack-controller) (description string))
   (with-accessors ((parent read-parent)) controller
     (unless (slot-boundp controller '%parent)
       (error "Stack controller does not grant access to stack"))
     (controller-pop-tree parent description)))
+
+
+(defmethod controller-pop-anything ((controller proxy-stack-controller))
+  (with-accessors ((parent read-parent)) controller
+    (unless (slot-boundp controller '%parent)
+      (error "Stack controller does not grant access to stack"))
+    (controller-pop-anything parent)))
 
 
 (defmethod controller-empty-p ((controller abstract-stack-controller))
@@ -268,7 +320,8 @@
   (controller-front (read-parent controller)))
 
 
-(defmethod push-decorator ((element fundamental-element) (decorator fundamental-decorator))
+(defmethod push-decorator ((element fundamental-element)
+                           (decorator fundamental-decorator))
   (vector-push-extend decorator (read-decorators element))
   element)
 
@@ -281,9 +334,15 @@
   nil)
 
 
-(defmethod has-title ((node tree-node))
-  (iterate
-    (for child in-vector (read-children node))
-    (when (is-a-title child)
-      (leave t)))
-  nil)
+(defmethod has-title ((node chunk-node))
+  (slot-boundp node '%title))
+
+
+(defmethod push-chunk ((chunks chunks-collection) (chunk chunk-node))
+  (setf (gethash (access-content (access-title chunk))
+                 (read-content chunks))
+        chunk))
+
+
+(defmethod get-chunk ((chunks chunks-collection) (title string))
+  (gethash title (read-content chunks)))

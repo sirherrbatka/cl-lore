@@ -2,4 +2,4 @@
 
 
 (defun make-section (&rest initargs)
-  (apply #'make 'tree-node initargs))
+  (apply #'make 'chunk-node initargs))

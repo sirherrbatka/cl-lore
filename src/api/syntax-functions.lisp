@@ -20,10 +20,16 @@
     (controller-return *stack* value)))
 
 
-(def-syntax title (text)
-  (ret (make-instance 'leaf-node
-                      :traits (vect <title-trait>)
-                      :content text)))
+(defun title (text)
+  (setf (access-title *register*)
+        (make-instance 'leaf-node
+                       :traits (vect <title-trait>)
+                       :content text))
+  text)
+
+
+(def-syntax incl (what)
+  (ret (get-chunk *chunks* what)))
 
 
 (def-syntax emphasis (text)
