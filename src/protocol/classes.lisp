@@ -34,17 +34,23 @@
               :accessor read-children)))
 
 
-(defclass chunk-node (tree-node)
+(defclass titled-tree-node (tree-node)
   ((%title :initarg :title
            :accessor access-title
            :type leaf-node)))
 
 
-(defclass paragraph-trait (fundamental-trait)
+(defclass chunk-node (titled-tree-node)
   ())
 
 
-(defclass root-node (tree-node)
+(defclass paragraph-trait (fundamental-trait)
+  ((%title :initarg :title
+           :accessor access-title
+           :type leaf-node)))
+
+
+(defclass root-node (titled-tree-node)
   ())
 
 

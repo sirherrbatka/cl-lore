@@ -32,6 +32,17 @@
   (ret (get-chunk *chunks* what)))
 
 
+(defmacro document-package (package &body body)
+  `(let ((*documented-package* (find-package ,package)))
+     ,@body))
+
+
+(def-syntax docfun (name))
+
+
+(def-syntax docmacro (name))
+
+
 (def-syntax emphasis (text)
   (ret (make 'leaf-node
              :traits (vect <emphasis-trait>)

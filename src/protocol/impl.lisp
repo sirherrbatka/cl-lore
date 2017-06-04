@@ -95,7 +95,8 @@
                             parents)
   (with-accessors ((out read-out-stream)) output
     (format out "<!DOCTYPE html>~%<html>~%")
-    (format out "<head><meta charset=\"utf-8\"></head>~%")
+    (format out "<head><meta charset=\"utf-8\"><title>~a</title></head>~%"
+            (access-content (access-title element)))
     (format out "<body>~%")
     (call-next-method)
     (format out "~%</body>~%</html>")))

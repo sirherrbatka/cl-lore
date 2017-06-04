@@ -7,3 +7,4 @@
 (defvar *register* nil)
 (defvar *chunks*)
 (defvar *fragments* (make-hash-table :test 'equal))
+(defvar *documented-package*)
