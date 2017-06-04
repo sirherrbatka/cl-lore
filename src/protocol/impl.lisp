@@ -96,11 +96,12 @@
   (with-accessors ((out read-out-stream)) output
     (format out "<!DOCTYPE html>~%<html>~%")
     (format out "<head><meta charset=\"utf-8\"></head>~%")
+    (format out "<body>~%")
     (call-next-method)
-    (format out "~%</html>")))
+    (format out "~%</body>~%</html>")))
 
 
-(defmethod push-child  ((node tree-node) (children fundamental-element))
+(defmethod push-child  ((node tree-node) (children fundamental-node))
   (vector-push-extend children (read-children node)))
 
 
@@ -118,7 +119,7 @@
 
 (defmethod process-element :before ((generator fundamental-output-generator)
                                     (output fundamental-output)
-                                    (element fundamental-element)
+                                    (element fundamental-node)
                                     parents)
   (iterate
     (for trait in-vector (read-traits element))
@@ -127,7 +128,7 @@
 
 (defmethod process-element :after ((generator fundamental-output-generator)
                                    (output fundamental-output)
-                                   (element fundamental-element)
+                                   (element fundamental-node)
                                    parents)
   (iterate
     (for trait in-vector (read-traits element))
@@ -320,7 +321,7 @@
   (controller-front (read-parent controller)))
 
 
-(defmethod push-decorator ((element fundamental-element)
+(defmethod push-decorator ((element fundamental-node)
                            (decorator fundamental-decorator))
   (vector-push-extend decorator (read-decorators element))
   element)

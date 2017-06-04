@@ -7,6 +7,10 @@
   @begin{section}
   @title{test-chunk}
   @par{@emphasis{This} chunk has been created as a test!}
+   @begin{section}
+   @title{This is subsection title}
+   @par{This is subsection!}
+   @end{section}
   @end{section})
 
 

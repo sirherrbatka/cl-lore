@@ -1,7 +1,7 @@
 (in-package #:cl-lore)
 
 
-(defclass fundamental-element ()
+(defclass fundamental-node ()
   ((%decorators :initform (vect)
                 :type vector
                 :reader read-decorators)
@@ -23,12 +23,12 @@
   ())
 
 
-(defclass leaf-node (fundamental-element)
+(defclass leaf-node (fundamental-node)
   ((%content :initarg :content
              :accessor access-content)))
 
 
-(defclass tree-node (fundamental-element)
+(defclass tree-node (fundamental-node)
   ((%children :initform (vect)
               :initarg :children
               :accessor read-children)))
