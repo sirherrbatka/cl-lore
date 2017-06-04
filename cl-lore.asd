@@ -17,6 +17,7 @@
                 :components ((:file "package")
                              (:file "mop")
                              (:file "nodes")
+                             (:file "output")
                              (:file "control")
                              (:file "generics")
                              (:file "variables")
@@ -25,9 +26,10 @@
                 :components ((:file "package")
                              (:file "utility")
                              (:file "syntax-functions")
-                             (:file "interface-variables")
                              (:file "macros")))
                (:module "html"
                 :components ((:file "package")
+                             (:file "classes")
+                             (:file "interface-variables")
                              (:file "impl")))))
 
