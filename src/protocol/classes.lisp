@@ -30,7 +30,7 @@
   (:metaclass lore-node-class))
 
 
-(defclass function-node (fundamental-node)
+(defclass operator-node (fundamental-node)
   ((%name :type symbol
           :initarg :name
           :reader read-name)
@@ -41,6 +41,10 @@
                :initarg :docstring
                :reader read-docstring))
   (:metaclass lore-node-class))
+
+
+(defclass function-node (operator-node)
+  ())
 
 
 (defclass tree-node (fundamental-node)
