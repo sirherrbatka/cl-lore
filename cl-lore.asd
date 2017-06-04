@@ -14,14 +14,16 @@
   :pathname "src"
   :components ((:file "package")
                (:module "protocol"
-                :components ((:file "mop")
+                :components ((:file "package")
+                             (:file "mop")
                              (:file "nodes")
                              (:file "control")
-                             (:file "variables")
                              (:file "generics")
+                             (:file "variables")
                              (:file "impl")))
                (:module "api"
-                :components ((:file "utility")
+                :components ((:file "package")
+                             (:file "utility")
                              (:file "syntax-functions")
                              (:file "interface-variables")
                              (:file "macros")))
