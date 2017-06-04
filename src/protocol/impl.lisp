@@ -56,6 +56,18 @@
 
 (defmethod process-element ((generator html-output-generator)
                             (output html-output)
+                            (element documentation-node)
+                            parents)
+  (let ((out (read-out-stream output)))
+    (format out "Symbols in package ~a:~%"
+            (~> element
+                access-package-name
+                cl-who:escape-string)))
+  (call-next-method))
+
+
+(defmethod process-element ((generator html-output-generator)
+                            (output html-output)
                             (element chunk-node)
                             parents)
   (when (has-title element)

@@ -158,4 +158,3 @@
    (%docparser-index :initarg :docparser-index
                      :reader read-docparser-index
                      :type docparser:index)))
-   
