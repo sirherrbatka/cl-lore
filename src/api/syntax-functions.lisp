@@ -33,11 +33,16 @@
 
 
 (defmacro document-package (package &body body)
-  `(let ((*documented-package* (find-package ,package)))
+  `(let ((*documented-package* ,package))
      ,@body))
 
 
-(def-syntax docfun (name))
+(def-syntax fun (name)
+  (let ((data (query *chunks*
+                     :symbol-name (string-upcase name)
+                     :package-name (access-package-name *register*)
+                     :class 'docparser:function-node)))
+    (ret (make-function-documentation data))))
 
 
 (def-syntax docmacro (name))
@@ -68,3 +73,10 @@
   (push-decorator *register*
                   (make 'label
                         :name name)))
+
+
+(defun pack (name)
+  (declare (type string name))
+  "Set PACKAGE for documentation section."
+  (setf (access-package-name *register*)
+        (~> name string-upcase)))

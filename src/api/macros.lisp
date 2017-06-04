@@ -33,8 +33,10 @@
 ;;   (process-element ,generator ,output ,!document nil))
 
 
-(defmacro def-chunks (name)
-  `(defvar ,name (make 'chunks-collection)))
+(defmacro def-chunks (name system)
+  `(defparameter ,name
+     (make 'chunks-collection
+           :docparser-index (docparser:parse ,system))))
 
 
 (defmacro with-chunks (var &body body)

@@ -1,7 +1,7 @@
 (in-package #:cl-lore)
 (named-readtables:in-readtable :scribble)
 
-(def-chunks *new-document*)
+(def-chunks *new-document* :cl-lore)
 
 (chunk *new-document* <standard-names>
   @begin{section}
@@ -14,6 +14,17 @@
   @end{section})
 
 
+(chunk *new-document* <standard-names>
+  @begin{section}
+  @title{Functions!}
+  @par{Those are some functions...}
+  @begin{doc}
+  @pack{cl-lore}
+  @fun{pack}
+  @end{doc}
+  @end{section})
+
+
 (defun test-syntax ()
   (document <html-output-generator> <standard-names> out *new-document*
     @title{cl-lore documentation}
@@ -23,5 +34,6 @@
     @label{Overview}
     @end{section}
 
-    @incl{test-chunk}))
+    @incl{test-chunk}
+    @incl{Functions!}))
 

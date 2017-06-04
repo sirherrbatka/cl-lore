@@ -96,7 +96,7 @@
   (with-accessors ((out read-out-stream)) output
     (format out "<!DOCTYPE html>~%<html>~%")
     (format out "<head><meta charset=\"utf-8\"><title>~a</title></head>~%"
-            (access-content (access-title element)))
+            (~> element access-title access-content cl-who:escape-string))
     (format out "<body>~%")
     (call-next-method)
     (format out "~%</body>~%</html>")))
@@ -116,6 +116,18 @@
                             parents)
   (let ((data (access-content element)))
     (process-element generator output data parents)))
+
+
+(defmethod process-element ((generator html-output-generator)
+                            (output html-output)
+                            (element function-node)
+                            parents)
+  (let ((out (read-out-stream output)))
+    (format out "~a ~a~%~a"
+            (~> element read-name symbol-name cl-who:escape-string)
+            (read-lambda-list element)
+            (cl-who:escape-string (read-docstring element)))
+    element))
 
 
 (defmethod process-element :before ((generator fundamental-output-generator)
@@ -348,3 +360,17 @@
 
 (defmethod get-chunk ((chunks chunks-collection) (title string))
   (gethash title (read-content chunks)))
+
+
+(defmethod query ((chunks chunks-collection) &key package-name symbol-name class)
+  (docparser:query (read-docparser-index chunks)
+                   :package-name package-name
+                   :symbol-name symbol-name
+                   :class class))
+
+
+(defun make-chunks-collection (&optional system)
+  (if system
+      (make 'chunks-collection
+            :documented-system (docparser:parse system))
+      (make 'chunks-collection)))

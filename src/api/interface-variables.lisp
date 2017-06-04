@@ -6,6 +6,7 @@
 
 (defvar <standard-names> (let ((table (make-hash-table :test 'equal)))
                            (setf (gethash "section" table) #'make-section)
+                           (setf (gethash "doc" table) #'make-documentation-section)
                            table))
 
 (defvar <title-trait> (make 'title-trait))

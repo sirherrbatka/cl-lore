@@ -28,6 +28,18 @@
              :accessor access-content)))
 
 
+(defclass function-node (fundamental-node)
+  ((%name :type symbol
+          :initarg :name
+          :reader read-name)
+   (%lambda-list :type list
+                 :initarg :lambda-list
+                 :reader read-lambda-list)
+   (%docstring :type string
+               :initarg :docstring
+               :reader read-docstring)))
+
+
 (defclass tree-node (fundamental-node)
   ((%children :initform (vect)
               :initarg :children
@@ -42,6 +54,12 @@
 
 (defclass chunk-node (titled-tree-node)
   ())
+
+
+(defclass documentation-node (tree-node)
+  ((%package-name :initarg package-name
+                  :type string
+                  :accessor access-package-name)))
 
 
 (defclass paragraph-trait (fundamental-trait)
@@ -127,4 +145,8 @@
 (defclass chunks-collection ()
   ((%content :initform (make-hash-table :test 'equal)
              :reader read-content
-             :type hash-table)))
+             :type hash-table)
+   (%docparser-index :initarg :docparser-index
+                     :reader read-docparser-index
+                     :type docparser:index)))
+   

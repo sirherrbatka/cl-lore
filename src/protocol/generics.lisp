@@ -30,3 +30,4 @@
     nil))
 (defgeneric push-chunk (chunks chunk))
 (defgeneric get-chunk (chunks title))
+(defgeneric query (chunks &key package-name symbol-name class))
