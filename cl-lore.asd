@@ -7,12 +7,15 @@
   :license "MIT"
   :author "Lisp Mechanics"
   :maintainer "Lisp Mechanics"
-  :depends-on (:iterate :alexandria :serapeum :scribble :cl-who :docparser)
+  :depends-on (:iterate :alexandria :serapeum
+               :scribble :cl-who :docparser
+               :closer-mop)
   :serial T
   :pathname "src"
   :components ((:file "package")
                (:module "protocol"
-                :components ((:file "classes")
+                :components ((:file "mop")
+                             (:file "classes")
                              (:file "variables")
                              (:file "mapping")
                              (:file "generics")
