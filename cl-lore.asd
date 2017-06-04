@@ -15,15 +15,17 @@
   :components ((:file "package")
                (:module "protocol"
                 :components ((:file "mop")
-                             (:file "classes")
+                             (:file "nodes")
+                             (:file "control")
                              (:file "variables")
-                             (:file "mapping")
                              (:file "generics")
-                             (:file "make-functions")
                              (:file "impl")))
                (:module "api"
                 :components ((:file "utility")
                              (:file "syntax-functions")
-                             (:file "html")
                              (:file "interface-variables")
-                             (:file "macros")))))
+                             (:file "macros")))
+               (:module "html"
+                :components ((:file "package")
+                             (:file "impl")))))
+
