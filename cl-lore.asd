@@ -25,6 +25,7 @@
                (:module "api"
                 :components ((:file "package")
                              (:file "utility")
+                             (:file "variables")
                              (:file "syntax-functions")
                              (:file "macros")))
                (:module "html"
