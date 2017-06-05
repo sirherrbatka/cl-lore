@@ -17,6 +17,7 @@
                 :components ((:file "package")
                              (:file "mop")
                              (:file "nodes")
+                             (:file "traits")
                              (:file "output")
                              (:file "control")
                              (:file "generics")

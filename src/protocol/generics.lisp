@@ -10,8 +10,8 @@
   (:method ((generator html-output-generator) &rest initargs)
     (make 'html-output)))
 (defgeneric add-to-index (output element parents))
-(defgeneric before-trait (generator output trait parents))
-(defgeneric after-trait (generator output trait parents))
+(defgeneric before-trait (generator output trait owner parents))
+(defgeneric after-trait (generator output trait owner parents))
 
 (defgeneric has-childrens (node)
   (:method ((node leaf-node))

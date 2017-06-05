@@ -1,0 +1,35 @@
+(in-package #:cl-lore.protocol)
+
+
+(defclass abstract-stack-controller (fundamental-stack-controller)
+  ((%stack :initform nil
+           :accessor access-stack
+           :type list)))
+
+
+(defclass top-stack-controller (abstract-stack-controller)
+  ((%count :initform 0
+           :accessor access-count
+           :type positive-fixnum)))
+
+
+(defclass proxy-stack-controller (fundamental-stack-controller)
+  ((%parent :initarg :parent
+            :type fundamental-stack-controller
+            :reader read-parent)
+   (%callback :initarg :callback
+              :type (-> (t) t)
+              :reader read-callback)))
+
+
+(defclass chunks-collection ()
+  ((%content :initform (make-hash-table :test 'equal)
+             :reader read-content
+             :type hash-table)
+   (%docparser-index :initarg :docparser-index
+                     :reader read-docparser-index
+                     :type docparser:index)))
+
+
+(defclass fundamental-stack-controller ()
+  ())
