@@ -64,26 +64,26 @@
                       ("<h6>" . "</h6>"))))
   (flet ((section-depth (parents)
            (min 5 (iterate
-                   (for (parent in parents))
-                   (count (has-title parent)))))))
-  (defmethod after-trait ((generator html-output-generator)
-                          (output html-output)
-                          (trait title-trait)
-                          owner
-                          parents)
-    (format (read-out-stream output) "~a"
-            (cdr (aref html-headers
-                       (section-depth parents)))))
+                   (for parent in parents)
+                   (count (has-title parent))))))
+    (defmethod after-trait ((generator html-output-generator)
+                            (output html-output)
+                            (trait title-trait)
+                            owner
+                            parents)
+      (format (read-out-stream output) "~a"
+              (cdr (aref html-headers
+                         (section-depth parents)))))
 
 
-  (defmethod before-trait ((generator html-output-generator)
-                           (output html-output)
-                           (trait title-trait)
-                           owner
-                           parents)
-    (format (read-out-stream output) "~a"
-            (car (aref html-headers
-                       (section-depth parents))))))
+    (defmethod before-trait ((generator html-output-generator)
+                             (output html-output)
+                             (trait title-trait)
+                             owner
+                             parents)
+      (format (read-out-stream output) "~a"
+              (car (aref html-headers
+                         (section-depth parents)))))))
 
 
 (defmethod after-trait ((generator html-output-generator)
@@ -125,3 +125,6 @@
   (with-accessors ((out read-out-stream)) output
     (format out "~%")))
 
+
+(defmethod make-output ((generator html-output-generator) &rest initargs)
+  (apply #'make 'html-output initargs))

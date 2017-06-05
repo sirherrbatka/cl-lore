@@ -5,4 +5,10 @@
   (:use #:common-lisp #:serapeum #:alexandria
         #:iterate #:cl-lore.protocol)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
-  (:export))
+  (:export #:html-output-generator
+           #:html-output
+
+           #:read-out-stream
+
+           #:<html-output-generator>))
+

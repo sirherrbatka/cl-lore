@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.api)
 
 
 (defmacro document (generator names output chunks &body body)
@@ -14,9 +14,7 @@
                    ,@body
                    (end-document))))
            (process-element ,generator ,output ,!document nil)
-           (~> ,output
-               read-out-stream
-               get-output-stream-string))))))
+           ,output)))))
 
 (defmacro chunk (chunks names &body body)
   (with-gensyms (!chunk)
@@ -42,3 +40,7 @@
 (defmacro with-chunks (var &body body)
   `(let ((*chunks* ,var))
      ,@body))
+
+
+(defmacro scribble-syntax ()
+  `(named-readtables:in-readtable :scribble))

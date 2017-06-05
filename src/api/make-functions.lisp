@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.api)
 
 
 (defun make-section (&rest initargs)

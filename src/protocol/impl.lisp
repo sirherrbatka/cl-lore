@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.protocol)
 
 
 (defun find-in-tree (tree parent &key test)
@@ -54,13 +54,6 @@
       (for elt in-vector (read-children element))
       (process-element generator output elt parents)))
   element)
-
-
-(defmethod process-element ((generator fundamental-output-generator)
-                            (output fundamental-output)
-                            (element fundamental-decorator)
-                            parents)
-  (process-element generator output (access-content element) parents))
 
 
 (defmethod push-child  ((node tree-node) (children fundamental-node))
@@ -224,12 +217,6 @@
   (unless (slot-boundp controller '%parent)
     (error "Stack controller does not grant access to stack"))
   (controller-front (read-parent controller)))
-
-
-(defmethod push-decorator ((element fundamental-node)
-                           (decorator fundamental-decorator))
-  (vector-push-extend decorator (read-decorators element))
-  element)
 
 
 (defmethod is-a-title ((node leaf-node))

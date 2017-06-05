@@ -1,4 +1,4 @@
-(in-package :cl-lore)
+(in-package :cl-lore.protocol)
 
 
 (defclass lore-node-class (closer-mop:standard-class)

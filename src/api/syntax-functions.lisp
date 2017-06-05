@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.api)
 
 
 (defun begin (what)
@@ -30,11 +30,6 @@
 
 (def-syntax incl (what)
   (ret (get-chunk *chunks* what)))
-
-
-(defmacro document-package (package &body body)
-  `(let ((*documented-package* ,package))
-     ,@body))
 
 
 (def-syntax fun (name)

@@ -26,9 +26,11 @@
                (:module "api"
                 :components ((:file "package")
                              (:file "utility")
-                             (:file "variables")
+                             (:file "macros")
+                             (:file "mapping")
                              (:file "syntax-functions")
-                             (:file "macros")))
+                             (:file "make-functions")
+                             (:file "interface-variables")))
                (:module "html"
                 :components ((:file "package")
                              (:file "classes")

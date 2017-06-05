@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.protocol)
 
 
 (defvar *stack*)
@@ -6,5 +6,3 @@
 (defvar *node-definitions*)
 (defvar *register* nil)
 (defvar *chunks*)
-(defvar *fragments* (make-hash-table :test 'equal))
-(defvar *documented-package*)

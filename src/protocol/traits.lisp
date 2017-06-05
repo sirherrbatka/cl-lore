@@ -14,8 +14,5 @@
 
 
 (defclass paragraph-trait (fundamental-trait)
-  ((%title :initarg :title
-           :accessor access-title
-           :type leaf-node))
-  (:metaclass lore-node-class))
+  ())
 

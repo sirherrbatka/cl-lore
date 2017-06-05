@@ -8,5 +8,3 @@
 (defclass html-output (fundamental-output)
   ((%out-stream :initform (make-string-output-stream)
                 :reader read-out-stream)))
-
-

@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.api)
 
 
 (defmacro without-stack (proxy-function &rest body)

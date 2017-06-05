@@ -1,5 +1,6 @@
 (in-package #:cl-lore)
 
+
 (defclass fundamental-decorator ()
   ())
 
@@ -8,6 +9,7 @@
   ((%name :initarg :name
           :accessor access-name
           :type string)))
+
 
 (defclass internal-reference (fundamental-decorator)
   ((%label-name :initarg :label-name

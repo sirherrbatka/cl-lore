@@ -5,4 +5,24 @@
   (:use #:common-lisp #:serapeum #:alexandria
         #:iterate #:cl-lore.protocol)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
-  (:export))
+  (:export #:document
+           #:chunk
+           #:def-chunks
+           #:with-chunks
+           #:scribble-syntax
+           #:make-node
+
+           #:begin
+           #:begin-document
+           #:end-document
+           #:end
+           #:title
+           #:fun
+           #:emphasis
+           #:incl
+           #:par
+           #:%par
+           #:label
+           #:pack
+
+           #:<standard-names>))

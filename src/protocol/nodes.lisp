@@ -32,7 +32,8 @@
 
 
 (defclass function-node (operator-node)
-  ())
+  ()
+  (:metaclass lore-node-class))
 
 
 (defclass tree-node (fundamental-node)

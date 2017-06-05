@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.protocol)
 
 
 (defgeneric scan-element (output element parents))
@@ -6,9 +6,7 @@
 (defgeneric process-element (generator output element parents))
 (defgeneric push-stack (desc obj stack))
 (defgeneric save-output (output))
-(defgeneric make-output (generator &rest initargs)
-  (:method ((generator html-output-generator) &rest initargs)
-    (make 'html-output)))
+(defgeneric make-output (generator &rest initargs))
 (defgeneric add-to-index (output element parents))
 (defgeneric before-trait (generator output trait owner parents))
 (defgeneric after-trait (generator output trait owner parents))
