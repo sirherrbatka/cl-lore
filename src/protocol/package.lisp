@@ -29,6 +29,8 @@
 
            #:fundamental-output-generator
            #:fundamental-output
+           #:function-lisp-information
+           #:fundamental-lisp-information
 
            #:fundamental-trait
            #:emphasis-trait

@@ -34,9 +34,9 @@
 
 (def-syntax fun (name)
   (let ((data (query *chunks*
+                     docstample:<function>
                      :symbol-name (string-upcase name)
-                     :package-name (access-package-name *register*)
-                     :type 'docstample:function-node)))
+                     :package-name (access-package-name *register*))))
     (ret (make-function-documentation data))))
 
 

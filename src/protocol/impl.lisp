@@ -241,12 +241,38 @@
   (gethash title (read-content chunks)))
 
 
-(defmethod query ((chunks chunks-collection) &key package-name symbol-name type)
-  (docstample:query-node (read-docparser-index chunks)
-                         (find-symbol
-                          (string-upcase symbol-name)
-                          (string-upcase package-name))
-                         type))
+(defun todo ()
+  (error "Not implemented!"))
+
+
+(defun get-arg-list (fun)
+  (swank-backend:arglist fun))
+
+
+(defmethod query ((chunks chunks-collection)
+                  (type docstample:fundamental-node)
+                  &key package-name symbol-name)
+  (let* ((index (read-docstample-index chunks))
+         (symbol (find-symbol
+                  (string-upcase symbol-name)
+                  (string-upcase package-name)))
+         (docstring (documentation
+                     symbol
+                     (docstample:read-symbol type)))
+         (plist
+           (if (null index)
+               nil
+               (docstample:query-node
+                index
+                (find-symbol
+                 (string-upcase symbol-name)
+                 (string-upcase package-name))
+                type))))
+    (make 'function-lisp-information
+          :lambda-list (get-arg-list symbol-name)
+          :plist plist
+          :name symbol-name
+          :docstring docstring)))
 
 
 (defun make-chunks-collection (&optional docstample-index)
