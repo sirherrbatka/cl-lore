@@ -249,7 +249,8 @@
                          type))
 
 
-(defun make-chunks-collection (&optional system)
-  (if system
+(defun make-chunks-collection (&optional docstample-index)
+  (if (null docstample-index)
       (make 'chunks-collection)
-      (make 'chunks-collection)))
+      (make 'chunks-collection
+            :docstample-index docstample-index)))
