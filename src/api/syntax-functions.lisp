@@ -36,7 +36,7 @@
   (let ((data (query *chunks*
                      :symbol-name (string-upcase name)
                      :package-name (access-package-name *register*)
-                     :class 'docparser:function-node)))
+                     :type 'docstample:function-node)))
     (ret (make-function-documentation data))))
 
 

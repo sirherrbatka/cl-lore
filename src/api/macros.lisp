@@ -31,10 +31,10 @@
 ;;   (process-element ,generator ,output ,!document nil))
 
 
-(defmacro def-chunks (name system)
+(defmacro def-chunks (name &optional docstample-index)
   `(defparameter ,name
      (make 'chunks-collection
-           :docparser-index (docparser:parse ,system))))
+           :docstapmle-index docstample-index)))
 
 
 (defmacro with-chunks (var &body body)

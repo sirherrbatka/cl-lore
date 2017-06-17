@@ -26,9 +26,9 @@
   ((%content :initform (make-hash-table :test 'equal)
              :reader read-content
              :type hash-table)
-   (%docparser-index :initarg :docparser-index
-                     :reader read-docparser-index
-                     :type docparser:index)))
+   (%doctample-index :initarg :docstample-index
+                     :initform nil
+                     :reader read-docstample-index)))
 
 
 (defclass fundamental-stack-controller ()

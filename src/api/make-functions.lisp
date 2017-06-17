@@ -9,11 +9,9 @@
   (make 'documentation-node))
 
 
+;;TODO implement!
 (defun make-function-documentation-node (data)
-  (make 'function-node
-        :lambda-list (docparser:operator-lambda-list data)
-        :docstring (docparser:node-docstring data)
-        :name (docparser:node-name data)))
+  (make 'function-node))
 
 
 (defun make-function-documentation (data)

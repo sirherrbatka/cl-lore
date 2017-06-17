@@ -241,15 +241,15 @@
   (gethash title (read-content chunks)))
 
 
-(defmethod query ((chunks chunks-collection) &key package-name symbol-name class)
-  (docparser:query (read-docparser-index chunks)
-                   :package-name package-name
-                   :symbol-name symbol-name
-                   :class class))
+(defmethod query ((chunks chunks-collection) &key package-name symbol-name type)
+  (docstample:query-node (read-docparser-index chunks)
+                         (find-symbol
+                          (string-upcase symbol-name)
+                          (string-upcase package-name))
+                         type))
 
 
 (defun make-chunks-collection (&optional system)
   (if system
-      (make 'chunks-collection
-            :documented-system (docparser:parse system))
+      (make 'chunks-collection)
       (make 'chunks-collection)))

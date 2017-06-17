@@ -8,7 +8,7 @@
   :author "Lisp Mechanics"
   :maintainer "Lisp Mechanics"
   :depends-on (:iterate :alexandria :serapeum
-               :scribble :cl-who :docparser
+               :scribble :cl-who :docstample
                :closer-mop)
   :serial T
   :pathname "src"
