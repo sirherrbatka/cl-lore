@@ -12,10 +12,7 @@
       :border-radius 0px 2px 2px 0px
       :margin-left 1em
       :margin-right 1em
-      :padding-top 3px
-      :padding-right 3px
-      :padding-bottom 3px
-      :padding-left 3px)))
+      :padding 3px)))
 
 
 (defparameter *header-style*
