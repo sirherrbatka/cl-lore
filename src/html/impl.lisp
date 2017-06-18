@@ -78,7 +78,7 @@
                      (name read-name)) element
       (format out "<div class=\"doc-name\">~%~a~%</div>"
               (cl-who:escape-string (symbol-name name)))
-      (format out "<div class=\"doc-lambda-list\">Syntax: ~%~a~%</div>"
+      (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
               lambda-list)
       (if (endp plist)
           (format out "<div class=\"doc-description\">~%~a~%</div>"
