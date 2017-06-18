@@ -66,8 +66,7 @@
           (format out "<div class=\"doc-returns\">Returns following values: <ol>~{<li>~a</li>~}~%</ol></div>"
                   returns)
           (format out "<div class=\"doc-returns\">Returns: ~%~a~%</div>"
-                  (cl-who:escape-string returns))))
-    (format out "<div class=\"doc")))
+                  (cl-who:escape-string returns))))))
 
 
 (defmethod process-element ((generator html-output-generator)
