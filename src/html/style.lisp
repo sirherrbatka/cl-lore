@@ -10,6 +10,8 @@
       :border 1px solid "#A9A9A9"
       :border-left 4px solid ,*function-color*
       :border-radius 0px 2px 2px 0px
+      :margin-left 1em
+      :margin-right 1em
       :padding-top 3px
       :padding-right 3px
       :padding-bottom 3px
