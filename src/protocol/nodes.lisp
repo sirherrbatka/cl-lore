@@ -18,21 +18,9 @@
   (:metaclass lore-node-class))
 
 
-(defclass operator-node (fundamental-node)
-  ((%name :type symbol
-          :initarg :name
-          :reader read-name)
-   (%lambda-list :type list
-                 :initarg :lambda-list
-                 :reader read-lambda-list)
-   (%docstring :type string
-               :initarg :docstring
-               :reader read-docstring))
-  (:metaclass lore-node-class))
-
-
-(defclass function-node (operator-node)
-  ()
+(defclass function-node (fundamental-node)
+  ((%information :initarg :information
+                 :reader read-information))
   (:metaclass lore-node-class))
 
 

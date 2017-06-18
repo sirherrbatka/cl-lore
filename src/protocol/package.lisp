@@ -14,9 +14,11 @@
            #:documentation-node
            #:root-node
 
+           #:read-information
            #:read-name
            #:read-lambda-list
            #:read-docstring
+           #:read-plist
            #:access-title
            #:access-package-name
            #:access-content
@@ -25,7 +27,7 @@
            #:top-stack-controller
            #:proxy-stack-controller
            #:chunks-collection
-           #:fundamenta-stack-controller
+           #:fundamental-stack-controller
 
            #:fundamental-output-generator
            #:fundamental-output
@@ -59,6 +61,8 @@
            #:get-chunk
            #:query
 
+           #:operator-lisp-information
+           #:function-lisp-information
            #:*stack*
            #:*tmp-stack*
            #:*node-definitions*

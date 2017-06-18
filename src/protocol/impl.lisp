@@ -262,12 +262,13 @@
          (plist
            (if (null index)
                nil
-               (docstample:query-node
-                index
-                (find-symbol
-                 (string-upcase symbol-name)
-                 (string-upcase package-name))
-                type))))
+               (when-let ((plist (docstample:query-node
+                                  index
+                                  type
+                                  (find-symbol
+                                   (string-upcase symbol-name)
+                                   (string-upcase package-name)))))
+                 (docstample:access-forms plist)))))
     (make 'function-lisp-information
           :lambda-list (get-arg-list symbol-name)
           :plist plist

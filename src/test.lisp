@@ -1,8 +1,17 @@
-(use-package :cl-lore.api)
-(use-package :cl-lore.html)
+(defpackage :cl-lore.test
+  (:use #:cl #:cl-lore.api #:cl-lore.html #:docstample))
+(in-package #:cl-lore.test)
 (named-readtables:in-readtable :scribble)
 
-(cl-lore.api:def-chunks *new-document* :cl-lore)
+(defparameter *docs* (docstample:make-accumulator))
+
+(defun test ())
+
+(docstample:set-documentation
+ 'test <mechanics> <function> *docs*
+ :description "Test function that is not all that important")
+
+(cl-lore.api:def-chunks *new-document* *docs*)
 
 (chunk *new-document* <standard-names>
   @begin{section}
@@ -20,8 +29,8 @@
   @title{Functions!}
   @par{Those are some functions...}
   @begin{doc}
-  @pack{cl-lore}
-  @fun{pack}
+  @pack{cl-lore.test}
+  @fun{test}
   @end{doc}
   @end{section})
 

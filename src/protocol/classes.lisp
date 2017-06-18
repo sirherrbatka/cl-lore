@@ -1,4 +1,4 @@
-(in-package #:cl-lore)
+(in-package #:cl-lore.protocol)
 
 
 (defclass fundamental-decorator ()

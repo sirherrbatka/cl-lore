@@ -18,6 +18,7 @@
                              (:file "mop")
                              (:file "nodes")
                              (:file "traits")
+                             (:file "classes")
                              (:file "output")
                              (:file "control")
                              (:file "generics")

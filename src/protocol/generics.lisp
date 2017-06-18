@@ -29,3 +29,6 @@
 (defgeneric push-chunk (chunks chunk))
 (defgeneric get-chunk (chunks title))
 (defgeneric query (chunks type &key package-name symbol-name))
+
+
+(defgeneric process-operator-plist (generator output &key &allow-other-keys))

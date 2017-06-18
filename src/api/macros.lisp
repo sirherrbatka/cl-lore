@@ -34,7 +34,7 @@
 (defmacro def-chunks (name &optional docstample-index)
   `(defparameter ,name
      (make 'chunks-collection
-           :docstapmle-index docstample-index)))
+           :docstample-index ,docstample-index)))
 
 
 (defmacro with-chunks (var &body body)

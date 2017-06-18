@@ -9,15 +9,6 @@
   (make 'documentation-node))
 
 
-;;TODO implement!
-(defun make-function-documentation-node (data)
-  (make 'function-node))
-
-
 (defun make-function-documentation (data)
-  (let ((result (make 'tree-node)))
-    (iterate
-      (for node in-vector data)
-      (push-child result
-                  (make-function-documentation-node node)))
-    result))
+  (make 'function-node
+        :information data))

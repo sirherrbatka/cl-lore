@@ -44,16 +44,64 @@
     (format out "~%</body>~%</html>")))
 
 
+(defmethod proccess-operator-plist ((generator html-output-generator)
+                                    (output html-output)
+                                    &key
+                                    examples
+                                    description
+                                    exceptional-situations
+                                    notes
+                                    side-effects
+                                    returns
+                                    &allow-other-keys)
+  (with-accessors ((out read-out-stream)) output
+    (format out "<div class=\"doc-description\">~%~a~%</div>"
+            (cl-who:escape-string description))
+    (unless (null returns)
+      (if (listp returns)
+          (format out "<div class=\"doc-returns\">Returns following values: <ol>~{<li>~a</li>~}~%</ol></div>"
+                  returns)
+          (format out "<div class=\"doc-returns\">Returns: ~%~a~%</div>"
+                  (cl-who:escape-string returns))))
+    (format out "<div class=\"doc")))
+
+
 (defmethod process-element ((generator html-output-generator)
                             (output html-output)
+                            (element cl-lore.protocol:operator-lisp-information)
+                            parents)
+  (with-accessors ((out read-out-stream)) output
+    (with-accessors ((plist read-plist)
+                     (docstring read-docstring)
+                     (lambda-list read-lambda-list)
+                     (name read-name)) element
+      (format out "<div class=\"doc-name\">~%~a~%</div>"
+              (cl-who:escape-string (symbol-name name)))
+      (format out "<div class=\"doc-lambda-list\">Syntax: ~%~a~%</div>"
+              lambda-list)
+      (if (endp plist)
+          (format out "<div class=\"doc-description\">~%~a~%</div>"
+                  docstring)
+          (apply #'proccess-operator-plist generator output plist)))))
+
+
+(defmethod process-element ((generator html-output-generator)
+                            (output html-output)
+                            (element function-lisp-information)
+                            parents)
+  (with-accessors ((out read-out-stream)) output
+    (format out "<div class=\"function-info\">~%")
+    (call-next-method)
+    (format out "~%</div>")))
+
+
+(defmethod process-element ((generator fundamental-output-generator)
+                            (output fundamental-output)
                             (element function-node)
                             parents)
-  (let ((out (read-out-stream output)))
-    (format out "~a ~a~%~a"
-            (~> element read-name symbol-name cl-who:escape-string)
-            (read-lambda-list element)
-            (cl-who:escape-string (read-docstring element)))
-    element))
+  (process-element generator output
+                   (read-information element)
+                   parents))
 
 
 (let ((html-headers #(("<h1>" . "</h1>")
