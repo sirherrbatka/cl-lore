@@ -16,13 +16,8 @@
 
 
 (defparameter *header-style*
-  `((h1 :text-align center)
-    (h2 :text-align center)
-    (h3 :text-align center)
-    (h4 :text-align center)
-    (h5 :text-align center)
-    (h6 :text-align center)
-    (h7 :text-align center)))
+  `(((:or h1 h2 h3 h4 h5 h6 h7)
+     :text-align center)))
 
 
 (defparameter *big-title*
