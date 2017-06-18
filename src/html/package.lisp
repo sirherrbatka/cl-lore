@@ -9,6 +9,8 @@
            #:html-output
 
            #:read-out-stream
+           #:access-css
+           #:*function-style*
 
            #:<html-output-generator>))
 

@@ -37,7 +37,8 @@
                             parents)
   (with-accessors ((out read-out-stream)) output
     (format out "<!DOCTYPE html>~%<html>~%")
-    (format out "<head><meta charset=\"utf-8\"><title>~a</title></head>~%"
+    (format out
+            "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>~%"
             (~> element access-title access-content cl-who:escape-string))
     (format out "<body>~%")
     (call-next-method)
@@ -176,3 +177,15 @@
 
 (defmethod make-output ((generator html-output-generator) &rest initargs)
   (apply #'make 'html-output initargs))
+
+
+(defmethod save-output ((output html-output) (path pathname))
+  (nest
+   (with-accessors ((out read-out-stream) (css access-css)) output)
+   (with-open-file (main-out (cl-fad:merge-pathnames-as-file path "main.html")
+                             :direction :output))
+   (with-open-file (css-out (cl-fad:merge-pathnames-as-file path #P"static" "style.css")
+                            :direction :output)
+     (format main-out "~a" (get-output-stream-string out))
+     (format css-out "~a" (lass:compile-and-write css))
+     output)))

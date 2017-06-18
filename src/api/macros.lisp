@@ -1,13 +1,13 @@
 (in-package #:cl-lore.api)
 
 
-(defmacro document (generator names output chunks &body body)
+(defmacro document ((generator names output chunks &key output-options) &body body)
   (with-gensyms (!document)
     (once-only (names generator)
       `(let ((*stack* (make-instance 'abstract-stack-controller))
              (*node-definitions* ,names)
              (*chunks* ,chunks)
-             (,output (make-output ,generator)))
+             (,output (make-output ,generator ,@output-options)))
          (let ((,!document
                  (progn
                    (begin-document)

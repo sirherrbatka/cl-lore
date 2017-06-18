@@ -5,7 +5,7 @@
 (defgeneric push-decorator (element decorator))
 (defgeneric process-element (generator output element parents))
 (defgeneric push-stack (desc obj stack))
-(defgeneric save-output (output))
+(defgeneric save-output (output path))
 (defgeneric make-output (generator &rest initargs))
 (defgeneric add-to-index (output element parents))
 (defgeneric before-trait (generator output trait owner parents))
