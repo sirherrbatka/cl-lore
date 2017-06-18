@@ -36,13 +36,16 @@
                             (element root-node)
                             parents)
   (with-accessors ((out read-out-stream)) output
-    (format out "<!DOCTYPE html>~%<html>~%")
-    (format out
-            "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>~%"
-            (~> element access-title access-content cl-who:escape-string))
-    (format out "<body>~%")
-    (call-next-method)
-    (format out "~%</body>~%</html>")))
+    (let ((big-title
+            (~> element access-title access-content cl-who:escape-string)))
+      (format out "<!DOCTYPE html>~%<html>~%")
+      (format out
+              "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>~%"
+              big-title)
+      (format out "<body>~%")
+      (format out "<div class=\"big-title\">~%~a~%</div>" big-title)
+      (call-next-method)
+      (format out "~%</body>~%</html>"))))
 
 
 (defmethod proccess-operator-plist ((generator html-output-generator)
@@ -187,5 +190,5 @@
    (with-open-file (css-out (cl-fad:merge-pathnames-as-file path #P"static" "style.css")
                             :direction :output)
      (format main-out "~a" (get-output-stream-string out))
-     (format css-out "~a" (lass:compile-and-write css))
+     (format css-out "~a" (apply #'lass:compile-and-write css))
      output)))

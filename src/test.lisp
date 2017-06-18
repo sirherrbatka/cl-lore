@@ -37,7 +37,7 @@
 
 (defun test-syntax ()
   (document (<html-output-generator> <standard-names> out *new-document*
-             :output-options (:css *function-style*))
+             :output-options (:css *mechanics-style*))
     @title{cl-lore documentation}
     @begin{section}
     @title{Overview}

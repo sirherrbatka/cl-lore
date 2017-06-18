@@ -10,7 +10,7 @@
 
            #:read-out-stream
            #:access-css
-           #:*function-style*
+           #:*mechanics-style*
 
            #:<html-output-generator>))
 
