@@ -40,7 +40,7 @@
             (~> element access-title access-content cl-who:escape-string)))
       (format out "<!DOCTYPE html>~%<html>~%")
       (format out
-              "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"></head>~%"
+              "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>~%"
               big-title)
       (format out "<body>~%")
       (format out "<div class=\"big-title\">~%~a~%</div>" big-title)
