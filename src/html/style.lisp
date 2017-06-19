@@ -35,7 +35,8 @@
   `((html :font-family "Source Sans Pro" sans-serif
           :background "#f5f5f5"
           :color "#191919"
-          :margin 0.05em)))
+          :margin-top 0.05em
+          :margin-bottom 0.05em)))
 
 
 (defparameter *header-style*
