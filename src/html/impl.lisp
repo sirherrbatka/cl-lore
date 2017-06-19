@@ -186,10 +186,12 @@
    (with-accessors ((out read-out-stream) (css access-css)) output)
    (with-open-file (main-out (cl-fad:merge-pathnames-as-file path "main.html")
                              :direction :output
-                             :if-exists :overwrite))
+                             :if-exists :overwrite
+                             :if-does-not-exist :create))
    (with-open-file (css-out (cl-fad:merge-pathnames-as-file path #P"static" "style.css")
                             :direction :output
-                            :if-exists :overwrite)
+                            :if-exists :overwrite
+                            :if-does-not-exist :create)
      (format main-out "~a" (get-output-stream-string out))
      (format css-out "~a" (apply #'lass:compile-and-write css))
      output)))
