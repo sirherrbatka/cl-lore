@@ -12,5 +12,5 @@
            #:access-css
            #:*mechanics-style*
 
-           #:<html-output-generator>))
+           #:<mechanics-html-output-generator>))
 

@@ -5,7 +5,7 @@
   (cl-who:escape-string (format nil "~a" obj)))
 
 
-(defmethod process-element ((generator html-output-generator)
+(defmethod process-element ((generator mechanics-html-output-generator)
                             (output html-output)
                             (element string)
                             parents)
@@ -14,7 +14,7 @@
   element)
 
 
-(defmethod process-element ((generator html-output-generator)
+(defmethod process-element ((generator mechanics-html-output-generator)
                             (output html-output)
                             (element documentation-node)
                             parents)
@@ -26,7 +26,7 @@
   (call-next-method))
 
 
-(defmethod process-element ((generator html-output-generator)
+(defmethod process-element ((generator mechanics-html-output-generator)
                             (output html-output)
                             (element chunk-node)
                             parents)
@@ -35,7 +35,7 @@
   (call-next-method))
 
 
-(defmethod process-element ((generator html-output-generator)
+(defmethod process-element ((generator mechanics-html-output-generator)
                             (output html-output)
                             (element root-node)
                             parents)
@@ -52,7 +52,7 @@
       (format out "~%</body>~%</html>"))))
 
 
-(defmethod proccess-operator-plist ((generator html-output-generator)
+(defmethod proccess-operator-plist ((generator mechanics-html-output-generator)
                                     (output html-output)
                                     &key
                                     examples
@@ -73,7 +73,7 @@
                   (escape-text returns))))))
 
 
-(defmethod process-element ((generator html-output-generator)
+(defmethod process-element ((generator mechanics-html-output-generator)
                             (output html-output)
                             (element cl-lore.protocol:operator-lisp-information)
                             parents)
@@ -93,7 +93,7 @@
          (apply #'proccess-operator-plist generator output plist)))))
 
 
-(defmethod process-element ((generator html-output-generator)
+(defmethod process-element ((generator mechanics-html-output-generator)
                             (output html-output)
                             (element function-lisp-information)
                             parents)
@@ -101,15 +101,6 @@
     (format out "<div class=\"function-info\">~%")
     (call-next-method)
     (format out "~%</div>")))
-
-
-(defmethod process-element ((generator fundamental-output-generator)
-                            (output fundamental-output)
-                            (element function-node)
-                            parents)
-  (process-element generator output
-                   (read-information element)
-                   parents))
 
 
 (let ((html-headers #(("<h1>" . "</h1>")
@@ -122,7 +113,7 @@
            (min 5 (iterate
                    (for parent in parents)
                    (count (has-title parent))))))
-    (defmethod after-trait ((generator html-output-generator)
+    (defmethod after-trait ((generator mechanics-html-output-generator)
                             (output html-output)
                             (trait title-trait)
                             owner
@@ -132,7 +123,7 @@
                                  (section-depth parents))))))
 
 
-    (defmethod before-trait ((generator html-output-generator)
+    (defmethod before-trait ((generator mechanics-html-output-generator)
                              (output html-output)
                              (trait title-trait)
                              owner
@@ -142,7 +133,7 @@
                                  (section-depth parents))))))))
 
 
-(defmethod after-trait ((generator html-output-generator)
+(defmethod after-trait ((generator mechanics-html-output-generator)
                         (output html-output)
                         (trait emphasis-trait)
                         owner
@@ -150,7 +141,7 @@
   (format (read-out-stream output) "</b>"))
 
 
-(defmethod before-trait ((generator html-output-generator)
+(defmethod before-trait ((generator mechanics-html-output-generator)
                          (output html-output)
                          (trait emphasis-trait)
                          owner
@@ -158,7 +149,7 @@
   (format (read-out-stream output) "<b>"))
 
 
-(defmethod before-trait ((generator html-output-generator)
+(defmethod before-trait ((generator mechanics-html-output-generator)
                          (output html-output)
                          (trait paragraph-trait)
                          owner
@@ -166,7 +157,7 @@
   (format (read-out-stream output) "<p>"))
 
 
-(defmethod after-trait ((generator html-output-generator)
+(defmethod after-trait ((generator mechanics-html-output-generator)
                         (output html-output)
                         (trait paragraph-trait)
                         owner
@@ -174,7 +165,7 @@
   (format (read-out-stream output) "</p>"))
 
 
-(defmethod process-element :after ((generator html-output-generator)
+(defmethod process-element :after ((generator mechanics-html-output-generator)
                                    (output html-output)
                                    (element leaf-node)
                                    parents)
@@ -182,7 +173,7 @@
     (format out "~%")))
 
 
-(defmethod make-output ((generator html-output-generator) &rest initargs)
+(defmethod make-output ((generator mechanics-html-output-generator) &rest initargs)
   (apply #'make 'html-output initargs))
 
 

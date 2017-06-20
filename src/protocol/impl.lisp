@@ -279,3 +279,12 @@
       (make 'chunks-collection)
       (make 'chunks-collection
             :docstample-index docstample-index)))
+
+
+(defmethod process-element ((generator fundamental-output-generator)
+                            (output fundamental-output)
+                            (element function-node)
+                            parents)
+  (process-element generator output
+                   (read-information element)
+                   parents))
