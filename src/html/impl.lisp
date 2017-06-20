@@ -1,7 +1,7 @@
 (in-package #:cl-lore.html)
 
 
-(defun escape (obj)
+(defun escape-text (obj)
   (cl-who:escape-string (format nil "~a" obj)))
 
 
@@ -22,7 +22,7 @@
     (format out "Symbols in package ~a:~%"
             (~> element
                 access-package-name
-                escape)))
+                escape-text)))
   (call-next-method))
 
 
@@ -47,7 +47,7 @@
               "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>~%"
               big-title)
       (format out "<body>~%")
-      (format out "<div class=\"big-title\">~%~a~%</div>" (escape big-title))
+      (format out "<div class=\"big-title\">~%~a~%</div>" (escape-text big-title))
       (call-next-method)
       (format out "~%</body>~%</html>"))))
 
@@ -68,9 +68,9 @@
     (unless (null returns)
       (if (listp returns)
           (format out "<div class=\"doc-returns\">Returns following values: <ol>~{<li>~a</li>~}~%</ol></div>"
-                  (mapcar #'escape returns))
+                  (mapcar #'escape-text returns))
           (format out "<div class=\"doc-returns\">Returns: ~%~a~%</div>"
-                  (escape returns))))))
+                  (escape-text returns))))))
 
 
 (defmethod process-element ((generator html-output-generator)
@@ -84,12 +84,12 @@
                     (lambda-list read-lambda-list)
                     (name read-name)) element
      (format out "<div class=\"doc-name\">~%~a~%</div>"
-             (escape (symbol-name name)))
+             (escape-text (symbol-name name)))
      (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
-             (escape lambda-list))
+             (escape-text lambda-list))
      (if (endp plist)
          (format out "<div class=\"doc-description\">~%~a~%</div>"
-                 (escape docstring))
+                 (escape-text docstring))
          (apply #'proccess-operator-plist generator output plist)))))
 
 
@@ -128,7 +128,7 @@
                             owner
                             parents)
       (format (read-out-stream output) "~a"
-              (escape (cdr (aref html-headers
+              (escape-text (cdr (aref html-headers
                                  (section-depth parents))))))
 
 
@@ -138,7 +138,7 @@
                              owner
                              parents)
       (format (read-out-stream output) "~a"
-              (escape (car (aref html-headers
+              (escape-text (car (aref html-headers
                                  (section-depth parents))))))))
 
 
