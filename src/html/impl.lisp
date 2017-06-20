@@ -1,6 +1,10 @@
 (in-package #:cl-lore.html)
 
 
+(defun escape (obj)
+  (cl-who:escape-string (format nil "~a" obj)))
+
+
 (defmethod process-element ((generator html-output-generator)
                             (output html-output)
                             (element string)
@@ -18,7 +22,7 @@
     (format out "Symbols in package ~a:~%"
             (~> element
                 access-package-name
-                cl-who:escape-string)))
+                escape)))
   (call-next-method))
 
 
@@ -43,7 +47,7 @@
               "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>~%"
               big-title)
       (format out "<body>~%")
-      (format out "<div class=\"big-title\">~%~a~%</div>" big-title)
+      (format out "<div class=\"big-title\">~%~a~%</div>" (escape big-title))
       (call-next-method)
       (format out "~%</body>~%</html>"))))
 
@@ -64,28 +68,29 @@
     (unless (null returns)
       (if (listp returns)
           (format out "<div class=\"doc-returns\">Returns following values: <ol>~{<li>~a</li>~}~%</ol></div>"
-                  returns)
+                  (mapcar #'escape returns))
           (format out "<div class=\"doc-returns\">Returns: ~%~a~%</div>"
-                  (cl-who:escape-string returns))))))
+                  (escape returns))))))
 
 
 (defmethod process-element ((generator html-output-generator)
                             (output html-output)
                             (element cl-lore.protocol:operator-lisp-information)
                             parents)
-  (with-accessors ((out read-out-stream)) output
-    (with-accessors ((plist read-plist)
-                     (docstring read-docstring)
-                     (lambda-list read-lambda-list)
-                     (name read-name)) element
-      (format out "<div class=\"doc-name\">~%~a~%</div>"
-              (cl-who:escape-string (symbol-name name)))
-      (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
-              lambda-list)
-      (if (endp plist)
-          (format out "<div class=\"doc-description\">~%~a~%</div>"
-                  docstring)
-          (apply #'proccess-operator-plist generator output plist)))))
+  (nest
+   (with-accessors ((out read-out-stream)) output)
+   (with-accessors ((plist read-plist)
+                    (docstring read-docstring)
+                    (lambda-list read-lambda-list)
+                    (name read-name)) element
+     (format out "<div class=\"doc-name\">~%~a~%</div>"
+             (escape (symbol-name name)))
+     (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
+             (escape lambda-list))
+     (if (endp plist)
+         (format out "<div class=\"doc-description\">~%~a~%</div>"
+                 (escape docstring))
+         (apply #'proccess-operator-plist generator output plist)))))
 
 
 (defmethod process-element ((generator html-output-generator)
@@ -123,8 +128,8 @@
                             owner
                             parents)
       (format (read-out-stream output) "~a"
-              (cdr (aref html-headers
-                         (section-depth parents)))))
+              (escape (cdr (aref html-headers
+                                 (section-depth parents))))))
 
 
     (defmethod before-trait ((generator html-output-generator)
@@ -133,8 +138,8 @@
                              owner
                              parents)
       (format (read-out-stream output) "~a"
-              (car (aref html-headers
-                         (section-depth parents)))))))
+              (escape (car (aref html-headers
+                                 (section-depth parents))))))))
 
 
 (defmethod after-trait ((generator html-output-generator)
