@@ -254,8 +254,8 @@
                   &key package-name symbol-name)
   (let* ((index (read-docstample-index chunks))
          (symbol (find-symbol
-                  (string-upcase symbol-name)
-                  (string-upcase package-name)))
+                  symbol-name
+                  package-name))
          (docstring (documentation
                      symbol
                      (docstample:read-symbol type)))
@@ -265,9 +265,7 @@
                (when-let ((plist (docstample:query-node
                                   index
                                   type
-                                  (find-symbol
-                                   (string-upcase symbol-name)
-                                   (string-upcase package-name)))))
+                                  symbol)))
                  (docstample:access-forms plist)))))
     (make 'function-lisp-information
           :lambda-list (get-arg-list symbol-name)

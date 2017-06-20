@@ -35,8 +35,7 @@
 (def-syntax fun (name)
   (let ((data (query *chunks*
                      docstample:<function>
-                     :symbol-name (with-input-from-string (s name)
-                                    (read s))
+                     :symbol-name name
                      :package-name (access-package-name *register*))))
     (ret (make-function-documentation data))))
 
@@ -75,4 +74,4 @@
   (declare (type string name))
   "Set PACKAGE for documentation section."
   (setf (access-package-name *register*)
-        (~> name string-upcase)))
+        name))
