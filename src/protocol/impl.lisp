@@ -268,7 +268,7 @@
                                   symbol)))
                  (docstample:access-forms plist)))))
     (make 'function-lisp-information
-          :lambda-list (get-arg-list symbol-name)
+          :lambda-list (get-arg-list symbol)
           :plist plist
           :name symbol-name
           :docstring docstring)))

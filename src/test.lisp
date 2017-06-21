@@ -29,14 +29,14 @@
   @title{Functions!}
   @par{Those are some functions...}
   @begin{doc}
-  @pack{cl-lore.test}
+  @pack{CL-LORE.TEST}
   @fun{TEST}
   @end{doc}
   @end{section})
 
 
 (defun test-syntax ()
-  (document (<html-output-generator> <standard-names> out *new-document*
+  (document (<mechanics-html-output-generator> <standard-names> out *new-document*
              :output-options (:css *mechanics-style*))
     @title{cl-lore documentation}
     @begin{section}

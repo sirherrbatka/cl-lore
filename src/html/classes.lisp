@@ -5,7 +5,7 @@
   ())
 
 
-(defclass mechanics-html-output-generator (mechanics-fundamental-output-generator)
+(defclass mechanics-html-output-generator (html-output-generator)
   ())
 
 
