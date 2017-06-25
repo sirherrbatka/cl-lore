@@ -1,4 +1,4 @@
-(in-package #:cl-lore.html)
+(in-package #:cl-lore.mechanics)
 
 
 (defparameter *function-color* "#3067ff")
@@ -73,7 +73,7 @@
      :border-bottom 2px solid ,*strong-separation-color*)))
 
 
-(defparameter *mechanics-style*
+(defparameter *mechanics-html-style*
   (append *header-style*
           *function-style*
           *generic-style*

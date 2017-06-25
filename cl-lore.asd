@@ -35,8 +35,11 @@
                (:module "html"
                 :components ((:file "package")
                              (:file "classes")
-                             (:file "interface-variables")
+                             (:file "common")))
+               (:module "mechanics"
+                :components ((:file "package")
                              (:file "style")
-                             (:file "common")
-                             (:file "mechanics")))))
+                             (:file "classes")
+                             (:file "variables")
+                             (:file "implementation")))))
 

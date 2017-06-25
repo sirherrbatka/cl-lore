@@ -5,10 +5,6 @@
   ())
 
 
-(defclass mechanics-html-output-generator (html-output-generator)
-  ())
-
-
 (defclass html-output (fundamental-output)
   ((%out-stream :initform (make-string-output-stream)
                 :reader read-out-stream)

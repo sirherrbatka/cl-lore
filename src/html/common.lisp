@@ -122,3 +122,22 @@
      (format main-out "~a" (get-output-stream-string out))
      (format css-out "~a" (apply #'lass:compile-and-write css))
      output)))
+
+
+(defgeneric div-class (node)
+  (:method ((node docstample:function-node))
+    "function-info")
+  (:method ((node docstample:class-node))
+    "class-info"))
+
+
+(defmethod process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol:fundamental-lisp-information)
+     parents)
+  (with-accessors ((out read-out-stream)) output
+    (format out "<div class=\"~a\">"
+            (div-class (cl-lore.protocol:read-node-type)))
+    (call-next-method)
+    (format out "</div>")))

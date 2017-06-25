@@ -11,6 +11,7 @@
            #:read-out-stream
            #:access-css
            #:*mechanics-style*
+           #:escape-text
 
            #:<mechanics-html-output-generator>))
 

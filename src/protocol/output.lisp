@@ -1,11 +1,11 @@
 (in-package #:cl-lore.protocol)
 
 
-(defclass fundamental-output-generator ()
+(defclass fundamental-output-generator (docstample:fundamental-generator)
   ())
 
 
-(defclass fundamental-output ()
+(defclass fundamental-output (docstample:fundamental-output)
   ((%index :type list
            :initarg :index
            :initform nil

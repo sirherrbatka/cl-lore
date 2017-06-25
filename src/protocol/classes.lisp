@@ -25,7 +25,9 @@
 
 
 (defclass fundamental-lisp-information ()
-  ())
+  ((%node-type :type node-type
+               :initarg :node-type
+               :reader read-node-type)))
 
 
 (defclass named-lisp-information (fundamental-lisp-information)

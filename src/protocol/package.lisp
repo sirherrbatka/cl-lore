@@ -60,8 +60,10 @@
            #:push-child
            #:get-chunk
            #:query
+           #:read-node-type
 
            #:operator-lisp-information
+           #:named-lisp-information
            #:function-lisp-information
            #:*stack*
            #:*tmp-stack*
