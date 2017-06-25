@@ -268,7 +268,7 @@
                                   symbol)))
                  (docstample:access-forms plist)))))
     (make 'function-lisp-information
-          :node-type node-type
+          :node-type type
           :lambda-list (get-arg-list symbol)
           :plist plist
           :name symbol-name

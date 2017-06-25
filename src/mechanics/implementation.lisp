@@ -103,10 +103,12 @@
      parents)
   (nest
    (with-accessors ((lambda-list read-lambda-list)
-                    (node-type cl-lore.protocol:read-node-type)) element)
-   (with-accessors ((out read-out-stream)
-                    (plist cl-lore.protocol:read-plist)) output
-       (call-next-method)
+                    (node-type cl-lore.protocol:read-node-type)
+                    (plist cl-lore.protocol:read-plist))
+       element)
+   (with-accessors ((out read-out-stream))
+       output
+     (call-next-method)
      (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
              (escape-text lambda-list))
      (if (null plist)

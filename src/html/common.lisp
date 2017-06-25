@@ -108,7 +108,7 @@
   (apply #'make 'html-output initargs))
 
 
-(defmethod save-output ((output html-output) (path pathname))
+(defmethod save-output ((path pathname) (output html-output))
   (nest
    (with-accessors ((out read-out-stream) (css access-css)) output)
    (with-open-file (main-out (cl-fad:merge-pathnames-as-file path "main.html")

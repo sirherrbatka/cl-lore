@@ -1,5 +1,6 @@
 (defpackage :cl-lore.test
-  (:use #:cl #:cl-lore.api #:cl-lore.html #:docstample))
+  (:use #:cl #:cl-lore.api #:cl-lore.html #:docstample
+        #:cl-lore.mechanics #:cl-lore.protocol))
 (in-package #:cl-lore.test)
 (named-readtables:in-readtable :scribble)
 
@@ -37,7 +38,7 @@
 
 (defun test-syntax ()
   (document (<mechanics-html-output-generator> <standard-names> out *new-document*
-             :output-options (:css *mechanics-style*))
+             :output-options (:css *mechanics-html-style*))
     @title{cl-lore documentation}
     @begin{section}
     @title{Overview}
