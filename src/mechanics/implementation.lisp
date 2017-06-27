@@ -90,7 +90,7 @@
      (element cl-lore.protocol:named-lisp-information)
      parents)
   (nest
-   (with-accessors ((name read-name)) element)
+   (with-accessors ((name cl-lore.protocol:read-name)) element)
    (with-accessors ((out read-out-stream)) output
      (format out "<div class=\"doc-name\">~%~a~%</div>"
              (escape-text name)))))
@@ -102,12 +102,11 @@
      (element cl-lore.protocol:operator-lisp-information)
      parents)
   (nest
-   (with-accessors ((lambda-list read-lambda-list)
+   (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
                     (node-type cl-lore.protocol:read-node-type)
                     (plist cl-lore.protocol:read-plist))
        element)
-   (with-accessors ((out read-out-stream))
-       output
+   (with-accessors ((out read-out-stream)) output
      (call-next-method)
      (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
              (escape-text lambda-list))

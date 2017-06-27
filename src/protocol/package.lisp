@@ -61,6 +61,7 @@
            #:get-chunk
            #:query
            #:read-node-type
+           #:class-node
 
            #:operator-lisp-information
            #:named-lisp-information

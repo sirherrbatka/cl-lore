@@ -24,6 +24,12 @@
   (:metaclass lore-node-class))
 
 
+(defclass class-node (fundamental-node)
+  ((%information :initarg :information
+                 :reader read-information))
+  (:metaclass lore-node-class))
+
+
 (defclass tree-node (fundamental-node)
   ((%children :initform (vect)
               :initarg :children

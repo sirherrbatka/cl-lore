@@ -1,5 +1,5 @@
 (defpackage :cl-lore.test
-  (:use #:cl #:cl-lore.api #:cl-lore.html #:docstample
+  (:use #:cl #:cl-lore.api #:cl-lore.html
         #:cl-lore.mechanics #:cl-lore.protocol))
 (in-package #:cl-lore.test)
 (named-readtables:in-readtable :scribble)
@@ -9,7 +9,7 @@
 (defun test ())
 
 (docstample:set-documentation
- 'test <mechanics> <function> *docs*
+ 'test docstample:<mechanics> docstample:<function> *docs*
  :description "Test function that is not all that important")
 
 (cl-lore.api:def-chunks *new-document* *docs*)
