@@ -25,18 +25,33 @@
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
                              (type docstample:operator-node)
                              (symbol (eql :arguments-and-values))
-                             data
+                             (data string)
                              (output html-output))
   (with-accessors ((out read-out-stream)) output
+    (format out "~a" data)))
+
+
+(defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
+                                     (type docstample:operator-node)
+                                     (symbol (eql :arguments-and-values))
+                                     data
+                                     (output html-output))
+  (with-accessors ((out read-out-stream)) output
     (format out "Arguments and values:~%")
-    (if (listp data)
-        (progn
-          (format out "<ul>")
-          (iterate
-            (for (symb desc) in data)
-            (format out "<li>~a &ndash; ~a</li>" (escape-text symb) (escape desc)))
-          (format out "</ul>"))
-        (format out "~a" data))))
+    (call-next-method)))
+
+
+(defmethod docstample:visit ((visitor lore-mechanics-visitor)
+                             (type docstample:operator-node)
+                             (symbol (eql :arguments-and-values))
+                             (data list)
+                             (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<ul>")
+    (iterate
+      (for (symb desc) in data)
+      (format out "<li>~a &ndash; ~a</li>" (escape-text symb) (escape desc)))
+    (format out "</ul>")))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
