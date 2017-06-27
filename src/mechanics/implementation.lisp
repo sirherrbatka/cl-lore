@@ -26,7 +26,17 @@
                              (type docstample:operator-node)
                              (symbol (eql :arguments-and-values))
                              data
-                             (output html-output)))
+                             (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "Arguments and values:~%")
+    (if (listp data)
+        (progn
+          (format out "<ul>")
+          (iterate
+            (for (symb desc) in data)
+            (format out "<li>~a &ndash; ~a</li>" (escape-text symb) (escape desc)))
+          (format out "</ul>"))
+        (format out "~a" data))))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
@@ -41,7 +51,8 @@
                              (symbol (eql :description))
                              data
                              (output html-output))
-  (mechanics-format-description (read-stream output) data))
+  (with-accessors ((out read-out-stream)) output
+    (format out "Description:~%~a" (escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
@@ -69,8 +80,7 @@
                              (type docstample:operator-node)
                              (symbol (eql :returns))
                              data
-                             (output html-output))
-  (mechanics-format-returns (read-stream output) data))
+                             (output html-output)))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
@@ -101,6 +111,7 @@
      (output html-output)
      (element cl-lore.protocol:operator-lisp-information)
      parents)
+  (declare (optimize (debug 3)))
   (nest
    (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
                     (node-type cl-lore.protocol:read-node-type)
@@ -111,7 +122,7 @@
      (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
              (escape-text lambda-list))
      (if (null plist)
-         nil ;;TODO: implement
+         (progn (break) nil) ;;TODO: implement
          (docstample:generate-documentation-string
           generator
           node-type

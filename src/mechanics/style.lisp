@@ -39,6 +39,10 @@
           :margin-bottom 0.05em)))
 
 
+(defparameter *description-style*
+  `((:font-size 110%)))
+
+
 (defparameter *header-style*
   `(((:or h1 h2 h3 h4 h5 h6 h7)
      :text-align center
