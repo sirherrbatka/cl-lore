@@ -122,20 +122,20 @@
     (call-next-method)))
 
 
-(defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
-                                     (type docstample:operator-node)
-                                     (symbol (eql :returns))
-                                     (data string)
-                                     (output html-output))
+(defmethod docstample:visit ((visitor lore-mechanics-visitor)
+                             (type docstample:operator-node)
+                             (symbol (eql :returns))
+                             (data string)
+                             (output html-output))
   (with-accessors ((out read-out-stream)) output
     (format out "~a" (escape-text data))))
 
 
-(defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
-                                     (type docstample:operator-node)
-                                     (symbol (eql :returns))
-                                     (data list)
-                                     (output html-output))
+(defmethod docstample:visit ((visitor lore-mechanics-visitor)
+                             (type docstample:operator-node)
+                             (symbol (eql :returns))
+                             (data list)
+                             (output html-output))
   (with-accessors ((out read-out-stream)) output
     (format out "<ol>")
     (iterate (for elt in data)
@@ -173,10 +173,10 @@
      (element cl-lore.protocol:operator-lisp-information)
      parents)
   (declare (optimize (debug 3)))
-  (break)
   (nest
    (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
                     (node-type cl-lore.protocol:read-node-type)
+                    (description cl-lore.protocol:read-docstring)
                     (plist cl-lore.protocol:read-plist))
        element)
    (with-accessors ((out read-out-stream)) output
@@ -184,7 +184,7 @@
      (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
              (escape-text lambda-list))
      (if (null plist)
-         nil
+         (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
          (docstample:generate-documentation-string
           generator
           node-type
