@@ -39,8 +39,11 @@
           :margin-bottom 0.05em)))
 
 
-(defparameter *description-style*
-  `((:font-size 110%)))
+(defparameter *doc-paragraph*
+  `((.doc-paragraph
+     :font-size 100%
+     :margin-top 3px
+     :marign-bottom 3px)))
 
 
 (defparameter *header-style*
@@ -67,6 +70,10 @@
      :font-weight 500)))
 
 
+(defparameter *doc-name*
+  `((.doc-name
+     :letter-spacing 0.1em)))
+
 (defparameter *big-title*
   `((.big-title
      :text-align center
@@ -83,4 +90,6 @@
           *generic-style*
           *big-title*
           *macro-style*
-          *top-level-style*))
+          *top-level-style*
+          *doc-paragraph*
+          *doc-name*))

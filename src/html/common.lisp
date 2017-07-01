@@ -2,7 +2,7 @@
 
 
 (defun escape-text (obj)
-  (cl-who:escape-string (format nil "~a" obj)))
+  (cl-who:escape-string (format nil "~:a" obj)))
 
 
 (defmethod process-element ((generator html-output-generator)

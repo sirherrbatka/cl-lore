@@ -10,7 +10,8 @@
 
 (docstample:set-documentation
  'test docstample:<mechanics> docstample:<function> *docs*
- :description "Test function that is not all that important")
+ :description "Test function that is not all that important"
+ :side-effects "many, many side effects.")
 
 (cl-lore.api:def-chunks *new-document* *docs*)
 

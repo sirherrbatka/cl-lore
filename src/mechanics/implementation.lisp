@@ -33,11 +33,23 @@
 
 (defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
                                      (type docstample:operator-node)
+                                     symbol
+                                     data
+                                     (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<div class=\"doc-paragraph\">~%")
+    (call-next-method)
+    (format out "</div>~%")))
+
+
+
+(defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
+                                     (type docstample:operator-node)
                                      (symbol (eql :arguments-and-values))
                                      data
                                      (output html-output))
   (with-accessors ((out read-out-stream)) output
-    (format out "Arguments and values:~%")
+    (format out "<b>Arguments and values:</b>~%")
     (call-next-method)))
 
 
@@ -50,7 +62,7 @@
     (format out "<ul>")
     (iterate
       (for (symb desc) in data)
-      (format out "<li>~a &ndash; ~a</li>" (escape-text symb) (escape desc)))
+      (format out "<li>~a &ndash; ~a</li>" (escape-text symb) (escape-text desc)))
     (format out "</ul>")))
 
 
@@ -67,42 +79,76 @@
                              data
                              (output html-output))
   (with-accessors ((out read-out-stream)) output
-    (format out "Description:~%~a" (escape-text data))))
+    (format out "<b>Description:</b>~%~a" (escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
                              (type docstample:operator-node)
                              (symbol (eql :exceptional-situations))
-                             data
-                             (output html-output)))
+                             (data string)
+                             (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<b>Execeptional Situations:</b>~%~a"
+            (escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
                              (type docstample:operator-node)
                              (symbol (eql :notes))
-                             data
-                             (output html-output)))
+                             (data string)
+                             (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<b>Notes:</b>~%~a"
+            (escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
                              (type docstample:operator-node)
                              (symbol (eql :side-effects))
-                             data
-                             (output html-output)))
+                             (data string)
+                             (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<b>Side Effects:</b>~%~a"
+            (escape-text data))))
 
 
-(defmethod docstample:visit ((visitor lore-mechanics-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :returns))
-                             data
-                             (output html-output)))
+(defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
+                                     (type docstample:operator-node)
+                                     (symbol (eql :returns))
+                                     data
+                                     (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<b>Returns:</b>~%")
+    (call-next-method)))
+
+
+(defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
+                                     (type docstample:operator-node)
+                                     (symbol (eql :returns))
+                                     (data string)
+                                     (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "~a" (escape-text data))))
+
+
+(defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
+                                     (type docstample:operator-node)
+                                     (symbol (eql :returns))
+                                     (data list)
+                                     (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<ol>")
+    (iterate (for elt in data)
+      (format out "<li>~a</li>~%" (escape-text elt)))
+    (format out "</ol>")))
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
                              (type docstample:operator-node)
                              (symbol (eql :syntax))
                              data
-                             (output html-output)))
+                             (output fundamental-output))
+  nil) ;;this does nothing, because we don't need additional info about syntax.
 
 
 (defmethod docstample:get-visitor ((generator mechanics-html-output-generator))
@@ -134,7 +180,7 @@
        element)
    (with-accessors ((out read-out-stream)) output
      (call-next-method)
-     (format out "<div class=\"doc-lambda-list\">Arguments: ~%~:a~%</div>"
+     (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
              (escape-text lambda-list))
      (if (null plist)
          (progn (break) nil) ;;TODO: implement
