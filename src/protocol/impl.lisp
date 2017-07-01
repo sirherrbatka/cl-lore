@@ -279,6 +279,18 @@
           :docstring docstring)))
 
 
+(defmethod query ((chunks chunks-collection)
+                  (type docstample:macro-node)
+                  id)
+  (with-docstring-plist (chunks type id)
+    (make 'macro-lisp-information
+          :node-type type
+          :lambda-list (get-arg-list id)
+          :plist plist
+          :name id
+          :docstring docstring)))
+
+
 (defun make-chunks-collection (&optional docstample-index)
   (if (null docstample-index)
       (make 'chunks-collection)
@@ -288,7 +300,7 @@
 
 (defmethod process-element ((generator fundamental-output-generator)
                             (output fundamental-output)
-                            (element function-node)
+                            (element lisp-documentation-node)
                             parents)
   (process-element generator output
                    (read-information element)

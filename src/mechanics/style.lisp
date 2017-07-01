@@ -15,6 +15,8 @@
      :border-left 4px solid ,label-color
      :border-radius 0px 2px 2px 0px
      :margin-left 1em
+     :margin-top 0.5em
+     :margin-bottom 0.5em
      :margin-right 1em
      :padding 3px)))
 

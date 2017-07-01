@@ -125,16 +125,16 @@
 
 
 (defgeneric div-class (node)
-  (:method ((node cl-lore.protocol:function-node))
+  (:method ((node cl-lore.protocol:function-lisp-information))
     "function-info")
-  (:method ((node cl-lore.protocol:class-node))
-    "class-info"))
+  (:method ((node cl-lore.protocol:macro-lisp-information))
+    "macro-info"))
 
 
-(defmethod process-element
+(defmethod process-element :around
     ((generator html-output-generator)
      (output html-output)
-     (element cl-lore.protocol:function-node)
+     (element cl-lore.protocol:fundamental-lisp-information)
      parents)
   (with-accessors ((out read-out-stream)) output
     (format out "<div class=\"~a\">"

@@ -12,3 +12,8 @@
 (defun make-function-documentation (data)
   (make 'function-node
         :information data))
+
+
+(defun make-macro-documentation (data)
+  (make 'macro-node
+        :information data))

@@ -5,10 +5,11 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export #:fundamental-node
+           #:lisp-documentation-node
            #:leaf-node
            #:tree-node
-           #:operator-node
            #:function-node
+           #:macro-node
            #:titled-tree-node
            #:chunk-node
            #:documentation-node
@@ -66,6 +67,7 @@
            #:operator-lisp-information
            #:named-lisp-information
            #:function-lisp-information
+           #:macro-lisp-information
            #:*stack*
            #:*tmp-stack*
            #:*node-definitions*

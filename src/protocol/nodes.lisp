@@ -18,15 +18,24 @@
   (:metaclass lore-node-class))
 
 
-(defclass function-node (fundamental-node)
+(defclass lisp-documentation-node (fundamental-node)
   ((%information :initarg :information
                  :reader read-information))
   (:metaclass lore-node-class))
 
 
-(defclass class-node (fundamental-node)
-  ((%information :initarg :information
-                 :reader read-information))
+(defclass function-node (lisp-documentation-node)
+  ()
+  (:metaclass lore-node-class))
+
+
+(defclass macro-node (lisp-documentation-node)
+  ()
+  (:metaclass lore-node-class))
+
+
+(defclass class-node (lisp-documentation-node)
+  ()
   (:metaclass lore-node-class))
 
 

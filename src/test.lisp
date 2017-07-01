@@ -8,6 +8,12 @@
 
 (defun test ())
 
+(defmacro test2 ())
+
+(docstample:set-documentation
+ 'test2 docstample:<mechanics> docstample:<macro> *docs*
+ :description "This is a macro!")
+
 (docstample:set-documentation
  'test docstample:<mechanics> docstample:<function> *docs*
  :description "Test function that is not all that important"
@@ -32,7 +38,8 @@
   @par{Those are some functions...}
   @begin{doc}
   @pack{CL-LORE.TEST}
-  (fun 'test)
+  (docfun 'test)
+  (docmacro 'test2)
   @end{doc}
   @end{section})
 
@@ -49,3 +56,4 @@
     @incl{test-chunk}
     @incl{Functions!}))
 
+(save-output #P"/home/shka/lore/" (test-syntax))

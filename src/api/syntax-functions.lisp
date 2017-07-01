@@ -32,7 +32,7 @@
   (ret (get-chunk *chunks* what)))
 
 
-(def-syntax fun (id)
+(def-syntax docfun (id)
   (declare (type (or symbol list) id))
   (let ((data (query *chunks*
                      docstample:<function>
@@ -40,7 +40,12 @@
     (ret (make-function-documentation data))))
 
 
-(def-syntax docmacro (name))
+(def-syntax docmacro (id)
+  (declare (type (or symbol list) id))
+  (let ((data (query *chunks*
+                     docstample:<macro>
+                     id)))
+    (ret (make-macro-documentation data))))
 
 
 (def-syntax emphasis (text)

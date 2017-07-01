@@ -17,7 +17,8 @@
            #:end-document
            #:end
            #:title
-           #:fun
+           #:docfun
+           #:docmacro
            #:emphasis
            #:incl
            #:par

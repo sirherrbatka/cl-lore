@@ -52,3 +52,7 @@
 
 (defclass function-lisp-information (operator-lisp-information)
   ())
+
+
+(defclass macro-lisp-information (operator-lisp-information)
+  ())
