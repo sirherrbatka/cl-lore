@@ -173,6 +173,7 @@
      (element cl-lore.protocol:operator-lisp-information)
      parents)
   (declare (optimize (debug 3)))
+  (break)
   (nest
    (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
                     (node-type cl-lore.protocol:read-node-type)
@@ -183,7 +184,7 @@
      (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
              (escape-text lambda-list))
      (if (null plist)
-         (progn (break) nil) ;;TODO: implement
+         nil
          (docstample:generate-documentation-string
           generator
           node-type

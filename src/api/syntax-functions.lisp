@@ -32,11 +32,11 @@
   (ret (get-chunk *chunks* what)))
 
 
-(def-syntax fun (name)
+(def-syntax fun (id)
+  (declare (type (or symbol list) id))
   (let ((data (query *chunks*
                      docstample:<function>
-                     :symbol-name name
-                     :package-name (access-package-name *register*))))
+                     id)))
     (ret (make-function-documentation data))))
 
 

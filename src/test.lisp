@@ -32,7 +32,7 @@
   @par{Those are some functions...}
   @begin{doc}
   @pack{CL-LORE.TEST}
-  @fun{TEST}
+  (fun 'test)
   @end{doc}
   @end{section})
 

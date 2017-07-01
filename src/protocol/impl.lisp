@@ -249,29 +249,33 @@
   (swank-backend:arglist fun))
 
 
+(defmacro with-docstring-plist ((chunks type id) &body body)
+  (with-gensyms (!index)
+    (once-only (chunks type id)
+      `(let* ((,!index (read-docstample-index ,chunks))
+              (docstring (documentation
+                          ,id
+                          (docstample:read-symbol ,type)))
+              (plist
+                (if (null ,!index)
+                    nil
+                    (when-let ((plist (docstample:query-node
+                                       ,!index
+                                       ,type
+                                       ,id)))
+                      (docstample:access-forms plist)))))
+         ,@body))))
+
+
 (defmethod query ((chunks chunks-collection)
-                  (type docstample:fundamental-node)
-                  &key package-name symbol-name)
-  (let* ((index (read-docstample-index chunks))
-         (symbol (find-symbol
-                  symbol-name
-                  package-name))
-         (docstring (documentation
-                     symbol
-                     (docstample:read-symbol type)))
-         (plist
-           (if (null index)
-               nil
-               (when-let ((plist (docstample:query-node
-                                  index
-                                  type
-                                  symbol)))
-                 (docstample:access-forms plist)))))
+                  (type docstample:function-node)
+                  id)
+  (with-docstring-plist (chunks type id)
     (make 'function-lisp-information
           :node-type type
-          :lambda-list (get-arg-list symbol)
+          :lambda-list (get-arg-list id)
           :plist plist
-          :name symbol-name
+          :name id
           :docstring docstring)))
 
 
