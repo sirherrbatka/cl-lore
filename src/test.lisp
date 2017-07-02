@@ -15,6 +15,8 @@
 (defclass test4 ()
   ())
 
+(defstruct test5)
+
 (docstample:set-documentation
  'test2 docstample:<mechanics> docstample:<macro> *docs*
  :description "This is a macro!")
@@ -32,6 +34,10 @@
 (docstample:set-documentation
  'test4 docstample:<mechanics> docstample:<class> *docs*
  :description "Just a class.")
+
+(docstample:set-documentation
+ 'test5 docstample:<mechanics> docstample:<struct> *docs*
+ :description "Just a struct.")
 
 (cl-lore.api:def-chunks *new-document* *docs*)
 
@@ -56,6 +62,7 @@
   (docmacro 'test2)
   (docgeneric 'test3)
   (docclass 'test4)
+  (docstruct 'test5)
   @end{doc}
   @end{section})
 

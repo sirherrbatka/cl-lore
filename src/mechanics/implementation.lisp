@@ -74,7 +74,7 @@
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
-                             (type docstample:class-node)
+                             (type docstample:record-node)
                              (symbol (eql :description))
                              data
                              (output html-output))

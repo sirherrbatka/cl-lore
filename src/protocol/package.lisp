@@ -10,6 +10,7 @@
            #:tree-node
            #:function-node
            #:class-node
+           #:struct-node
            #:generic-function-node
            #:macro-node
            #:titled-tree-node

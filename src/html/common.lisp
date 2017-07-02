@@ -131,6 +131,8 @@
     "generic-info")
   (:method ((node cl-lore.protocol:class-lisp-information))
     "class-info")
+  (:method ((node cl-lore.protocol:struct-lisp-information))
+    "struct-info")
   (:method ((node cl-lore.protocol:macro-lisp-information))
     "macro-info"))
 

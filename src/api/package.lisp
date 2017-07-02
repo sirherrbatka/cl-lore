@@ -21,6 +21,7 @@
            #:docgeneric
            #:docclass
            #:docmacro
+           #:docstruct
            #:emphasis
            #:incl
            #:par

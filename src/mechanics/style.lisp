@@ -4,6 +4,7 @@
 (defparameter *function-color* "#3067ff")
 (defparameter *macro-color* "#ffdd31")
 (defparameter *class-color* "#ff6214")
+(defparameter *struct-color* "#ff2222")
 (defparameter *generic-color* "#7231ff")
 (defparameter *strong-separation-color* "#000000")
 (defparameter *medium-separation-color* "#7a7a7a")
@@ -36,6 +37,10 @@
 
 (defparameter *class-style*
   (frame-style '.class-info *class-color*))
+
+
+(defparameter *struct-style*
+  (frame-style '.struct-info *struct-color*))
 
 
 (defparameter *top-level-style*
@@ -94,6 +99,7 @@
 (defparameter *mechanics-html-style*
   (append *header-style*
           *function-style*
+          *struct-style*
           *generic-style*
           *class-style*
           *big-title*

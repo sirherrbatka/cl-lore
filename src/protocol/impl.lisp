@@ -314,6 +314,17 @@
           :docstring docstring)))
 
 
+(defmethod query ((chunks chunks-collection)
+                  (type docstample:struct-node)
+                  (id symbol))
+  (with-docstring-plist (chunks type id)
+    (make 'struct-lisp-information
+          :node-type type
+          :name id
+          :plist plist
+          :docstring docstring)))
+
+
 (defun make-chunks-collection (&optional docstample-index)
   (if (null docstample-index)
       (make 'chunks-collection)

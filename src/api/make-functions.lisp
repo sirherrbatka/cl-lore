@@ -27,3 +27,8 @@
 (defun make-class-documentation (data)
   (make 'class-node
         :information data))
+
+
+(defun make-struct-documentation (data)
+  (make 'struct-node
+        :information data))
