@@ -74,7 +74,7 @@
 
 
 (defmethod docstample:visit ((visitor lore-mechanics-visitor)
-                             (type docstample:operator-node)
+                             (type docstample:class-node)
                              (symbol (eql :description))
                              data
                              (output html-output))
@@ -112,6 +112,16 @@
             (escape-text data))))
 
 
+(defmethod docstample:visit ((visitor lore-mechanics-visitor)
+                             (type docstample:operator-node)
+                             (symbol (eql :description))
+                             (data string)
+                             (output html-output))
+  (with-accessors ((out read-out-stream)) output
+    (format out "<b>Description:</b>~%~a"
+            (escape-text data))))
+
+
 (defmethod docstample:visit :around ((visitor lore-mechanics-visitor)
                                      (type docstample:operator-node)
                                      (symbol (eql :returns))
@@ -141,14 +151,6 @@
     (iterate (for elt in data)
       (format out "<li>~a</li>~%" (escape-text elt)))
     (format out "</ol>")))
-
-
-(defmethod docstample:visit ((visitor lore-mechanics-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :syntax))
-                             data
-                             (output fundamental-output))
-  nil) ;;this does nothing, because we don't need additional info about syntax.
 
 
 (defmethod docstample:get-visitor ((generator mechanics-html-output-generator))
@@ -183,6 +185,30 @@
      (call-next-method)
      (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
              (escape-text lambda-list))
+     (if (null plist)
+         (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
+         (docstample:generate-documentation-string
+          generator
+          node-type
+          output
+          plist))))
+  output)
+
+
+(defmethod process-element
+    ((generator mechanics-html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol:record-lisp-information)
+     parents)
+  (declare (optimize (debug 3)))
+  (nest
+   (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
+                    (node-type cl-lore.protocol:read-node-type)
+                    (description cl-lore.protocol:read-docstring)
+                    (plist cl-lore.protocol:read-plist))
+       element)
+   (with-accessors ((out read-out-stream)) output
+     (call-next-method)
      (if (null plist)
          (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
          (docstample:generate-documentation-string

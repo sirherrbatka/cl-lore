@@ -9,6 +9,7 @@
            #:leaf-node
            #:tree-node
            #:function-node
+           #:class-node
            #:generic-function-node
            #:macro-node
            #:titled-tree-node
@@ -34,6 +35,9 @@
            #:fundamental-output-generator
            #:fundamental-output
            #:function-lisp-information
+           #:struct-lisp-information
+           #:record-lisp-information
+           #:class-lisp-information
            #:fundamental-lisp-information
 
            #:fundamental-trait

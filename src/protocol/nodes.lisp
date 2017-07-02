@@ -44,6 +44,11 @@
   (:metaclass lore-node-class))
 
 
+(defclass class-node (lisp-documentation-node)
+  ()
+  (:metaclass lore-node-class))
+
+
 (defclass tree-node (fundamental-node)
   ((%children :initform (vect)
               :initarg :children

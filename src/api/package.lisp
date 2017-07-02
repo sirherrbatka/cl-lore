@@ -19,6 +19,7 @@
            #:title
            #:docfun
            #:docgeneric
+           #:docclass
            #:docmacro
            #:emphasis
            #:incl

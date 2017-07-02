@@ -129,6 +129,8 @@
     "function-info")
   (:method ((node cl-lore.protocol:generic-function-lisp-information))
     "generic-info")
+  (:method ((node cl-lore.protocol:class-lisp-information))
+    "class-info")
   (:method ((node cl-lore.protocol:macro-lisp-information))
     "macro-info"))
 

@@ -56,6 +56,14 @@
     (ret (make-macro-documentation data))))
 
 
+(def-syntax docclass (id)
+  (declare (type symbol id))
+  (let ((data (query *chunks*
+                     docstample:<class>
+                     id)))
+    (ret (make-class-documentation data))))
+
+
 (def-syntax emphasis (text)
   (ret (make 'leaf-node
              :traits (vect <emphasis-trait>)

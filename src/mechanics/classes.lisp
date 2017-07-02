@@ -5,5 +5,16 @@
   ())
 
 
-(defclass lore-mechanics-visitor (docstample.mechanics:mechanics-generator-visitor)
+(defclass lore-mechanics-visitor (docstample:fundamental-plist-visitor)
   ())
+
+
+(defmethod docstample:get-visiting-order list ((visitor lore-mechanics-visitor)
+                                               (type docstample:operator-node))
+  '(:arguments-and-values :description :side-effects
+    :exceptional-situations :examples :notes))
+
+
+(defmethod docstample:get-visiting-order list ((visitor lore-mechanics-visitor)
+                                               (type docstample:class-node))
+  '(:description))
