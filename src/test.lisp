@@ -10,6 +10,8 @@
 
 (defmacro test2 ())
 
+(defgeneric test3 (self))
+
 (docstample:set-documentation
  'test2 docstample:<mechanics> docstample:<macro> *docs*
  :description "This is a macro!")
@@ -17,6 +19,11 @@
 (docstample:set-documentation
  'test docstample:<mechanics> docstample:<function> *docs*
  :description "Test function that is not all that important"
+ :side-effects "many, many side effects.")
+
+(docstample:set-documentation
+ 'test3 docstample:<mechanics> docstample:<generic> *docs*
+ :description "Generic test function that is not all that important"
  :side-effects "many, many side effects.")
 
 (cl-lore.api:def-chunks *new-document* *docs*)
@@ -40,6 +47,7 @@
   @pack{CL-LORE.TEST}
   (docfun 'test)
   (docmacro 'test2)
+  (docgeneric 'test3)
   @end{doc}
   @end{section})
 

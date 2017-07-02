@@ -9,6 +9,7 @@
            #:leaf-node
            #:tree-node
            #:function-node
+           #:generic-function-node
            #:macro-node
            #:titled-tree-node
            #:chunk-node
@@ -67,6 +68,7 @@
            #:operator-lisp-information
            #:named-lisp-information
            #:function-lisp-information
+           #:generic-function-lisp-information
            #:macro-lisp-information
            #:*stack*
            #:*tmp-stack*

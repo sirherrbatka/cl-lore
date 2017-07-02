@@ -40,6 +40,14 @@
     (ret (make-function-documentation data))))
 
 
+(def-syntax docgeneric (id)
+  (declare (type (or symbol list) id))
+  (let ((data (query *chunks*
+                     docstample:<generic>
+                     id)))
+    (ret (make-generic-function-documentation data))))
+
+
 (def-syntax docmacro (id)
   (declare (type (or symbol list) id))
   (let ((data (query *chunks*

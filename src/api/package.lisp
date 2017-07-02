@@ -18,6 +18,7 @@
            #:end
            #:title
            #:docfun
+           #:docgeneric
            #:docmacro
            #:emphasis
            #:incl

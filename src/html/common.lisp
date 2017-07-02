@@ -127,6 +127,8 @@
 (defgeneric div-class (node)
   (:method ((node cl-lore.protocol:function-lisp-information))
     "function-info")
+  (:method ((node cl-lore.protocol:generic-function-lisp-information))
+    "generic-info")
   (:method ((node cl-lore.protocol:macro-lisp-information))
     "macro-info"))
 

@@ -56,3 +56,7 @@
 
 (defclass macro-lisp-information (operator-lisp-information)
   ())
+
+
+(defclass generic-function-lisp-information (operator-lisp-information)
+  ())

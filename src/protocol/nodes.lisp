@@ -34,6 +34,11 @@
   (:metaclass lore-node-class))
 
 
+(defclass generic-function-node (lisp-documentation-node)
+  ()
+  (:metaclass lore-node-class))
+
+
 (defclass class-node (lisp-documentation-node)
   ()
   (:metaclass lore-node-class))

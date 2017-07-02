@@ -280,6 +280,18 @@
 
 
 (defmethod query ((chunks chunks-collection)
+                  (type docstample:generic-node)
+                  id)
+  (with-docstring-plist (chunks type id)
+    (make 'generic-function-lisp-information
+          :node-type type
+          :lambda-list (get-arg-list id)
+          :plist plist
+          :name id
+          :docstring docstring)))
+
+
+(defmethod query ((chunks chunks-collection)
                   (type docstample:macro-node)
                   id)
   (with-docstring-plist (chunks type id)

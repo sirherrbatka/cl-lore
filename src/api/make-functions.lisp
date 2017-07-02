@@ -14,6 +14,11 @@
         :information data))
 
 
+(defun make-generic-function-documentation (data)
+  (make 'generic-function-node
+        :information data))
+
+
 (defun make-macro-documentation (data)
   (make 'macro-node
         :information data))
