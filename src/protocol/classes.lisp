@@ -47,7 +47,8 @@
                :initform nil)))
 
 
-(defclass record-lisp-information (named-lisp-information standard-lisp-information)
+(defclass record-lisp-information (named-lisp-information
+                                   standard-lisp-information)
   ())
 
 
@@ -59,7 +60,8 @@
   ())
 
 
-(defclass operator-lisp-information (named-lisp-information standard-lisp-information)
+(defclass operator-lisp-information (named-lisp-information
+                                     standard-lisp-information)
   ((%lambda-list :type list
                  :initarg :lambda-list
                  :reader read-lambda-list)))
