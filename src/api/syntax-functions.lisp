@@ -78,8 +78,9 @@
              :content text)))
 
 
-(def-without-stack par)
-
+(def-without-stack par
+  (make 'tree-node
+        :traits (vect <paragraph-trait>)))
 
 (defun symb (symbol-name))
 

@@ -33,6 +33,3 @@
   (make 'struct-node
         :information data))
 
-
-(defalias make-paragraph (curry #'make 'tree-node
-                                :traits (vect <paragraph-trait>)))

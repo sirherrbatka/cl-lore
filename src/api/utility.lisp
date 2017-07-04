@@ -32,14 +32,16 @@
          `(with-proxy-stack ,,function (,',fname ,@body))))))
 
 
-(defmacro def-without-stack (name)
+(defmacro def-without-stack (name construct)
   `(defmacro ,name (&body body)
-     (let ((name ,(symbol-name name)))
-       (with-gensyms (!front)
-         `(progn
-            (begin ,name)
-            (let ((,!front (cl-lore.protocol:controller-front *stack*))
-                  (*stack* nil))
-              ,@(mapcar (lambda (x) `(cl-lore.protocol:push-child ,!front ,x))
-                        body))
-            (end ,name))))))
+     (let ((construct ',construct))
+       (with-gensyms (!node)
+         `(let ((,!node ,construct))
+            (let ((*stack* 'nil))
+              ,@(mapcar
+                 (lambda (x) `(let ((var ,x))
+                                (when (typep var 'cl-lore.protocol:tree-node)
+                                  (error "Trying to insert tree node into bottom level node."))
+                                (cl-lore.protocol:push-child ,!node var)))
+                 body))
+            (cl-lore.protocol:controller-return *stack* ,!node))))))

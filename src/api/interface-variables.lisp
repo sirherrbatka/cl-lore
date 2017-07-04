@@ -3,8 +3,7 @@
 
 (defparameter <standard-names> (let ((table (make-hash-table :test 'equal)))
                                  (setf (gethash "section" table) #'make-section
-                                       (gethash "doc" table) #'make-documentation-section
-                                       (gethash "par" table) #'make-paragraph)
+                                       (gethash "doc" table) #'make-documentation-section)
                                  table))
 
 (defvar <title-trait> (make 'title-trait))
