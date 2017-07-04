@@ -2,7 +2,8 @@
 
 
 (defun make-node (descriptor &rest initargs)
-  (let ((function (gethash descriptor *node-definitions*)))
+  (let ((function (gethash (string-downcase descriptor)
+                           *node-definitions*)))
     (when (null function)
       (error "Descriptor ~a does not reference any node in the *node-definitions*"
              descriptor))

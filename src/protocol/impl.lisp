@@ -101,6 +101,11 @@
   value)
 
 
+(defmethod controller-return ((controller (eql nil)) value)
+  (setf *register* value)
+  value)
+
+
 (defmethod controller-return ((controller top-stack-controller) value)
   (with-accessors ((content access-content)
                    (count access-count)) controller

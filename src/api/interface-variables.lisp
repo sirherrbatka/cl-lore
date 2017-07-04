@@ -1,10 +1,11 @@
 (in-package #:cl-lore.api)
 
 
-(defvar <standard-names> (let ((table (make-hash-table :test 'equal)))
-                           (setf (gethash "section" table) #'make-section)
-                           (setf (gethash "doc" table) #'make-documentation-section)
-                           table))
+(defparameter <standard-names> (let ((table (make-hash-table :test 'equal)))
+                                 (setf (gethash "section" table) #'make-section
+                                       (gethash "doc" table) #'make-documentation-section
+                                       (gethash "par" table) #'make-paragraph)
+                                 table))
 
 (defvar <title-trait> (make 'title-trait))
 

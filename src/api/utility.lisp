@@ -32,12 +32,14 @@
          `(with-proxy-stack ,,function (,',fname ,@body))))))
 
 
-(defmacro def-without-stack (name function lambda-list &body body)
-  (let ((fname (intern (string-upcase (concat "%" (symbol-name name))))))
-    `(progn
-       (defun ,fname ,lambda-list
-         (flet ((ret (arg)
-                  (controller-return *tmp-stack* arg)))
-           ,@body))
-       (defmacro ,name (&body body)
-         `(without-stack ,,function (,',fname ,@body))))))
+(defmacro def-without-stack (name)
+  `(defmacro ,name (&body body)
+     (let ((name ,(symbol-name name)))
+       (with-gensyms (!front)
+         `(progn
+            (begin ,name)
+            (let ((,!front (controller-front *stack*))
+                  (*stack* nil))
+              ,@(mapcar (lambda (x) `(push-child ,!front ,x))
+                        body))
+            (end ,name))))))
