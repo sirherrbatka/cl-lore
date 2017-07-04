@@ -38,8 +38,8 @@
        (with-gensyms (!front)
          `(progn
             (begin ,name)
-            (let ((,!front (controller-front *stack*))
+            (let ((,!front (cl-lore.protocol:controller-front *stack*))
                   (*stack* nil))
-              ,@(mapcar (lambda (x) `(push-child ,!front ,x))
+              ,@(mapcar (lambda (x) `(cl-lore.protocol:push-child ,!front ,x))
                         body))
             (end ,name))))))
