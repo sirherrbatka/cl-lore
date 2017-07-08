@@ -9,7 +9,8 @@
   :maintainer "Lisp Mechanics"
   :depends-on (:iterate :alexandria :serapeum
                :scribble :cl-who :docstample
-               :closer-mop :lass :cl-fad)
+               :closer-mop :lass :cl-fad
+               :cl-dot)
   :serial T
   :pathname "src"
   :components ((:file "package")

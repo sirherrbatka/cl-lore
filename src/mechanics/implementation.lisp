@@ -209,11 +209,12 @@
        element)
    (with-accessors ((out read-out-stream)) output
      (call-next-method)
-     (if (null plist)
-         (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
-         (docstample:generate-documentation-string
-          generator
-          node-type
-          output
-          plist))))
+     (format out "<div class=\"doc-paragraph\">~a</div>"
+             (escape-text (if (null plist)
+                              description
+                              (docstample:generate-documentation-string
+                               generator
+                               node-type
+                               output
+                               plist))))))
   output)
