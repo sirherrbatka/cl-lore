@@ -17,3 +17,6 @@
 
 
 (defgeneric save-image (image path))
+
+
+(defgeneric file-name (image))

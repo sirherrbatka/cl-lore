@@ -9,6 +9,7 @@
    #:vector-image
    #:raster-image
    #:read-name
+   #:file-name
    #:save-image))
 
             

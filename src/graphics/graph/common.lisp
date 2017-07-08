@@ -30,12 +30,16 @@
     ".png"))
 
 
-(defmethod save-image ((image fundamental-dot-graph)
-                       path)
+(defmethod cl-lore.graphics:file-name ((image fundamental-dot-graph))
+  (format nil "~a~a"
+          (cl-lore.graphics:read-name image)
+          (file-extension image)))
+
+
+(defmethod cl-lore.graphics:save-image ((image fundamental-dot-graph)
+                                        path)
   (cl-dot:dot-graph
    (access-content image)
    (cl-fad:merge-pathnames-as-file path
-                                   (format nil "~A.~A"
-                                           (cl-lore.graphics:read-name image)
-                                           (file-extension image)))
+                                   (cl-lore.graphics:file-name image))
    :format (file-format image)))

@@ -7,6 +7,14 @@
                  :attributes `(:label ,(class-name object)
                                :shape :box)))
 
+
+(defmethod cl-dot:graph-object-node ((graph (eql 'class))
+                                     (object closer-common-lisp:structure-class))
+  (make-instance 'cl-dot:node
+                 :attributes `(:label ,(class-name object)
+                               :shape :box)))
+
+
 (defmethod cl-dot:graph-object-points-to ((graph (eql 'class))
                                           (object closer-mop:standard-class))
   (mapcar (lambda (x)

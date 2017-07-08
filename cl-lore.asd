@@ -35,8 +35,10 @@
                              (:file "interface-variables")))
                (:module "graphics"
                 :components ((:file "package")
+                             (:file "image")
                              (:module "graph"
                               :components ((:file "package")
+                                           (:file "common")
                                            (:file "class-graph")))))
                (:module "html"
                 :components ((:file "package")
@@ -48,14 +50,3 @@
                              (:file "classes")
                              (:file "variables")
                              (:file "implementation")))))
-
-(let* ((dgraph (cl-dot:generate-graph-from-roots
-                'example
-                (list (find-class 'cl-ds.dicts.hamt:transactional-hamt-dictionary))
-                '(:bgcolor :white))))
-  (cl-dot:dot-graph dgraph #p"/home/shka/test.png" :format :png))
-
-(let* ((data '(a b c #1=(b z) c d #1#))
-       (dgraph (cl-dot:generate-graph-from-roots 'example (list data)
-                                                 '(:rankdir "LR"))))
-  (cl-dot:dot-graph dgraph "test-lr.png" :format :png))

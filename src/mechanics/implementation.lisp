@@ -209,12 +209,19 @@
        element)
    (with-accessors ((out read-out-stream)) output
      (call-next-method)
-     (format out "<div class=\"doc-paragraph\">~a</div>"
-             (escape-text (if (null plist)
-                              description
-                              (docstample:generate-documentation-string
-                               generator
-                               node-type
-                               output
-                               plist))))))
+     (let ((inheritance
+             (cl-lore.graphics.graph:make-class-inheritance
+              (cl-lore.protocol:read-name element)
+              '(:bgcolor :none))))
+       (add-image output inheritance)
+       (format out
+               "~%<img src=\"~a\" alt=\"Inheritance\" class=\"centered\">~%<br>~%"
+               (cl-lore.graphics:file-name inheritance)))
+     (if (null plist)
+         (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
+         (docstample:generate-documentation-string
+          generator
+          node-type
+          output
+          plist))))
   output)

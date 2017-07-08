@@ -39,6 +39,13 @@
   (frame-style '.class-info *class-color*))
 
 
+(defparameter *centered*
+  `((img.centered
+     :display block
+     :margin-right auto
+     :margin-left auto)))
+
+
 (defparameter *struct-style*
   (frame-style '.struct-info *struct-color*))
 
@@ -106,4 +113,5 @@
           *macro-style*
           *top-level-style*
           *doc-paragraph*
-          *doc-name*))
+          *doc-name*
+          *centered*))

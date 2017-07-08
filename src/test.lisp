@@ -15,6 +15,18 @@
 (defclass test4 ()
   ())
 
+(defclass test6 (test4)
+  ())
+
+(defclass test7 (test6)
+  ())
+
+(defclass test9 ()
+  ())
+
+(defclass test8 (test7 test9)
+  ())
+
 (defstruct test5)
 
 (docstample:set-documentation
@@ -63,6 +75,8 @@
   (docgeneric 'test3)
   (docclass 'test4)
   (docstruct 'test5)
+  (docclass 'test6)
+  (docclass 'test8)
   @end{doc}
   @end{section})
 
