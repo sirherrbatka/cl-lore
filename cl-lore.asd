@@ -33,6 +33,10 @@
                              (:file "syntax-functions")
                              (:file "make-functions")
                              (:file "interface-variables")))
+               (:module "graphics"
+                :components (:module "graph"
+                             :components ((:file "package")
+                                          (:file "class-graph"))))
                (:module "html"
                 :components ((:file "package")
                              (:file "classes")
@@ -43,4 +47,3 @@
                              (:file "classes")
                              (:file "variables")
                              (:file "implementation")))))
-
