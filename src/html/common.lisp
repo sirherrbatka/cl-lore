@@ -121,6 +121,9 @@
                             :if-does-not-exist :create)
      (format main-out "~a" (get-output-stream-string out))
      (format css-out "~a" (apply #'lass:compile-and-write css))
+     (iterate
+       (for image in-vector (read-images output))
+       (cl-lore.graphics:save-image image path))
      output)))
 
 

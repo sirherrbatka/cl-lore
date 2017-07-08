@@ -8,10 +8,9 @@
   (:export #:html-output-generator
            #:html-output
 
+           #:add-image
            #:read-out-stream
            #:access-css
-           #:*mechanics-style*
-           #:escape-text
+           #:escape-text))
 
-           #:<mechanics-html-output-generator>))
 
