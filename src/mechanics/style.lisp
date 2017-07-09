@@ -1,11 +1,11 @@
 (in-package #:cl-lore.mechanics)
 
 
-(defparameter *function-color* "#3067ff")
-(defparameter *macro-color* "#ffdd31")
-(defparameter *class-color* "#ff6214")
+(defparameter *function-color* '(rgba 77 119 203 0.7))
+(defparameter *macro-color* '(rgba 153 51 204 0.7))
+(defparameter *class-color* '(rgba 224 153 82 0.7))
 (defparameter *struct-color* "#ff2222")
-(defparameter *generic-color* "#7231ff")
+(defparameter *generic-color* '(rgba 46 83 157 0.7))
 (defparameter *strong-separation-color* "#000000")
 (defparameter *medium-separation-color* "#7a7a7a")
 (defparameter *weak-separation-color* "#c5c5c5")
@@ -42,6 +42,7 @@
 (defparameter *centered*
   `((img.centered
      :display block
+     :max-width 95%
      :margin-right auto
      :margin-left auto)))
 

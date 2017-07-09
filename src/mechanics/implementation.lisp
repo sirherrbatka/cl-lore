@@ -212,13 +212,16 @@
      (let ((inheritance
              (cl-lore.graphics.graph:make-class-inheritance
               (cl-lore.protocol:read-name element)
-              '(:bgcolor :none))))
+              '(:bgcolor :none
+                :rankdir "BT"))))
        (add-image output inheritance)
        (format out
                "~%<img src=\"~a\" alt=\"Inheritance\" class=\"centered\">~%<br>~%"
                (cl-lore.graphics:file-name inheritance)))
      (if (null plist)
-         (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
+         (unless (null description)
+           (format out "<div class=\"doc-paragraph\">~a</div>"
+                   (escape-text description)))
          (docstample:generate-documentation-string
           generator
           node-type

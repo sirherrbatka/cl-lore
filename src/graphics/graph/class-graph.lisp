@@ -1,18 +1,30 @@
 (in-package #:cl-lore.graphics.graph)
 
 
+(defun graph-object-node-impl (object)
+  (let* ((class-name (class-name object))
+         (string (format nil "~a:~a"
+                         (~> class-name
+                             symbol-package
+                             package-name)
+                         (~> class-name
+                             symbol-name))))
+    (make-instance 'cl-dot:node
+                   :attributes `(:label ,string
+                                 :fontsize 10
+                                 :shape :box
+                                 :style :filled
+                                 :fontname "Fira Mono"))))
+
+
 (defmethod cl-dot:graph-object-node ((graph (eql 'class))
                                      (object closer-mop:standard-class))
-  (make-instance 'cl-dot:node
-                 :attributes `(:label ,(class-name object)
-                               :shape :box)))
+  (graph-object-node-impl object))
 
 
 (defmethod cl-dot:graph-object-node ((graph (eql 'class))
                                      (object closer-common-lisp:structure-class))
-  (make-instance 'cl-dot:node
-                 :attributes `(:label ,(class-name object)
-                               :shape :box)))
+  (graph-object-node-impl object))
 
 
 (defmethod cl-dot:graph-object-points-to ((graph (eql 'class))
@@ -20,7 +32,8 @@
   (mapcar (lambda (x)
             (make-instance 'cl-dot:attributed
                            :object x
-                           :attributes '(:weight 3)))
+                           :attributes '(:weight 1
+                                         :arrowhead :empty)))
           (remove (find-class 'standard-object)
                   (closer-mop:class-direct-superclasses object)
                   :test #'eq)))
