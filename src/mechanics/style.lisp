@@ -67,7 +67,7 @@
 
 
 (defparameter *header-style*
-  `(((:or h1 h2 h3 h4 h5 h6 h7)
+  `(((:or h1 h2 h3 h4 h5 h6)
      :text-align center
      :padding 1px
      :margin-bottom 0.5em
