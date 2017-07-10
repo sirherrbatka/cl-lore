@@ -16,7 +16,8 @@
   :components ((:file "package")
                (:module "utils"
                 :components ((:file "package")
-                             (:file "tree")))
+                             (:file "tree")
+                             (:file "text")))
                (:module "protocol"
                 :components ((:module "structure"
                               :components ((:file "package")
@@ -61,19 +62,20 @@
                               :components ((:file "package")
                                            (:file "common")
                                            (:file "class-graph")))))
+               (:module "html"
+                :components ((:file "package")
+                             (:file "classes")
+                             (:file "common")))
                (:module "extensions"
                 :components ((:module "documentation"
                               :components ((:module "protocol"
                                             :components ((:file "package")
                                                          (:file "nodes")
                                                          (:file "information")
-                                                         (:file "search")))
+                                                         (:file "search")
+                                                         (:file "html-output")))
                                            (:module "api"
                                             :components ((:file "package")))))))
-               (:module "html"
-                :components ((:file "package")
-                             (:file "classes")
-                             (:file "common")))
                (:module "mechanics"
                 :components ((:file "package")
                              (:file "style")

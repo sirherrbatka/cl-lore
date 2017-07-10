@@ -1,10 +1,5 @@
 (in-package #:cl-lore.html)
 
-
-(defun escape-text (obj)
-  (cl-who:escape-string (format nil "~:a" obj)))
-
-
 (defmethod cl-lore.protocol.output:process-element
     ((generator html-output-generator)
      (output html-output)
@@ -24,7 +19,7 @@
     (format out "Symbols in package ~a:~%"
             (~> element
                 access-package-name
-                escape-text)))
+                cl-lore.utils:escape-text)))
   (call-next-method))
 
 
@@ -108,7 +103,8 @@
     (format out "~%")))
 
 
-(defmethod make-output ((generator html-output-generator) &rest initargs)
+(defmethod cl-lore.protocol.output:make-output
+    ((generator html-output-generator) &rest initargs)
   (apply #'make 'html-output initargs))
 
 

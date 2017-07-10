@@ -8,4 +8,5 @@
    #:process-element
    #:fundamental-output-generator
    #:fundamental-output
-   #:save-output))
+   #:save-output
+   #:make-output))

@@ -2,6 +2,5 @@
 
 
 (defgeneric process-element (generator output element parents))
-
-
 (defgeneric save-output (where output))
+(defgeneric make-output (generator))
