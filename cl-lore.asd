@@ -15,9 +15,15 @@
   :pathname "src"
   :components ((:file "package")
                (:module "protocol"
-                :components ((:file "package")
-                             (:file "mop")
-                             (:file "nodes")
+                :components ((:module "structure"
+                              :components ((:file "package")
+                                           (:file "mop")
+                                           (:file "fundamental-nodes")
+                                           (:file "generics")))
+                             ((:module "stack"
+                               :compontents ((:file "package")
+                                             (:file "generics"))))
+                             (:file "package")
                              (:file "traits")
                              (:file "classes")
                              (:file "output")
@@ -25,6 +31,8 @@
                              (:file "generics")
                              (:file "variables")
                              (:file "impl")))
+               (:module "extensions"
+                :components ())
                (:module "api"
                 :components ((:file "package")
                              (:file "utility")

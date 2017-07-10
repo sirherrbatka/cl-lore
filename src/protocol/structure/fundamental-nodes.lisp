@@ -1,4 +1,4 @@
-(in-package #:cl-lore.protocol)
+(in-package #:cl-lore.protocol.structure)
 
 
 (defclass fundamental-node ()
@@ -83,4 +83,3 @@
 (defclass root-node (titled-tree-node)
   ()
   (:metaclass lore-node-class))
-
