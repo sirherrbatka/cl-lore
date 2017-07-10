@@ -3,7 +3,7 @@
 
 (defpackage :cl-lore.html
   (:use #:common-lisp #:serapeum #:alexandria
-        #:iterate #:cl-lore.protocol)
+        #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export #:html-output-generator
            #:html-output

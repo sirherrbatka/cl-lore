@@ -1,11 +1,7 @@
 (in-package #:cl-user)
 
 
-(defpackage #:cl-lore.protocol.output
+(defpackage :cl-lore.extensions.documentation.api
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
-  (:export
-   #:process-element
-   #:fundamental-output-generator
-   #:fundamental-output
-   #:save-output))
+  (:export))

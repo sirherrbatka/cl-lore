@@ -43,7 +43,11 @@
                                            (:file "classes")
                                            (:file "implementation")))))
                (:module "api"
-                :components ((:file "package")
+                :components ((:module "raw"
+                              :components ((:file "package")))
+                             (:module "syntax"
+                              :components ((:file "package")))
+                             (:file "package")
                              (:file "utility")
                              (:file "macros")
                              (:file "mapping")
@@ -59,11 +63,13 @@
                                            (:file "class-graph")))))
                (:module "extensions"
                 :components ((:module "documentation"
-                              :components (:module "protocol"
-                                           :components ((:file "package")
-                                                        (:file "nodes")
-                                                        (:file "information")
-                                                        (:file "search"))))))
+                              :components ((:module "protocol"
+                                            :components ((:file "package")
+                                                         (:file "nodes")
+                                                         (:file "information")
+                                                         (:file "search")))
+                                           (:module "api"
+                                            :components ((:file "package")))))))
                (:module "html"
                 :components ((:file "package")
                              (:file "classes")

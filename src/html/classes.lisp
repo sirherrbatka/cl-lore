@@ -1,11 +1,11 @@
 (in-package #:cl-lore.html)
 
 
-(defclass html-output-generator (fundamental-output-generator)
+(defclass html-output-generator (cl-lore.protocol.output:fundamental-output-generator)
   ())
 
 
-(defclass html-output (fundamental-output)
+(defclass html-output (cl-lore.protocol.output:fundamental-output)
   ((%out-stream :initform (make-string-output-stream)
                 :reader read-out-stream)
    (%css :type list

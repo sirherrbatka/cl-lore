@@ -5,19 +5,21 @@
   (cl-who:escape-string (format nil "~:a" obj)))
 
 
-(defmethod process-element ((generator html-output-generator)
-                            (output html-output)
-                            (element string)
-                            parents)
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element string)
+     parents)
   (with-accessors ((stream read-out-stream)) output
     (format stream "~a" (cl-who:escape-string element)))
   element)
 
 
-(defmethod process-element ((generator html-output-generator)
-                            (output html-output)
-                            (element documentation-node)
-                            parents)
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element documentation-node)
+     parents)
   (let ((out (read-out-stream output)))
     (format out "Symbols in package ~a:~%"
             (~> element
@@ -26,12 +28,13 @@
   (call-next-method))
 
 
-(defmethod process-element ((generator html-output-generator)
-                            (output html-output)
-                            (element chunk-node)
-                            parents)
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element chunk-node)
+     parents)
   (when (has-title element)
-    (process-element generator output (access-title element) parents))
+    (cl-lore.protocol.output:process-element generator output (access-title element) parents))
   (call-next-method))
 
 (let ((html-headers #(("<h1>" . "</h1>")
@@ -96,10 +99,11 @@
   (format (read-out-stream output) "</p>"))
 
 
-(defmethod process-element :after ((generator html-output-generator)
-                                   (output html-output)
-                                   (element leaf-node)
-                                   parents)
+(defmethod cl-lore.protocol.output:process-element :after
+    ((generator html-output-generator)
+     (output html-output)
+     (element leaf-node)
+     parents)
   (with-accessors ((out read-out-stream)) output
     (format out "~%")))
 
@@ -108,7 +112,7 @@
   (apply #'make 'html-output initargs))
 
 
-(defmethod save-output ((path pathname) (output html-output))
+(defmethod cl-lore.protocol.output:save-output ((path pathname) (output html-output))
   (nest
    (with-accessors ((out read-out-stream) (css access-css)) output)
    (with-open-file (main-out (cl-fad:merge-pathnames-as-file path "main.html")
@@ -140,7 +144,7 @@
     "macro-info"))
 
 
-(defmethod process-element :around
+(defmethod cl-lore.protocol.output:process-element :around
     ((generator html-output-generator)
      (output html-output)
      (element cl-lore.protocol:fundamental-lisp-information)
