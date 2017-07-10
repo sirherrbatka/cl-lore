@@ -9,4 +9,16 @@
    #:controller-push-tree
    #:controller-pop-tree
    #:controller-front
-   #:controller-empty-p))
+   #:controller-empty-p
+
+   #:*stack*
+   #:*register*
+
+   #:stack-condtition
+   #:stack-operation-not-allowed
+   #:invalid-stack-state
+
+   #:read-operation
+
+   #:fundamental-stack-controller
+   #:abstract-stack-controller))

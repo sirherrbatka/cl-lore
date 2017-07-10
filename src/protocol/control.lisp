@@ -1,11 +1,6 @@
 (in-package #:cl-lore.protocol)
 
 
-(defclass abstract-stack-controller (fundamental-stack-controller)
-  ((%stack :initform nil
-           :accessor access-stack
-           :type list)))
-
 
 (defclass top-stack-controller (abstract-stack-controller)
   ((%count :initform 0
@@ -21,15 +16,3 @@
               :type (-> (t) t)
               :reader read-callback)))
 
-
-(defclass chunks-collection ()
-  ((%content :initform (make-hash-table :test 'equal)
-             :reader read-content
-             :type hash-table)
-   (%doctample-index :initarg :docstample-index
-                     :initform nil
-                     :reader read-docstample-index)))
-
-
-(defclass fundamental-stack-controller ()
-  ())

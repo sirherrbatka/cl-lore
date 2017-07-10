@@ -1,7 +1,7 @@
 (in-package #:cl-user)
 
 
-(defpackage :cl-lore.protocol.structure
+(defpackage #:cl-lore.protocol.structure
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export #:fundamental-node
@@ -17,5 +17,11 @@
            #:chunk-node
            #:documentation-node
            #:root-node
+           #:has-title
+           #:access-label
+           #:has-label
+           #:has-children
+           #:read-traits
+           #:push-child
 
-           #:has-title))
+           #:lore-node-class))

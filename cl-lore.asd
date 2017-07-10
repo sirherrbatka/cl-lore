@@ -14,25 +14,34 @@
   :serial T
   :pathname "src"
   :components ((:file "package")
+               (:module "utils"
+                :components ((:file "package")
+                             (:file "tree")))
                (:module "protocol"
                 :components ((:module "structure"
                               :components ((:file "package")
                                            (:file "mop")
                                            (:file "fundamental-nodes")
-                                           (:file "generics")))
-                             ((:module "stack"
-                               :compontents ((:file "package")
-                                             (:file "generics"))))
-                             (:file "package")
-                             (:file "traits")
-                             (:file "classes")
-                             (:file "output")
-                             (:file "control")
-                             (:file "generics")
-                             (:file "variables")
-                             (:file "impl")))
-               (:module "extensions"
-                :components ())
+                                           (:file "generics")
+                                           (:file "implementation")))
+                             (:module "stack"
+                              :compontents ((:file "package")
+                                            (:file "generics")
+                                            (:file "classes")
+                                            (:file "condtitions")
+                                            (:file "implementation")
+                                            (:file "variables")))
+                             (:module "collecting"
+                              :components ((:file "package")
+                                           (:file "generics")
+                                           (:file "classes")
+                                           (:file "implementation")
+                                           (:file "variables")))
+                             (:module "output"
+                              :components ((:file "package")
+                                           (:file "generics")
+                                           (:file "classes")
+                                           (:file "implementation")))))
                (:module "api"
                 :components ((:file "package")
                              (:file "utility")
@@ -48,6 +57,13 @@
                               :components ((:file "package")
                                            (:file "common")
                                            (:file "class-graph")))))
+               (:module "extensions"
+                :components ((:module "documentation"
+                              :components (:module "protocol"
+                                           :components ((:file "package")
+                                                        (:file "nodes")
+                                                        (:file "information")
+                                                        (:file "search"))))))
                (:module "html"
                 :components ((:file "package")
                              (:file "classes")

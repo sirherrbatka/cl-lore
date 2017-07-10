@@ -1,8 +1,7 @@
-(in-package #:cl-lore.protocol)
+(in-package #:cl-lore.protocol.stack)
 
 
 (defvar *stack*)
-(defvar *tmp-stack*)
 (defvar *node-definitions*)
 (defvar *register* nil)
 (defvar *chunks*)

@@ -77,6 +77,7 @@
   (docstruct 'test5)
   (docclass 'test6)
   (docclass 'test8)
+  (docclass 'cl-ds.dicts.hamt:transactional-hamt-dictionary)
   @end{doc}
   @end{section})
 
