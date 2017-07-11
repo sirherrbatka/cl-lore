@@ -4,9 +4,9 @@
 (defmacro document ((generator names output chunks &key output-options) &body body)
   (with-gensyms (!document)
     (once-only (names generator)
-      `(let ((*stack* (make-instance 'cl-lore.protocol.stack:abstract-stack-controller))
+      `(let ((cl-lore.api.raw:*stack* (make-instance 'cl-lore.protocol.stack:abstract-stack-controller))
              (*node-definitions* ,names)
-             (*chunks* ,chunks)
+             (cl-lore.api.raw:*chunks* ,chunks)
              (,output (make-output ,generator ,@output-options)))
          (let ((,!document
                  (progn
@@ -19,12 +19,12 @@
 
 (defmacro chunk (chunks names &body body)
   (with-gensyms (!chunk)
-    `(let ((*stack* (make 'top-stack-controller))
+    `(let ((cl-lore.api.raw:*stack* (make 'top-stack-controller))
            (*node-definitions* ,names)
-           (*chunks* ,chunks))
+           (cl-lore.api.raw:*chunks* ,chunks))
        (let ((,!chunk (progn
                         ,@body)))
-         (push-chunk *chunks* ,!chunk)
+         (push-chunk cl-lore.api.raw:*chunks* ,!chunk)
          ,!chunk))))
 
 

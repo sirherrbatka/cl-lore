@@ -19,6 +19,9 @@
    #:<title-trait>
    #:<paragraph-trait>
 
+   #:def-syntax
+   #:def-without-stack
+
    #:*stack*
    #:*register*
    #:*chunks*

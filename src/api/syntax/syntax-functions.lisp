@@ -41,12 +41,12 @@
   text)
 
 
-(def-syntax include (what)
+(cl-lore.api.raw:def-syntax include (what)
   (ret (cl-lore.protocol.collecting:get-chunk
         cl-lore.api.raw:*chunks* what)))
 
 
-(def-syntax emphasis (text)
+(cl-lore.api.raw:def-syntax emphasis (text)
   (ret (cl-lore.api.raw:make-leaf
         text
         cl-lore.api.raw:<emphasis-trait>)))

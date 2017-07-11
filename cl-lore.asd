@@ -50,10 +50,10 @@
                                            (:file "make")
                                            (:file "conditions")
                                            (:file "implementation")
+                                           (:file "internal-macros")
                                            (:file "traits")))
                              (:module "syntax"
                               :components ((:file "package")
-                                           (:file "internal-macros")
                                            (:file "syntax-functions")
                                            (:file "syntax-macros")))))
                (:module "graphics"

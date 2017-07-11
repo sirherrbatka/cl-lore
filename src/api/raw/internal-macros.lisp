@@ -1,4 +1,4 @@
-(in-package #:cl-lore.api.syntax)
+(in-package #:cl-lore.api.raw)
 
 
 (defmacro def-syntax (name lambda-list &body body)
@@ -7,14 +7,6 @@
               (cl-lore.protocol.stack:controller-return
                cl-lore.api.raw:*stack* arg)))
        ,@body)))
-
-
-(defmacro def-with-stack (name function lambda-list &body body)
-  (let ((fname (intern (string-upcase (concat "%" (symbol-name name))))))
-    `(progn
-       (def-syntax ,fname ,lambda-list ,@body)
-       (defmacro ,name (&body body)
-         `(with-proxy-stack ,,function (,',fname ,@body))))))
 
 
 (defmacro def-without-stack (name construct)
