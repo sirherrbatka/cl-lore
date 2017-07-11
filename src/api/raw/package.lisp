@@ -21,4 +21,5 @@
 
    #:*stack*
    #:*register*
+   #:*chunks*
    #:*node-definitions*))

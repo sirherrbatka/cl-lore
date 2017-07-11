@@ -41,8 +41,9 @@
   text)
 
 
-(def-syntax incl (what)
-  (ret (get-chunk *chunks* what)))
+(def-syntax include (what)
+  (ret (cl-lore.protocol.collecting:get-chunk
+        cl-lore.api.raw:*chunks* what)))
 
 
 (def-syntax emphasis (text)

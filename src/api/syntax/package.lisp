@@ -5,4 +5,16 @@
   (:use #:common-lisp #:serapeum #:alexandria
         #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
-  (:export))
+  (:export
+   #:syntax
+   #:chunk
+   #:text
+   #:begin
+   #:document
+   #:begin-document
+   #:end-document
+   #:end
+   #:title
+   #:label
+   #:include))
+   
