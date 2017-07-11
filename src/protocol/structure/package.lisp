@@ -15,9 +15,9 @@
    #:generic-function-node
    #:macro-node
    #:titled-tree-node
+   #:access-title
    #:chunk-node
    #:documentation-node
-   #:root-node
    #:has-title
    #:access-label
    #:has-label
@@ -26,5 +26,10 @@
    #:fundamental-trait
    #:emphasis-trait
    #:push-child
+   #:read-children
+   #:access-content
+   #:root-node
+   #:title-trait
+   #:paragraph-trait
 
    #:lore-node-class))

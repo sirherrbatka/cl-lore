@@ -11,9 +11,6 @@
    #:controller-front
    #:controller-empty-p
 
-   #:*stack*
-   #:*register*
-
    #:stack-condtition
    #:stack-operation-not-allowed
    #:invalid-stack-state

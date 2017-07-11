@@ -1,36 +1,6 @@
 (in-package #:cl-lore.api)
 
 
-(defun begin (what)
-  (controller-push-tree *stack* what (make-node what)))
-
-
-(defun begin-document ()
-  (controller-push-tree *stack* "root" (make 'root-node)))
-
-
-(defun end-document ()
-  (let ((result (controller-pop-tree *stack* "root")))
-    (setf *register* nil)
-    result))
-
-
-(defun end (what)
-  (let ((value (controller-pop-tree *stack* what)))
-    (controller-return *stack* value)))
-
-
-(defun title (text)
-  (setf (access-title *register*)
-        (make-instance 'leaf-node
-                       :traits (vect <title-trait>)
-                       :content text))
-  text)
-
-
-(def-syntax incl (what)
-  (ret (get-chunk *chunks* what)))
-
 
 (def-syntax docfun (id)
   (declare (type (or symbol list) id))
@@ -72,15 +42,6 @@
     (ret (make-struct-documentation data))))
 
 
-(def-syntax emphasis (text)
-  (ret (make 'leaf-node
-             :traits (vect <emphasis-trait>)
-             :content text)))
-
-
-(def-without-stack par
-  (make 'tree-node
-        :traits (vect <paragraph-trait>)))
 
 (defun symb (symbol-name))
 

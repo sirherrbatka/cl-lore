@@ -7,7 +7,6 @@
   (:export
    #:fundamental-chunks-collection
    #:chunks-collection
-   #:query
 
    #:push-chunk
    #:get-chunk))

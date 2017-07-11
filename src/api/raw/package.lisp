@@ -7,4 +7,18 @@
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
    #:make-chunk
-   #:<emphasis-trait>))
+   #:make-node
+   #:make-root
+   #:make-leaf
+   #:make-tree
+
+   #:fundamental-api-error
+   #:node-construction-error
+
+   #:<emphasis-trait>
+   #:<title-trait>
+   #:<paragraph-trait>
+
+   #:*stack*
+   #:*register*
+   #:*node-definitions*))

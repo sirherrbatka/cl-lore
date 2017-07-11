@@ -33,7 +33,7 @@
   (let ((parents (cons element parents)))
     (iterate
       (for elt in-vector (cl-lore.protocol.structure:read-children element))
-      (cl-lore.protocol.structure:process-element generator output elt parents)))
+      (process-element generator output elt parents)))
   element)
 
 
@@ -41,5 +41,5 @@
                             (output fundamental-output)
                             (element cl-lore.protocol.structure:leaf-node)
                             parents)
-  (let ((data (access-content element)))
-    (cl-lore.protocol.structure:process-element generator output data parents)))
+  (let ((data (cl-lore.protocol.structure:access-content element)))
+    (process-element generator output data parents)))

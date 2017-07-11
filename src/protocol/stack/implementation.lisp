@@ -7,16 +7,14 @@
 (defmethod controller-return ((controller abstract-stack-controller) value)
   (let ((tree (controller-front controller)))
     (push-child tree value))
-  (setf *register* value)
   value)
 
 
 (defmethod controller-push-tree ((controller abstract-stack-controller)
                                  (description string)
-                                 (value tree-node))
+                                 (value cl-lore.protocol.structure:tree-node))
   (with-accessors ((content access-stack)) controller
     (push (list* description value) content))
-  (setf *register* value)
   controller)
 
 
@@ -61,13 +59,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod controller-return ((controller (eql nil)) value)
-  (setf *register* value)
   value)
 
 
 (defmethod controller-push-tree ((controller (eql nil))
                                  (description string)
-                                 (value tree-node))
+                                 (value cl-lore.protocol.structure:tree-node))
   (error 'stack-operation-not-allowed "Stack operation is not allowed"
          :operation 'controller-push-tree))
 
