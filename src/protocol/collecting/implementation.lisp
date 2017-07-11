@@ -9,3 +9,4 @@
 
 (defmethod get-chunk ((chunks chunks-collection) (label string))
   (gethash label (read-content chunks)))
+

@@ -2,7 +2,9 @@
 
 
 (defclass fundamental-chunks-collection ()
-  ())
+  ((%extensions :initform (make-hash-table :test 'equal)
+                :reader read-extensions
+                :type hash-table)))
 
 
 (defclass chunks-collection (fundamental-chunks-collection)

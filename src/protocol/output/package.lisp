@@ -6,6 +6,7 @@
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
    #:process-element
+   #:apply-trait
    #:fundamental-output-generator
    #:fundamental-output
    #:save-output

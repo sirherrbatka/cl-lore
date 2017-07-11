@@ -9,7 +9,6 @@
 (defvar <title-trait> (make 'title-trait))
 
 
-(defvar <emphasis-trait> (make 'emphasis-trait))
 
 
 (defvar <paragraph-trait> (make 'paragraph-trait))

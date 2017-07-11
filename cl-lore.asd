@@ -22,6 +22,7 @@
                 :components ((:module "structure"
                               :components ((:file "package")
                                            (:file "mop")
+                                           (:file "fundamental-traits")
                                            (:file "fundamental-nodes")
                                            (:file "generics")
                                            (:file "implementation")))
@@ -36,8 +37,8 @@
                               :components ((:file "package")
                                            (:file "generics")
                                            (:file "classes")
-                                           (:file "implementation")
-                                           (:file "variables")))
+                                           (:file "conditions")
+                                           (:file "implementation")))
                              (:module "output"
                               :components ((:file "package")
                                            (:file "generics")
@@ -45,7 +46,9 @@
                                            (:file "implementation")))))
                (:module "api"
                 :components ((:module "raw"
-                              :components ((:file "package")))
+                              :components ((:file "package")
+                                           (:file "make")
+                                           (:file "traits")))
                              (:module "syntax"
                               :components ((:file "package")))
                              (:file "package")

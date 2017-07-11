@@ -23,6 +23,8 @@
    #:has-label
    #:has-children
    #:read-traits
+   #:fundamental-trait
+   #:emphasis-trait
    #:push-child
 
    #:lore-node-class))
