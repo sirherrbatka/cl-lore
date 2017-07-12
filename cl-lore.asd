@@ -76,6 +76,7 @@
                                                          (:file "nodes")
                                                          (:file "information")
                                                          (:file "search")
+                                                         (:file "variables")
                                                          (:file "html-output")))
                                            (:module "api"
                                             :components ((:file "package")))))))

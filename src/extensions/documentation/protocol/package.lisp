@@ -23,6 +23,8 @@
            #:macro-lisp-information
            #:generic-function-lisp-information
 
+           #:*index*
+
            #:read-plist
            #:read-docstring
            #:read-name
