@@ -157,74 +157,74 @@
   <lore-mechanics-visitor>)
 
 
-(defmethod process-element
-    ((generator mechanics-html-output-generator)
-     (output html-output)
-     (element cl-lore.protocol:named-lisp-information)
-     parents)
-  (nest
-   (with-accessors ((name cl-lore.protocol:read-name)) element)
-   (with-accessors ((out read-out-stream)) output
-     (format out "<div class=\"doc-name\">~%~a~%</div>"
-             (escape-text name)))))
+;; (defmethod process-element
+;;     ((generator mechanics-html-output-generator)
+;;      (output html-output)
+;;      (element cl-lore.protocol:named-lisp-information)
+;;      parents)
+;;   (nest
+;;    (with-accessors ((name cl-lore.protocol:read-name)) element)
+;;    (with-accessors ((out read-out-stream)) output
+;;      (format out "<div class=\"doc-name\">~%~a~%</div>"
+;;              (escape-text name)))))
 
 
-(defmethod process-element
-    ((generator mechanics-html-output-generator)
-     (output html-output)
-     (element cl-lore.protocol:operator-lisp-information)
-     parents)
-  (declare (optimize (debug 3)))
-  (nest
-   (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
-                    (node-type cl-lore.protocol:read-node-type)
-                    (description cl-lore.protocol:read-docstring)
-                    (plist cl-lore.protocol:read-plist))
-       element)
-   (with-accessors ((out read-out-stream)) output
-     (call-next-method)
-     (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
-             (escape-text lambda-list))
-     (if (null plist)
-         (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
-         (docstample:generate-documentation-string
-          generator
-          node-type
-          output
-          plist))))
-  output)
+;; (defmethod process-element
+;;     ((generator mechanics-html-output-generator)
+;;      (output html-output)
+;;      (element cl-lore.protocol:operator-lisp-information)
+;;      parents)
+;;   (declare (optimize (debug 3)))
+;;   (nest
+;;    (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
+;;                     (node-type cl-lore.protocol:read-node-type)
+;;                     (description cl-lore.protocol:read-docstring)
+;;                     (plist cl-lore.protocol:read-plist))
+;;        element)
+;;    (with-accessors ((out read-out-stream)) output
+;;      (call-next-method)
+;;      (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
+;;              (escape-text lambda-list))
+;;      (if (null plist)
+;;          (format out "<div class=\"doc-paragraph\">~a</div>" (escape-text description))
+;;          (docstample:generate-documentation-string
+;;           generator
+;;           node-type
+;;           output
+;;           plist))))
+;;   output)
 
 
-(defmethod process-element
-    ((generator mechanics-html-output-generator)
-     (output html-output)
-     (element cl-lore.protocol:record-lisp-information)
-     parents)
-  (declare (optimize (debug 3)))
-  (nest
-   (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
-                    (node-type cl-lore.protocol:read-node-type)
-                    (description cl-lore.protocol:read-docstring)
-                    (plist cl-lore.protocol:read-plist))
-       element)
-   (with-accessors ((out read-out-stream)) output
-     (call-next-method)
-     (let ((inheritance
-             (cl-lore.graphics.graph:make-class-inheritance
-              (cl-lore.protocol:read-name element)
-              '(:bgcolor :none
-                :rankdir "BT"))))
-       (add-image output inheritance)
-       (format out
-               "~%<img src=\"~a\" alt=\"Inheritance\" class=\"centered\">~%<br>~%"
-               (cl-lore.graphics:file-name inheritance)))
-     (if (null plist)
-         (unless (null description)
-           (format out "<div class=\"doc-paragraph\">~a</div>"
-                   (escape-text description)))
-         (docstample:generate-documentation-string
-          generator
-          node-type
-          output
-          plist))))
-  output)
+;; (defmethod process-element
+;;     ((generator mechanics-html-output-generator)
+;;      (output html-output)
+;;      (element cl-lore.protocol:record-lisp-information)
+;;      parents)
+;;   (declare (optimize (debug 3)))
+;;   (nest
+;;    (with-accessors ((lambda-list cl-lore.protocol:read-lambda-list)
+;;                     (node-type cl-lore.protocol:read-node-type)
+;;                     (description cl-lore.protocol:read-docstring)
+;;                     (plist cl-lore.protocol:read-plist))
+;;        element)
+;;    (with-accessors ((out read-out-stream)) output
+;;      (call-next-method)
+;;      (let ((inheritance
+;;              (cl-lore.graphics.graph:make-class-inheritance
+;;               (cl-lore.protocol:read-name element)
+;;               '(:bgcolor :none
+;;                 :rankdir "BT"))))
+;;        (add-image output inheritance)
+;;        (format out
+;;                "~%<img src=\"~a\" alt=\"Inheritance\" class=\"centered\">~%<br>~%"
+;;                (cl-lore.graphics:file-name inheritance)))
+;;      (if (null plist)
+;;          (unless (null description)
+;;            (format out "<div class=\"doc-paragraph\">~a</div>"
+;;                    (escape-text description)))
+;;          (docstample:generate-documentation-string
+;;           generator
+;;           node-type
+;;           output
+;;           plist))))
+;;   output)

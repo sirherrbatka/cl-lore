@@ -31,5 +31,7 @@
    #:root-node
    #:title-trait
    #:paragraph-trait
+   #:fundamental-structure-condition
+   #:modification-not-allowed
 
    #:lore-node-class))

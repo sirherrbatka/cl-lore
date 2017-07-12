@@ -75,8 +75,7 @@
          :operation 'controller-pop-tree))
 
 
-(defmethod controller-pop-anything ((controller (eql nil))
-                                    (description string))
+(defmethod controller-pop-anything ((controller (eql nil)))
   (error 'stack-operation-not-allowed "Stack operation is not allowed"
          :operation 'controller-pop-anything))
 

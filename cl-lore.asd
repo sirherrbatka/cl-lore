@@ -22,6 +22,7 @@
                 :components ((:module "structure"
                               :components ((:file "package")
                                            (:file "mop")
+                                           (:file "conditions")
                                            (:file "fundamental-traits")
                                            (:file "fundamental-nodes")
                                            (:file "generics")
@@ -30,7 +31,7 @@
                               :components ((:file "package")
                                            (:file "generics")
                                            (:file "classes")
-                                           (:file "condtitions")
+                                           (:file "conditions")
                                            (:file "implementation")
                                            (:file "variables")))
                              (:module "collecting"
