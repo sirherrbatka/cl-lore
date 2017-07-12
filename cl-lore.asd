@@ -72,6 +72,7 @@
                 :components ((:module "documentation"
                               :components ((:module "protocol"
                                             :components ((:file "package")
+                                                         (:file "generics")
                                                          (:file "nodes")
                                                          (:file "information")
                                                          (:file "search")

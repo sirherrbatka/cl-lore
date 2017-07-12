@@ -31,7 +31,3 @@
 (defun todo ()
   (error "Not implemented!"))
 
-
-(defun get-arg-list (fun)
-  (swank-backend:arglist fun))
-
