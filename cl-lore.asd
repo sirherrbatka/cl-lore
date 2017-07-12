@@ -79,7 +79,8 @@
                                                          (:file "variables")
                                                          (:file "html-output")))
                                            (:module "api"
-                                            :components ((:file "package")))))))
+                                            :components ((:file "package")
+                                                         (:file "syntax")))))))
                (:module "mechanics"
                 :components ((:file "package")
                              (:file "style")
