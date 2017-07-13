@@ -1,4 +1,4 @@
-(in-package #:cl-lore.graphics.graph)
+(in-package #:cl-lore.extensions.documentation.graphics)
 
 
 (defun graph-object-node-impl (object)
@@ -40,7 +40,7 @@
 
 
 (defun make-class-inheritance (class-name &optional attributes)
-  (make 'vector-dot-graph
+  (make 'cl-lore.graphics.graph:vector-dot-graph
         :content (cl-dot:generate-graph-from-roots
                   'class
                   (list (find-class class-name))

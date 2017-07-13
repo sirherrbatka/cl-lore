@@ -5,4 +5,4 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate) 
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:make-class-inheritance))
+   #:vector-dot-graph))

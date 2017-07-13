@@ -189,7 +189,7 @@
    (with-accessors ((out cl-lore.html:read-out-stream)) output
      (call-next-method)
      (let ((inheritance
-             (cl-lore.graphics.graph:make-class-inheritance
+             (cl-lore.extensions.documentation.graphics:make-class-inheritance
               (read-name element)
               '(:bgcolor :none
                 :rankdir "BT"))))
@@ -207,3 +207,4 @@
           output
           plist))))
   output)
+

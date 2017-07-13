@@ -62,15 +62,17 @@
                              (:file "image")
                              (:module "graph"
                               :components ((:file "package")
-                                           (:file "common")
-                                           (:file "class-graph")))))
+                                           (:file "common")))))
                (:module "html"
                 :components ((:file "package")
                              (:file "classes")
                              (:file "common")))
                (:module "extensions"
                 :components ((:module "documentation"
-                              :components ((:module "protocol"
+                              :components ((:module "graphics"
+                                            :components ((:file "package")
+                                                         (:file "class-graph")))
+                                           (:module "protocol"
                                             :components ((:file "package")
                                                          (:file "generics")
                                                          (:file "nodes")
