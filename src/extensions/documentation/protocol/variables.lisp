@@ -2,3 +2,4 @@
 
 
 (defvar *index*)
+(def <lore-visitor> (make 'lore-visitor))

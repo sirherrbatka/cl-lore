@@ -10,4 +10,5 @@
    #:fundamental-output-generator
    #:fundamental-output
    #:save-output
+   #:add-image
    #:make-output))

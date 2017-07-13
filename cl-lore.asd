@@ -74,9 +74,10 @@
                                             :components ((:file "package")
                                                          (:file "generics")
                                                          (:file "nodes")
+                                                         (:file "classes")
+                                                         (:file "variables")
                                                          (:file "information")
                                                          (:file "search")
-                                                         (:file "variables")
                                                          (:file "html-output")))
                                            (:module "api"
                                             :components ((:file "package")

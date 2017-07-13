@@ -5,4 +5,5 @@
 (defgeneric apply-trait (generator output trait parents continue))
 (defgeneric save-output (where output))
 (defgeneric make-output (generator &rest initargs))
+(defgeneric add-image (output image))
 

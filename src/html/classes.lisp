@@ -17,10 +17,8 @@
             :reader read-images)))
 
 
-(defgeneric add-image (output image))
-
-
-(defmethod add-image ((output html-output)
-                      (image cl-lore.graphics:fundamental-image))
+(defmethod cl-lore.protocol.output:add-image
+    ((output html-output)
+     (image cl-lore.graphics:fundamental-image))
   (vector-push-extend image (read-images output))
   output)
