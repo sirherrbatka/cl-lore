@@ -21,12 +21,25 @@
        ,@body)))
 
 
+(defgeneric assigned-information-type (docstample)
+  (:method ((n docstample:function-node))
+    'function-lisp-information)
+  (:method ((n docstample:generic-node))
+    'generic-function-lisp-information)
+  (:method ((n docstample:macro-node))
+    'macro-lisp-information)
+  (:method ((n docstample:class-node))
+    'macro-lisp-information)
+  (:method ((n docstample:struct-node))
+    'struct-lisp-information))
+
+
 (defmethod query
-    ((index docstample:fundamental-accumulator)
-     (type docstample:function-node)
+    ((index (eql nil))
+     (type docstample:operator-node)
      id)
   (with-docstring-plist (index type id)
-    (make 'function-lisp-information
+    (make (assigned-information-type type)
           :node-type type
           :lambda-list (get-arg-list id)
           :plist plist
@@ -35,37 +48,11 @@
 
 
 (defmethod query
-    ((index docstample:fundamental-accumulator)
-     (type docstample:generic-node)
-     id)
-  (with-docstring-plist (index type id)
-    (make 'generic-function-lisp-information
-          :node-type type
-          :lambda-list (get-arg-list id)
-          :plist plist
-          :name id
-          :docstring docstring)))
-
-
-(defmethod query
-    ((index docstample:fundamental-accumulator)
-     (type docstample:macro-node)
-     id)
-  (with-docstring-plist (index type id)
-    (make 'macro-lisp-information
-          :node-type type
-          :lambda-list (get-arg-list id)
-          :plist plist
-          :name id
-          :docstring docstring)))
-
-
-(defmethod query
-    ((index docstample:fundamental-accumulator)
-     (type docstample:class-node)
+    ((index (eql nil))
+     (type docstample:record-node)
      (id symbol))
   (with-docstring-plist (index type id)
-    (make 'class-lisp-information
+    (make (assigned-information-type type)
           :node-type type
           :name id
           :plist plist
@@ -74,11 +61,25 @@
 
 (defmethod query
     ((index docstample:fundamental-accumulator)
-     (type docstample:struct-node)
+     (type docstample:operator-node)
+     id)
+  (with-docstring-plist (index type id)
+    (make (assigned-information-type type)
+          :node-type type
+          :lambda-list (get-arg-list id)
+          :plist plist
+          :name id
+          :docstring docstring)))
+
+
+(defmethod query
+    ((index docstample:fundamental-accumulator)
+     (type docstample:record-node)
      (id symbol))
-  (with-docstring-plist (chunks type id)
-    (make 'struct-lisp-information
+  (with-docstring-plist (index type id)
+    (make (assigned-information-type type)
           :node-type type
           :name id
           :plist plist
           :docstring docstring)))
+

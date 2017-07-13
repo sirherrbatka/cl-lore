@@ -8,7 +8,7 @@
 
 
 (defclass named-lisp-information (fundamental-lisp-information)
-  ((%name :type symbol
+  ((%name :type (or symbol list)
           :initarg :name
           :reader read-name)))
 
@@ -17,6 +17,7 @@
   ((%plist :type list
            :initarg :plist
            :reader read-plist
+           :initform nil
            :documentation "plist, as set by docstample.")
    (%docstring :type (or string null)
                :initarg :docstring
