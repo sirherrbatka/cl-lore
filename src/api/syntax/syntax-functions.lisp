@@ -46,7 +46,7 @@
         cl-lore.api.raw:*chunks* what)))
 
 
-(cl-lore.api.raw:def-syntax emphasis (text)
+(cl-lore.api.raw:def-syntax emph (text)
   (ret (cl-lore.api.raw:make-leaf
         text
         cl-lore.api.raw:<emphasis-trait>)))

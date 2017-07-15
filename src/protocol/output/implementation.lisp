@@ -7,7 +7,7 @@
      (element cl-lore.protocol.structure:fundamental-node)
      parents)
   (let* ((traits (cl-lore.protocol.structure:read-traits element))
-         (size (fill-pointer traits))
+         (size (length traits))
          (index 1))
     (if (zerop size)
         (call-next-method)

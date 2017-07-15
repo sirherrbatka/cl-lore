@@ -10,7 +10,7 @@
   :depends-on (:iterate :alexandria :serapeum
                :scribble :cl-who :docstample
                :closer-mop :lass :cl-fad
-               :cl-dot)
+               :cl-dot :trivial-arguments)
   :serial T
   :pathname "src"
   :components ((:file "package")
@@ -32,8 +32,7 @@
                                            (:file "generics")
                                            (:file "classes")
                                            (:file "conditions")
-                                           (:file "implementation")
-                                           (:file "variables")))
+                                           (:file "implementation")))
                              (:module "collecting"
                               :components ((:file "package")
                                            (:file "generics")
@@ -49,6 +48,7 @@
                 :components ((:module "raw"
                               :components ((:file "package")
                                            (:file "make")
+                                           (:file "variables")
                                            (:file "conditions")
                                            (:file "implementation")
                                            (:file "internal-macros")
@@ -56,6 +56,7 @@
                              (:module "syntax"
                               :components ((:file "package")
                                            (:file "syntax-functions")
+                                           (:file "variables")
                                            (:file "syntax-macros")))))
                (:module "graphics"
                 :components ((:file "package")
@@ -65,6 +66,7 @@
                                            (:file "common")))))
                (:module "html"
                 :components ((:file "package")
+                             (:file "utils")
                              (:file "classes")
                              (:file "common")))
                (:module "extensions"
@@ -79,10 +81,12 @@
                                                          (:file "classes")
                                                          (:file "variables")
                                                          (:file "information")
+                                                         (:file "implementation")
                                                          (:file "search")
                                                          (:file "html-output")))
                                            (:module "api"
                                             :components ((:file "package")
+                                                         (:file "variables")
                                                          (:file "syntax")))))))
                (:module "mechanics"
                 :components ((:file "package")

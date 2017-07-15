@@ -6,6 +6,5 @@
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
    #:find-in-tree
-   #:insert-into-tree
-   #:escape-text))
+   #:insert-into-tree))
 

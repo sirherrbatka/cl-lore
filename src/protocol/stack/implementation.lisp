@@ -6,8 +6,14 @@
 
 (defmethod controller-return ((controller abstract-stack-controller) value)
   (let ((tree (controller-front controller)))
-    (push-child tree value))
+    (cl-lore.protocol.structure:push-child tree value))
   value)
+
+
+(defmethod controller-return ((controller top-stack-controller) value)
+  (if (null (access-stack controller))
+      value
+      (call-next-method)))
 
 
 (defmethod controller-push-tree ((controller abstract-stack-controller)

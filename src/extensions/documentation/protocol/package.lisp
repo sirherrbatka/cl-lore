@@ -12,6 +12,12 @@
            #:macro-node
            #:documentation-node
 
+           #:make-function-documentation
+           #:make-generic-function-documentation
+           #:make-macro-documentation
+           #:make-class-documentation
+           #:make-struct-documentation
+
            #:fundamental-lisp-information
            #:named-lisp-information
            #:standard-lisp-information
@@ -22,6 +28,8 @@
            #:function-lisp-information
            #:macro-lisp-information
            #:generic-function-lisp-information
+           #:access-package-name
+           #:query
 
            #:*index*
 

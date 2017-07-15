@@ -1,30 +1,34 @@
 (in-package #:cl-lore.api.syntax)
 
 
-(defmacro document ((generator names output chunks &key output-options) &body body)
+(defmacro document ((generator output chunks &key output-options) &body body)
   (with-gensyms (!document)
-    (once-only (names generator)
-      `(let ((cl-lore.api.raw:*stack* (make-instance 'cl-lore.protocol.stack:abstract-stack-controller))
-             (*node-definitions* ,names)
+    (once-only (generator)
+      `(let ((cl-lore.api.raw:*stack*
+               (make-instance 'cl-lore.protocol.stack:top-stack-controller))
              (cl-lore.api.raw:*chunks* ,chunks)
-             (,output (make-output ,generator ,@output-options)))
+             (,output (cl-lore.protocol.output:make-output ,generator ,@output-options)))
          (let ((,!document
                  (progn
                    (begin-document)
                    ,@body
                    (end-document))))
-           (process-element ,generator ,output ,!document nil)
+           (cl-lore.protocol.output:process-element
+            ,generator
+            ,output
+            ,!document
+            nil)
            ,output)))))
 
 
-(defmacro chunk (chunks names &body body)
+(defmacro chunk (chunks &body body)
   (with-gensyms (!chunk)
-    `(let ((cl-lore.api.raw:*stack* (make 'top-stack-controller))
-           (*node-definitions* ,names)
+    `(let ((cl-lore.api.raw:*stack*
+             (make 'cl-lore.protocol.stack:top-stack-controller))
            (cl-lore.api.raw:*chunks* ,chunks))
        (let ((,!chunk (progn
                         ,@body)))
-         (push-chunk cl-lore.api.raw:*chunks* ,!chunk)
+         (cl-lore.protocol.collecting:push-chunk cl-lore.api.raw:*chunks* ,!chunk)
          ,!chunk))))
 
 
@@ -33,10 +37,24 @@
      cl-lore.api.raw:<paragraph-trait>))
 
 
+(defmacro def-chunks (name)
+  `(defparameter ,name
+     (make 'cl-lore.protocol.collecting:chunks-collection)))
+
+
 (defmacro syntax (&rest other-syntax)
   `(progn
      (named-readtables:in-readtable :scribble)
      (use-package :cl-lore.api.syntax)
      ,@(mapcar (lambda (x)
-                 `(use-package ,x))
+                 `(use-package
+                   ,(intern (symbol-name x) (find-package 'keyword))))
                other-syntax)))
+
+
+(defmacro with-names ((&rest additional-names)
+                      &body body)
+  `(let ((cl-lore.api.raw:*node-definitions*
+           (merge-tables <standard-names>
+                         ,@additional-names)))
+     ,@body))

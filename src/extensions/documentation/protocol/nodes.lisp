@@ -39,3 +39,27 @@
                   :accessor access-package-name))
   (:metaclass cl-lore.protocol.structure:lore-node-class))
 
+
+(defalias make-function-documentation
+  (curry #'make 'function-node
+         :information))
+
+
+(defalias make-macro-documentation
+  (curry #'make 'macro-node
+         :information))
+
+
+(defalias make-generic-function-documentation
+  (curry #'make 'generic-function-node
+         :information))
+
+
+(defalias make-class-documentation
+  (curry #'make 'class-node
+         :information))
+
+
+(defalias make-struct-documentation
+  (curry #'make 'struct-node
+         :information))

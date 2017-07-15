@@ -11,8 +11,12 @@
    #:text
    #:begin
    #:document
+   #:*constructor-names*
+   #:with-names
    #:begin-document
    #:end-document
+   #:def-chunks
+   #:emph
    #:end
    #:title
    #:label

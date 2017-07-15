@@ -9,7 +9,6 @@
   (:export #:html-output-generator
            #:html-output
 
-           #:add-image
            #:read-out-stream
            #:access-css
            #:escape-text

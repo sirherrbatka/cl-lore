@@ -42,8 +42,8 @@
     (iterate
       (for (symb desc) in data)
       (format out "<li>~a &ndash; ~a</li>"
-              (cl-lore.utils:escape-text symb)
-              (cl-lore.utils:escape-text desc)))
+              (cl-lore.html:escape-text symb)
+              (cl-lore.html:escape-text desc)))
     (format out "</ul>")))
 
 
@@ -60,7 +60,7 @@
                              data
                              (output cl-lore.html:html-output))
   (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Description:</b>~%~a" (cl-lore.utils:escape-text data))))
+    (format out "<b>Description:</b>~%~a" (cl-lore.html:escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-visitor)
@@ -70,7 +70,7 @@
                              (output cl-lore.html:html-output))
   (with-accessors ((out cl-lore.html:read-out-stream)) output
     (format out "<b>Execeptional Situations:</b>~%~a"
-            (cl-lore.utils:escape-text data))))
+            (cl-lore.html:escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-visitor)
@@ -80,7 +80,7 @@
                              (output cl-lore.html:html-output))
   (with-accessors ((out cl-lore.html:read-out-stream)) output
     (format out "<b>Notes:</b>~%~a"
-            (cl-lore.utils:escape-text data))))
+            (cl-lore.html:escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-visitor)
@@ -90,7 +90,7 @@
                              (output cl-lore.html:html-output))
   (with-accessors ((out cl-lore.html:read-out-stream)) output
     (format out "<b>Side Effects:</b>~%~a"
-            (cl-lore.utils:escape-text data))))
+            (cl-lore.html:escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-visitor)
@@ -100,7 +100,7 @@
                              (output cl-lore.html:html-output))
   (with-accessors ((out cl-lore.html:read-out-stream)) output
     (format out "<b>Description:</b>~%~a"
-            (cl-lore.utils:escape-text data))))
+            (cl-lore.html:escape-text data))))
 
 
 (defmethod docstample:visit :around ((visitor lore-visitor)
@@ -119,7 +119,7 @@
                              (data string)
                              (output cl-lore.html:html-output))
   (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "~a" (cl-lore.utils:escape-text data))))
+    (format out "~a" (cl-lore.html:escape-text data))))
 
 
 (defmethod docstample:visit ((visitor lore-visitor)
@@ -130,12 +130,8 @@
   (with-accessors ((out cl-lore.html:read-out-stream)) output
     (format out "<ol>")
     (iterate (for elt in data)
-      (format out "<li>~a</li>~%" (cl-lore.utils:escape-text elt)))
+      (format out "<li>~a</li>~%" (cl-lore.html:escape-text elt)))
     (format out "</ol>")))
-
-
-(defmethod docstample:get-visitor ((generator cl-lore.html:html-output-generator))
-  <lore-visitor>)
 
 
 (defmethod cl-lore.protocol.output:process-element
@@ -147,7 +143,7 @@
    (with-accessors ((name read-name)) element)
    (with-accessors ((out cl-lore.html:read-out-stream)) output
      (format out "<div class=\"doc-name\">~%~a~%</div>"
-             (cl-lore.utils:escape-text name)))))
+             (cl-lore.html:escape-text name)))))
 
 
 (defmethod cl-lore.protocol.output:process-element
@@ -164,11 +160,11 @@
    (with-accessors ((out cl-lore.html:read-out-stream)) output
      (call-next-method)
      (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
-             (cl-lore.utils:escape-text lambda-list))
+             (cl-lore.html:escape-text lambda-list))
      (if (null plist)
-         (format out "<div class=\"doc-paragraph\">~a</div>" (cl-lore.utils:escape-text description))
+         (format out "<div class=\"doc-paragraph\">~a</div>" (cl-lore.html:escape-text description))
          (docstample:generate-documentation-string
-          generator
+          <lore-generator>
           node-type
           output
           plist))))
@@ -200,11 +196,49 @@
      (if (null plist)
          (unless (null description)
            (format out "<div class=\"doc-paragraph\">~a</div>"
-                   (cl-lore.utils:escape-text description)))
+                   (cl-lore.html:escape-text description)))
          (docstample:generate-documentation-string
-          generator
+          <lore-generator>
           node-type
           output
           plist))))
   output)
+
+
+(defmethod cl-lore.protocol.output:process-element
+    ((generator cl-lore.html:html-output-generator)
+     (output cl-lore.html:html-output)
+     (element documentation-node)
+     parents)
+  (let ((out (cl-lore.html:read-out-stream output)))
+    (format out "Symbols in package ~a:~%"
+            (~> element
+                access-package-name
+                cl-lore.html:escape-text)))
+  (call-next-method))
+
+
+(defgeneric div-class (node)
+  (:method ((node function-lisp-information))
+    "function-info")
+  (:method ((node generic-function-lisp-information))
+    "generic-info")
+  (:method ((node class-lisp-information))
+    "class-info")
+  (:method ((node struct-lisp-information))
+    "struct-info")
+  (:method ((node macro-lisp-information))
+    "macro-info"))
+
+
+(defmethod cl-lore.protocol.output:process-element :around
+    ((generator cl-lore.html:html-output-generator)
+     (output cl-lore.html:html-output)
+     (element fundamental-lisp-information)
+     parents)
+  (with-accessors ((out cl-lore.html:read-out-stream)) output
+    (format out "<div class=\"~a\">"
+            (div-class element))
+    (call-next-method generator output element parents)
+    (format out "</div>")))
 

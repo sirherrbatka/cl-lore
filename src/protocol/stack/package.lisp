@@ -12,6 +12,7 @@
    #:controller-empty-p
 
    #:fundamental-stack-condtition
+   #:top-stack-controller
    #:stack-operation-not-allowed
    #:invalid-stack-state
 

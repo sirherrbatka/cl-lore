@@ -3,7 +3,7 @@
 
 (defmacro def-syntax (name lambda-list &body body)
   `(defun ,name ,lambda-list
-     (flet ((ret (arg)
+     (flet ((,(intern "RET" (symbol-package name)) (arg)
               (cl-lore.protocol.stack:controller-return
                cl-lore.api.raw:*stack* arg)))
        ,@body)))

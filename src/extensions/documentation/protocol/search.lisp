@@ -2,7 +2,7 @@
 
 
 (defun get-arg-list (fun)
-  (swank-backend:arglist fun))
+  (arg:arglist fun))
 
 
 (defmacro with-docstring-plist ((index type id) &body body)
@@ -29,9 +29,12 @@
   (:method ((n docstample:macro-node))
     'macro-lisp-information)
   (:method ((n docstample:class-node))
-    'macro-lisp-information)
+    'class-lisp-information)
   (:method ((n docstample:struct-node))
     'struct-lisp-information))
+
+
+(defgeneric query (index type id))
 
 
 (defmethod query
