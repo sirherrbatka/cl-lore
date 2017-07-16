@@ -30,13 +30,15 @@
 
 
 (defun title (text)
-  (setf (cl-lore.protocol.structure:access-title cl-lore.api.raw:*register*)
+  (setf (cl-lore.protocol.structure:access-title
+         (cl-lore.protocol.stack:controller-front cl-lore.api.raw:*stack*))
         (cl-lore.api.raw:make-leaf text cl-lore.api.raw:<title-trait>))
   text)
 
 
 (defun label (text)
-  (setf (cl-lore.protocol.structure:access-label cl-lore.api.raw:*register*)
+  (setf (cl-lore.protocol.structure:access-label
+         (cl-lore.protocol.stack:controller-front cl-lore.api.raw:*stack*))
         text)
   text)
 
