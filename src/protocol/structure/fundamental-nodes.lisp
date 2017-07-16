@@ -8,10 +8,7 @@
    (%traits :type vector
             :initform (vect)
             :initarg :traits
-            :reader read-traits)
-   (%label :type string
-           :initarg :label
-           :accessor access-label))
+            :reader read-traits))
   (:metaclass lore-node-class))
 
 
@@ -36,7 +33,9 @@
 
 
 (defclass chunk-node (titled-tree-node)
-  ()
+  ((%label :type string
+           :initarg :label
+           :accessor access-label))
   (:metaclass lore-node-class))
 
 
