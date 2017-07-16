@@ -6,4 +6,4 @@
 (defgeneric controller-pop-tree (controller description))
 (defgeneric controller-pop-anything (controller))
 (defgeneric controller-front (controller))
-(defgeneric controller-empty-p (stack))
+(defgeneric controller-empty-p (controller))
