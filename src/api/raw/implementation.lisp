@@ -16,4 +16,4 @@
 
 (defmethod cl-lore.protocol.stack:controller-return ((controller (eql nil)) value)
   (setf *register* value)
-  value)
+  (call-next-method))
