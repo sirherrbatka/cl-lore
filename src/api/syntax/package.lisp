@@ -6,18 +6,18 @@
         #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:syntax
-   #:chunk
-   #:text
-   #:begin
-   #:document
    #:*constructor-names*
-   #:with-names
+   #:begin
    #:begin-document
-   #:end-document
+   #:chunk
    #:def-chunks
+   #:document
    #:emph
    #:end
-   #:title
+   #:end-document
+   #:include
    #:label
-   #:include))
+   #:text
+   #:title
+   #:with-names
+   #:syntax))

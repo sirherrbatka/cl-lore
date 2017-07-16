@@ -2,14 +2,12 @@
 
 
 (defpackage #:cl-lore.graphics
-  (:use #:common-lisp #:serapeum #:alexandria #:iterate) 
+  (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
+   #:file-name
    #:fundamental-image
-   #:vector-image
    #:raster-image
    #:read-name
-   #:file-name
-   #:save-image))
-
-            
+   #:save-image
+   #:vector-image))

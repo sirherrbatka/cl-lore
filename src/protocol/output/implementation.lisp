@@ -31,9 +31,10 @@
                             (element cl-lore.protocol.structure:tree-node)
                             parents)
   (let ((parents (cons element parents)))
-    (iterate
-      (for elt in-vector (cl-lore.protocol.structure:read-children element))
-      (process-element generator output elt parents)))
+    (cl-lore.protocol.structure:map-children
+     (lambda (elt)
+       (process-element generator output elt parents))
+     element))
   element)
 
 

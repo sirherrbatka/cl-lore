@@ -6,6 +6,7 @@
         #:iterate #:cl-lore.api.syntax #:cl-lore.html
         #:cl-lore.protocol.output #:cl-lore.protocol.structure)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
-  (:export #:*mechanics-html-style*
-           #:mechanics-html-output-generator
-           #:<mechanics-html-output-generator>))
+  (:export
+   #:<mechanics-html-output-generator>
+   #:mechanics-html-output-generator
+   #:*mechanics-html-style*))

@@ -6,23 +6,20 @@
         #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:make-chunk
-   #:make-node
-   #:make-root
-   #:make-leaf
-   #:make-tree
-
-   #:fundamental-api-error
-   #:node-construction-error
-
+   #:*chunks*
+   #:*node-definitions*
+   #:*register*
+   #:*stack*
    #:<emphasis-trait>
-   #:<title-trait>
    #:<paragraph-trait>
-
+   #:<title-trait>
    #:def-syntax
    #:def-without-stack
-
-   #:*stack*
-   #:*register*
-   #:*chunks*
-   #:*node-definitions*))
+   #:fundamental-api-error
+   #:make-chunk
+   #:make-leaf
+   #:make-node
+   #:make-root
+   #:make-sequence-node
+   #:make-tree
+   #:node-construction-error))

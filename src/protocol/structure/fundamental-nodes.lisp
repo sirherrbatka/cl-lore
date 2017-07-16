@@ -19,6 +19,11 @@
 
 
 (defclass tree-node (fundamental-node)
+  ()
+  (:metaclass lore-node-class))
+
+
+(defclass sequence-node (tree-node)
   ((%children :initform (vect)
               :initarg :children
               :accessor read-children))
@@ -32,13 +37,13 @@
   (:metaclass lore-node-class))
 
 
-(defclass chunk-node (titled-tree-node)
+(defclass chunk-node (titled-tree-node sequence-node)
   ((%label :type string
            :initarg :label
            :accessor access-label))
   (:metaclass lore-node-class))
 
 
-(defclass root-node (titled-tree-node)
+(defclass root-node (titled-tree-node sequence-node)
   ()
   (:metaclass lore-node-class))

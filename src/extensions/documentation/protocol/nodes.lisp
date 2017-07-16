@@ -33,7 +33,7 @@
   (:metaclass cl-lore.protocol.structure:lore-node-class))
 
 
-(defclass documentation-node (cl-lore.protocol.structure:tree-node)
+(defclass documentation-node (cl-lore.protocol.structure:sequence-node)
   ((%package-name :initarg package-name
                   :type string
                   :accessor access-package-name))

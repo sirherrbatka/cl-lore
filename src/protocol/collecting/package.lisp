@@ -5,8 +5,7 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:fundamental-chunks-collection
    #:chunks-collection
-
-   #:push-chunk
-   #:get-chunk))
+   #:fundamental-chunks-collection
+   #:get-chunk
+   #:push-chunk))

@@ -5,33 +5,33 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:fundamental-node
-   #:lisp-documentation-node
-   #:leaf-node
-   #:tree-node
-   #:function-node
-   #:class-node
-   #:struct-node
-   #:generic-function-node
-   #:macro-node
-   #:titled-tree-node
+   #:access-content
+   #:access-label
    #:access-title
    #:chunk-node
+   #:class-node
    #:documentation-node
-   #:has-title
-   #:access-label
-   #:has-label
-   #:has-children
-   #:read-traits
-   #:fundamental-trait
    #:emphasis-trait
+   #:function-node
+   #:fundamental-node
+   #:fundamental-structure-condition
+   #:fundamental-trait
+   #:generic-function-node
+   #:has-children
+   #:has-label
+   #:has-title
+   #:leaf-node
+   #:lisp-documentation-node
+   #:lore-node-class
+   #:map-children
+   #:modification-not-allowed
+   #:paragraph-trait
    #:push-child
    #:read-children
-   #:access-content
+   #:read-traits
    #:root-node
+   #:sequence-node
+   #:struct-node
    #:title-trait
-   #:paragraph-trait
-   #:fundamental-structure-condition
-   #:modification-not-allowed
-
-   #:lore-node-class))
+   #:titled-tree-node
+   #:tree-node))

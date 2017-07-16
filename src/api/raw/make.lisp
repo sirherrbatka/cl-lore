@@ -28,3 +28,8 @@
 (defun make-tree (&rest traits)
   (make 'cl-lore.protocol.structure:tree-node
         :traits (coerce traits 'vector)))
+
+
+(defun make-sequence-node (&rest traits)
+  (make 'cl-lore.protocol.structure:sequence-node
+        :traits (coerce traits 'vector)))

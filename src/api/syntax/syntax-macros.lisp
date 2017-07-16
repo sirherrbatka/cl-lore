@@ -33,7 +33,7 @@
 
 
 (cl-lore.api.raw:def-without-stack text
-    (cl-lore.api.raw:make-tree
+    (cl-lore.api.raw:make-sequence-node
      cl-lore.api.raw:<paragraph-trait>))
 
 
