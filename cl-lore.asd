@@ -50,9 +50,11 @@
                                            (:file "make")
                                            (:file "variables")
                                            (:file "conditions")
+                                           (:file "generics")
                                            (:file "implementation")
                                            (:file "internal-macros")
-                                           (:file "traits")))
+                                           (:file "traits")
+                                           (:file "stack-functions")))
                              (:module "syntax"
                               :components ((:file "package")
                                            (:file "syntax-functions")

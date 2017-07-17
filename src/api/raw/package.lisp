@@ -13,6 +13,7 @@
    #:<emphasis-trait>
    #:<paragraph-trait>
    #:<title-trait>
+   #:controller-return
    #:def-syntax
    #:def-without-stack
    #:fundamental-api-error
@@ -22,4 +23,10 @@
    #:make-root
    #:make-sequence-node
    #:make-tree
-   #:node-construction-error))
+   #:node-construction-error
+   #:stack-empty-p
+   #:stack-front
+   #:stack-pop-anything
+   #:stack-pop-tree
+   #:stack-push-tree
+   #:stack-return))

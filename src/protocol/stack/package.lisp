@@ -5,18 +5,15 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:controller-return
-   #:controller-push-tree
-   #:controller-pop-tree
-   #:controller-front
+   #:abstract-stack-controller
    #:controller-empty-p
-
+   #:controller-front
+   #:controller-pop-anything
+   #:controller-pop-tree
+   #:controller-push-tree
    #:fundamental-stack-condtition
-   #:top-stack-controller
-   #:stack-operation-not-allowed
-   #:invalid-stack-state
-
-   #:read-operation
-
    #:fundamental-stack-controller
-   #:abstract-stack-controller))
+   #:invalid-stack-state
+   #:read-operation
+   #:stack-operation-not-allowed
+   #:top-stack-controller))

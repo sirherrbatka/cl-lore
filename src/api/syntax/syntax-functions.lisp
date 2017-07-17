@@ -2,43 +2,38 @@
 
 
 (defun begin (what)
-  (cl-lore.protocol.stack:controller-push-tree
-   cl-lore.api.raw:*stack*
+  (cl-lore.api.raw:stack-push-tree
    what
    (cl-lore.api.raw:make-node what)))
 
 
 (defun begin-document ()
-  (cl-lore.protocol.stack:controller-push-tree
-   cl-lore.api.raw:*stack*
+  (cl-lore.api.raw:stack-push-tree
    "root"
    (cl-lore.api.raw:make-root)))
 
 
 (defun end-document ()
-  (let ((result (cl-lore.protocol.stack:controller-pop-tree
-                 cl-lore.api.raw:*stack* "root")))
+  (let ((result (cl-lore.api.raw:stack-pop-tree "root")))
     (setf cl-lore.api.raw:*register* nil)
     result))
 
 
 (defun end (what)
-  (let ((value (cl-lore.protocol.stack:controller-pop-tree
-                cl-lore.api.raw:*stack* what)))
-    (cl-lore.protocol.stack:controller-return
-     cl-lore.api.raw:*stack* value)))
+  (let ((value (cl-lore.api.raw:stack-pop-tree what)))
+    (cl-lore.api.raw:stack-return value)))
 
 
 (defun title (text)
   (setf (cl-lore.protocol.structure:access-title
-         (cl-lore.protocol.stack:controller-front cl-lore.api.raw:*stack*))
+         (cl-lore.api.raw:stack-front))
         (cl-lore.api.raw:make-leaf text cl-lore.api.raw:<title-trait>))
   text)
 
 
 (defun label (text)
   (setf (cl-lore.protocol.structure:access-label
-         (cl-lore.protocol.stack:controller-front cl-lore.api.raw:*stack*))
+         (cl-lore.api.raw:stack-front))
         text)
   text)
 
