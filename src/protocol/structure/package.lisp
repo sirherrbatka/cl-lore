@@ -27,7 +27,6 @@
    #:modification-not-allowed
    #:paragraph-trait
    #:push-child
-   #:read-children
    #:read-traits
    #:root-node
    #:sequence-node
