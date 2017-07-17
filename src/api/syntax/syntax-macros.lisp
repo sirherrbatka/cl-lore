@@ -28,7 +28,7 @@
            (cl-lore.api.raw:*chunks* ,chunks))
        (let ((,!chunk (progn
                         ,@body)))
-         (cl-lore.protocol.collecting:push-chunk cl-lore.api.raw:*chunks* ,!chunk)
+         (cl-lore.api.raw:push-chunk ,!chunk)
          ,!chunk))))
 
 

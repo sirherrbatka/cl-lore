@@ -39,8 +39,7 @@
 
 
 (cl-lore.api.raw:def-syntax include (what)
-  (ret (cl-lore.protocol.collecting:get-chunk
-        cl-lore.api.raw:*chunks* what)))
+  (ret (cl-lore.api.raw:get-chunk what)))
 
 
 (cl-lore.api.raw:def-syntax emph (text)

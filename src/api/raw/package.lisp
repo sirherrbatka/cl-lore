@@ -17,6 +17,7 @@
    #:def-syntax
    #:def-without-stack
    #:fundamental-api-error
+   #:get-chunk
    #:make-chunk
    #:make-leaf
    #:make-node
@@ -24,6 +25,7 @@
    #:make-sequence-node
    #:make-tree
    #:node-construction-error
+   #:push-chunk
    #:stack-empty-p
    #:stack-front
    #:stack-pop-anything

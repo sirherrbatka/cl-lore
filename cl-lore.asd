@@ -54,7 +54,8 @@
                                            (:file "implementation")
                                            (:file "internal-macros")
                                            (:file "traits")
-                                           (:file "stack-functions")))
+                                           (:file "stack-functions")
+                                           (:file "collecting-functions")))
                              (:module "syntax"
                               :components ((:file "package")
                                            (:file "syntax-functions")
