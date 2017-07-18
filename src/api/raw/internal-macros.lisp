@@ -21,4 +21,4 @@
                                   (error "Trying to insert tree node into bottom level node."))
                                 (cl-lore.protocol.structure:push-child ,!node var)))
                  body))
-            (cl-lore.api.raw:controller-return cl-lore.api.raw:*stack* ,!node))))))
+            (cl-lore.api.raw:controller-return ,!node))))))
