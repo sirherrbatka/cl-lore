@@ -10,6 +10,7 @@
    #:begin
    #:begin-document
    #:chunk
+   #:column
    #:def-chunks
    #:document
    #:emph
@@ -17,7 +18,8 @@
    #:end-document
    #:include
    #:label
+   #:row
+   #:syntax
    #:text
    #:title
-   #:with-names
-   #:syntax))
+   #:with-names))

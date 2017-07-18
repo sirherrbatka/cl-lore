@@ -37,6 +37,14 @@
      cl-lore.api.raw:<paragraph-trait>))
 
 
+(cl-lore.api.raw:def-without-stack row
+    (cl-lore.api.raw:make-row))
+
+
+(cl-lore.api.raw:def-without-stack column
+  (cl-lore.api.raw:make-column))
+
+
 (defmacro def-chunks (name)
   `(defparameter ,name
      (make 'cl-lore.protocol.collecting:chunks-collection)))

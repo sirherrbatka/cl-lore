@@ -3,7 +3,8 @@
 
 (def <standard-names>
   (let ((table (make-hash-table :test 'equal)))
-    (setf (gethash "section" table)
-          (curry #'make 'cl-lore.protocol.structure:chunk-node))
+    (setf (gethash "section" table) #'cl-lore.api.raw:make-chunk
+
+          (gethash "table" table) #'cl-lore.api.raw:make-table)
     table))
 
