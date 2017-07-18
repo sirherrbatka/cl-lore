@@ -14,6 +14,7 @@
   (setf *register* value))
 
 
-(defmethod :after cl-lore.protocol.stack:controller-return ((controller (eql nil)) value)
+(defmethod :after cl-lore.protocol.stack:controller-return
+    ((controller (eql nil)) value)
   (setf *register* value))
 
