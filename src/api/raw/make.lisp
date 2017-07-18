@@ -15,8 +15,9 @@
     (apply function initargs)))
 
 
-(defun make-root ()
-  (make 'cl-lore.protocol.structure:root-node))
+(defun make-root (&rest initargs)
+  (apply #'make 'cl-lore.protocol.structure:root-node
+         initargs))
 
 
 (defun make-leaf (content &rest traits)
