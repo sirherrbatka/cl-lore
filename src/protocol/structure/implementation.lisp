@@ -5,12 +5,17 @@
   (slot-boundp node '%title))
 
 
-(defmethod push-child  ((node sequence-node) (child fundamental-node))
+(defmethod push-child ((node sequence-node) (child fundamental-node))
   (vector-push-extend child (read-children node)))
 
 
-(defmethod push-child  ((node sequence-node) (child string))
+(defmethod push-child ((node sequence-node) (child string))
   (vector-push-extend child  (read-children node)))
+
+
+(defmethod push-child :before ((node fundamental-node) child)
+  (validate child)
+  (validate node))
 
 
 (defmethod has-children ((tree sequence-node))

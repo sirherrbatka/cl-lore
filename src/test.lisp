@@ -81,13 +81,13 @@
     @text{Those are some functions...}
     @begin{documentation}
     @pack{CL-LORE.TEST}
-    (docfun 'test)
-    (docmacro 'test2)
-    (docgeneric 'test3)
-    (docclass 'test4)
-    (docstruct 'test5)
-    (docclass 'test6)
-    (docclass 'test8)
+    @docfun['test]
+    @docmacro['test2]
+    @docgeneric['test3]
+    @docclass['test4]
+    @docstruct['test5]
+    @docclass['test6]
+    @docclass['test8]
     @end{documentation}
     @end{section}))
 

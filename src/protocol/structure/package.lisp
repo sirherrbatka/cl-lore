@@ -36,4 +36,5 @@
    #:table-node
    #:title-trait
    #:titled-tree-node
-   #:tree-node))
+   #:tree-node
+   #:validate))

@@ -24,3 +24,12 @@
 
 
 (defgeneric map-children (fn node))
+
+
+(defgeneric validate (node)
+  (:method ((node string))
+    t)
+  (:method ((node fundamental-node))
+    t)
+  (:method ((node t))
+    (error "Node needs to be either subclass of fundamental-node or a string")))
