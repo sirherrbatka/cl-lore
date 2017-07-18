@@ -11,6 +11,7 @@
    #:begin-document
    #:chunk
    #:column
+   #:column
    #:def-chunks
    #:document
    #:emph
@@ -19,7 +20,10 @@
    #:include
    #:label
    #:row
+   #:row
+   #:s
    #:syntax
+   #:table
    #:text
    #:title
    #:with-names))

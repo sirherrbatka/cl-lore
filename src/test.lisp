@@ -57,6 +57,7 @@
 
 (def-chunks *new-document*)
 
+
 (with-names (<documentation-names>)
   (chunk *new-document*
     @begin{section}
@@ -65,6 +66,12 @@
     @begin{section}
     @title{This is subsection title}
     @text{This is subsection!}
+
+    @begin{table}
+    @row{@s{a,1}@s{b,1}}
+    @row{@s{a,2}@s{b,2}}
+    @end{table}
+
     @end{section}
     @end{section})
 

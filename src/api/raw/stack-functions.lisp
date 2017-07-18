@@ -13,7 +13,7 @@
 
 (defun controller-pop-tree (desc)
   (cl-lore.protocol.stack:controller-pop-tree
-   *stack*))
+   *stack* desc))
 
 
 (defun controller-push-tree (desc tree)

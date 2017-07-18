@@ -56,11 +56,16 @@
   (:metaclass lore-node-class))
 
 
-(defclass column-node (sequence-node)
+(defclass table-content ()
   ()
   (:metaclass lore-node-class))
 
 
-(defclass row-node (sequence-node)
+(defclass column-node (sequence-node table-content)
+  ()
+  (:metaclass lore-node-class))
+
+
+(defclass row-node (sequence-node table-content)
   ()
   (:metaclass lore-node-class))

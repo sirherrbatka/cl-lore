@@ -4,8 +4,7 @@
 (defmacro def-syntax (name lambda-list &body body)
   `(defun ,name ,lambda-list
      (flet ((,(intern "RET" (symbol-package name)) (arg)
-              (cl-lore.protocol.stack:controller-return
-               cl-lore.api.raw:*stack* arg)))
+              (cl-lore.api.raw:controller-return arg)))
        ,@body)))
 
 

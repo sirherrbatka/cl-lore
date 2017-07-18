@@ -2,7 +2,7 @@
 
 
 (defun make-chunk (&rest initargs)
-  (apply #'make 'chunk-node initargs))
+  (apply #'make 'cl-lore.protocol.structure:chunk-node initargs))
 
 
 (defun make-node (descriptor &rest initargs)

@@ -24,6 +24,45 @@
   (call-next-method))
 
 
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol.structure:table-node)
+     parents)
+  (with-accessors ((stream read-out-stream)) output
+    (format stream "<table>")
+    (call-next-method)
+    (format stream "</table>")))
+
+
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol.structure:row-node)
+     parents)
+  (with-accessors ((stream read-out-stream)) output
+    (format stream "<tr>")
+    (cl-lore.protocol.structure:map-children
+     (lambda (x)
+       (format stream "<td>~a</td>" x))
+     element)
+    (format stream "</tr>")))
+
+
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol.structure:chunk-node)
+     parents)
+  (when (cl-lore.protocol.structure:has-title element)
+    (cl-lore.protocol.output:process-element
+     generator
+     output
+     (cl-lore.protocol.structure:access-title element)
+     parents))
+  (call-next-method))
+
+
 (defmethod cl-lore.protocol.output:process-element :after
     ((generator html-output-generator)
      (output html-output)
