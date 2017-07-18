@@ -50,9 +50,7 @@
 
 
 (defclass table-node (sequence-node)
-  ((%mode :type symbol
-          :initarg :mode
-          :accessor access-mode))
+  ()
   (:metaclass lore-node-class))
 
 

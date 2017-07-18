@@ -7,7 +7,6 @@
   (:export
    #:access-content
    #:access-label
-   #:access-mode
    #:access-title
    #:chunk-node
    #:class-node
