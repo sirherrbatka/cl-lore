@@ -68,8 +68,8 @@
     @text{This is subsection!}
 
     @begin{table}
-    @row{@s{a,1}@s{b,1}}
-    @row{@s{a,2}@s{b,2}}
+    @row[[a,1] [b,1]]
+    @row[[a,2] [b,2]]
     @end{table}
 
     @end{section}

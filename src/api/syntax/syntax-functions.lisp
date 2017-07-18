@@ -46,6 +46,3 @@
   (ret (cl-lore.api.raw:make-leaf
         text
         cl-lore.api.raw:<emphasis-trait>)))
-
-
-(defalias s #'identity)

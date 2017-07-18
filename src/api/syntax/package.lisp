@@ -21,7 +21,6 @@
    #:label
    #:row
    #:row
-   #:s
    #:syntax
    #:table
    #:text
