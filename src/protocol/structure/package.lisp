@@ -7,9 +7,11 @@
   (:export
    #:access-content
    #:access-label
+   #:access-mode
    #:access-title
    #:chunk-node
    #:class-node
+   #:column-node
    #:documentation-node
    #:emphasis-trait
    #:function-node
@@ -29,8 +31,10 @@
    #:push-child
    #:read-traits
    #:root-node
+   #:row-node
    #:sequence-node
    #:struct-node
+   #:table-node
    #:title-trait
    #:titled-tree-node
    #:tree-node))

@@ -47,3 +47,20 @@
 (defclass root-node (titled-tree-node sequence-node)
   ()
   (:metaclass lore-node-class))
+
+
+(defclass table-node (sequence-node)
+  ((%mode :type symbol
+          :initarg :mode
+          :accessor access-mode))
+  (:metaclass lore-node-class))
+
+
+(defclass column-node (sequence-node)
+  ()
+  (:metaclass lore-node-class))
+
+
+(defclass row-node (sequence-node)
+  ()
+  (:metaclass lore-node-class))
