@@ -25,10 +25,13 @@
    #:fundamental-api-error
    #:get-chunk
    #:make-chunk
+   #:make-column
    #:make-leaf
    #:make-node
    #:make-root
+   #:make-row
    #:make-sequence-node
+   #:make-table
    #:make-tree
    #:node-construction-error
    #:push-chunk))

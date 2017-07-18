@@ -33,3 +33,18 @@
 (defun make-sequence-node (&rest traits)
   (make 'cl-lore.protocol.structure:sequence-node
         :traits (coerce traits 'vector)))
+
+
+(defun make-table (&rest traits)
+  (make 'cl-lore.protocol.structure:table-node
+        :traits (coerce traits 'vector)))
+
+
+(defun make-row (&rest traits)
+  (make 'cl-lore.protocol.structure:row-node
+        :traits (coerce traits 'vector)))
+
+
+(defun make-column (&rest traits)
+  (make 'cl-lore.protocol.structure:column-node
+        :traits (coerce traits 'vector)))
