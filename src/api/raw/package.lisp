@@ -13,6 +13,12 @@
    #:<emphasis-trait>
    #:<paragraph-trait>
    #:<title-trait>
+   #:controller-empty-p
+   #:controller-front
+   #:controller-pop-anything
+   #:controller-pop-tree
+   #:controller-push-tree
+   #:controller-return
    #:controller-return
    #:def-syntax
    #:def-without-stack
@@ -25,10 +31,4 @@
    #:make-sequence-node
    #:make-tree
    #:node-construction-error
-   #:push-chunk
-   #:stack-empty-p
-   #:stack-front
-   #:stack-pop-anything
-   #:stack-pop-tree
-   #:stack-push-tree
-   #:stack-return))
+   #:push-chunk))

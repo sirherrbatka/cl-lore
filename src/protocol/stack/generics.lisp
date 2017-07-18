@@ -6,3 +6,4 @@
 (defgeneric controller-pop-anything (controller))
 (defgeneric controller-front (controller))
 (defgeneric controller-empty-p (controller))
+(defgeneric controller-return (controller value))

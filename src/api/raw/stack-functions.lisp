@@ -1,31 +1,31 @@
 (in-package #:cl-lore.api.raw)
 
 
-(defun stack-empty-p ()
+(defun controller-empty-p ()
   (cl-lore.protocol.stack:controller-empty-p
    *stack*))
 
 
-(defun stack-front ()
+(defun controller-front ()
   (cl-lore.protocol.stack:controller-front
    *stack*))
 
 
-(defun stack-pop-tree (desc)
+(defun controller-pop-tree (desc)
   (cl-lore.protocol.stack:controller-pop-tree
    *stack*))
 
 
-(defun stack-push-tree (desc tree)
+(defun controller-push-tree (desc tree)
   (cl-lore.protocol.stack:controller-push-tree
    *stack* desc tree))
 
 
-(defun stack-pop-anything ()
+(defun controller-pop-anything ()
   (cl-lore.protocol.stack:controller-pop-anything
    *stack*))
 
 
-(defun stack-return (value)
+(defun controller-return (value)
   (cl-lore.protocol.stack:controller-return
    *stack* value))

@@ -11,6 +11,7 @@
    #:controller-pop-anything
    #:controller-pop-tree
    #:controller-push-tree
+   #:controller-return
    #:fundamental-stack-condtition
    #:fundamental-stack-controller
    #:invalid-stack-state
