@@ -32,4 +32,5 @@
   (:method ((node fundamental-node))
     t)
   (:method ((node t))
-    (error "Node needs to be either subclass of fundamental-node or a string")))
+    (error 'invalid-node-condition
+           "Node needs to be either subclass of fundamental-node or a string")))

@@ -7,3 +7,7 @@
 
 (define-condition modification-not-allowed (fundamental-structure-condition)
   ())
+
+
+(define-condition invalid-node-condition (fundamental-structure-condition)
+  ())

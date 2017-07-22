@@ -21,6 +21,7 @@
    #:has-children
    #:has-label
    #:has-title
+   #:invalid-node-condition
    #:leaf-node
    #:lisp-documentation-node
    #:lore-node-class
