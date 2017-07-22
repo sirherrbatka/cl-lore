@@ -26,3 +26,10 @@
   (map nil
        fn
        (read-children node)))
+
+
+(defmethod validate ((node table-node))
+  (unless (every #'table-content-p
+                 (read-children node))
+    (error 'invalid-node-condition
+           "Trying to construct table with invalid content")))

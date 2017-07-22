@@ -26,6 +26,13 @@
 (defgeneric map-children (fn node))
 
 
+(defgeneric table-content-p (node)
+  (:method ((node fundamental-node))
+    nil)
+  (:method ((node table-content))
+    t))
+
+
 (defgeneric validate (node)
   (:method ((node string))
     t)
