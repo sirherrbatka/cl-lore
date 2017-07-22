@@ -26,18 +26,12 @@
 (defgeneric map-children (fn node))
 
 
-(defgeneric table-content-p (node)
-  (:method ((node fundamental-node))
-    nil)
-  (:method ((node table-content))
-    t))
-
-
 (defgeneric validate (node)
-  (:method ((node string))
-    t)
-  (:method ((node fundamental-node))
-    t)
-  (:method ((node t))
+  (:method ((node string)) nil)
+  (:method ((node fundamental-node)) nil)
+  (:method (node)
     (error 'invalid-node-condition
-           "Node needs to be either subclass of fundamental-node or a string")))
+           "Can't use type ~a because it is not fundamental-node or string"
+           (type-of node)))
+  (:method ((node tree-node))
+    (map-children #'validate node)))

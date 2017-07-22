@@ -13,8 +13,11 @@
   (vector-push-extend child  (read-children node)))
 
 
-(defmethod push-child :before ((node fundamental-node) child)
-  (validate child)
+(defmethod push-child :before ((node sequence-node) child)
+  (validate child))
+
+
+(defmethod push-child :after ((node sequence-node) child)
   (validate node))
 
 
@@ -29,7 +32,17 @@
 
 
 (defmethod validate ((node table-node))
-  (unless (every #'table-content-p
+  (unless (every (rcurry #'typep 'table-content)
                  (read-children node))
+    (error 'invalid-node-condition
+           "Trying to construct table with invalid content"))
+  (unless (~> (iterate
+                (for c in-vector (read-children node))
+                (for type = (typecase c
+                              (row-node 'row-node)
+                              (column-node 'column-node)))
+                (for p-type previous type)
+                (always (or (null p-type)
+                            (eq p-type type)))))
     (error 'invalid-node-condition
            "Trying to construct table with invalid content")))
