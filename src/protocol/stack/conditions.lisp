@@ -2,7 +2,9 @@
 
 
 (define-condition fundamental-stack-condition (error)
-  ())
+  ((%text :type string
+          :initarg :text
+          :reader read-text)))
 
 
 (define-condition stack-operation-not-allowed (fundamental-stack-condition)

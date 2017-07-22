@@ -35,7 +35,7 @@
   (unless (every (rcurry #'typep 'table-content)
                  (read-children node))
     (error 'invalid-node-condition
-           "Trying to construct table with invalid content"))
+           :text "Trying to construct table with invalid content"))
   (unless (~> (iterate
                 (for c in-vector (read-children node))
                 (for type = (typecase c
@@ -45,4 +45,4 @@
                 (always (or (null p-type)
                             (eq p-type type)))))
     (error 'invalid-node-condition
-           "Trying to construct table with invalid content")))
+           :text "Trying to construct table with invalid content")))
