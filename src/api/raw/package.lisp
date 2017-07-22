@@ -32,6 +32,7 @@
    #:make-row
    #:make-sequence-node
    #:make-table
+   #:make-title-row
    #:make-tree
    #:node-construction-error
    #:push-chunk))

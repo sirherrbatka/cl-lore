@@ -67,3 +67,8 @@
 (defclass row-node (sequence-node table-content)
   ()
   (:metaclass lore-node-class))
+
+
+(defclass title-row-node (row-node)
+  ()
+  (:metaclass lore-node-class))

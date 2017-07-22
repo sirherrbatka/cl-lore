@@ -25,4 +25,5 @@
    #:table
    #:text
    #:title
+   #:title-row
    #:with-names))

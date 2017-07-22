@@ -35,6 +35,7 @@
    #:sequence-node
    #:struct-node
    #:table-node
+   #:title-row-node
    #:title-trait
    #:titled-tree-node
    #:tree-node

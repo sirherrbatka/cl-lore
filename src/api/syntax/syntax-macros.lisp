@@ -41,6 +41,10 @@
     (cl-lore.api.raw:make-row))
 
 
+(cl-lore.api.raw:def-without-stack title-row
+    (cl-lore.api.raw:make-title-row))
+
+
 (cl-lore.api.raw:def-without-stack column
   (cl-lore.api.raw:make-column))
 

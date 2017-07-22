@@ -68,6 +68,7 @@
     @text{This is subsection!}
 
     @begin{table}
+    @title-row[[col1] [col2]]
     @row[[a,1] [b,1]]
     @row[[a,2] [b,2]]
     @end{table}
