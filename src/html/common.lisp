@@ -40,13 +40,13 @@
      (output html-output)
      (element cl-lore.protocol.structure:row-node)
      parents)
-  (with-accessors ((stream read-out-stream)) output
-    (format stream "<tr>")
+  (fbind ((form (curry #'format (read-out-stream output))))
+    (form "<tr>")
     (cl-lore.protocol.structure:map-children
      (lambda (x)
-       (format stream "<td>~a</td>" x))
+       (form "<td>~a</td>" x))
      element)
-    (format stream "</tr>")))
+    (form "</tr>")))
 
 
 (defmethod cl-lore.protocol.output:process-element

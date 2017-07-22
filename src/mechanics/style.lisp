@@ -39,6 +39,16 @@
   (frame-style '.class-info *class-color*))
 
 
+(defparameter *table-style*
+  `(((:or table th td)
+     :border 1px solid ,*weak-separation-color*)
+    ((:or th td)
+     :padding 3px)
+    (table
+     :max-width 95%
+     :margin 10px auto)))
+
+
 (defparameter *centered*
   `((img.centered
      :display block
@@ -115,4 +125,5 @@
           *top-level-style*
           *doc-paragraph*
           *doc-name*
+          *table-style*
           *centered*))
