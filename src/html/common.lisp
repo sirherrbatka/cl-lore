@@ -29,10 +29,10 @@
      (output html-output)
      (element cl-lore.protocol.structure:table-node)
      parents)
-  (with-accessors ((stream read-out-stream)) output
-    (format stream "<table>")
+  (fbind ((form (curry #'format (read-out-stream output))))
+    (form "<table>")
     (call-next-method)
-    (format stream "</table>")))
+    (form "</table>")))
 
 
 (defmethod cl-lore.protocol.output:process-element
