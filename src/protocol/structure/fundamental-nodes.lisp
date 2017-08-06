@@ -30,6 +30,16 @@
   (:metaclass lore-node-class))
 
 
+(defclass list-node (sequence-node)
+  ()
+  (:metaclass lore-node-class))
+
+
+(defclass item-node (leaf-node)
+  ()
+  (:metaclass lore-node-class))
+
+
 (defclass titled-tree-node (tree-node)
   ((%title :initarg :title
            :accessor access-title

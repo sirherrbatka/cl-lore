@@ -18,6 +18,7 @@
    #:end
    #:end-document
    #:include
+   #:item
    #:label
    #:row
    #:row

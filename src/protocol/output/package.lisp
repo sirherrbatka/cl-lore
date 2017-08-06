@@ -7,6 +7,7 @@
   (:export
    #:add-image
    #:apply-trait
+   #:contextual-process-element
    #:fundamental-output
    #:fundamental-output-generator
    #:make-output

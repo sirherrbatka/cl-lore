@@ -54,3 +54,14 @@
 (defun make-title-row (&rest traits)
   (make 'cl-lore.protocol.structure:title-row-node
         :traits (coerce traits 'vector)))
+
+
+(defun make-lore-list (&rest traits)
+  (make 'cl-lore.protocol.structure:list-node
+        :traits (coerce traits 'vector)))
+
+
+(defun make-item (content &rest traits)
+  (make 'cl-lore.protocol.structure:item-node
+        :content content
+        :traits (coerce traits 'vector)))

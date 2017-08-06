@@ -22,8 +22,10 @@
    #:has-label
    #:has-title
    #:invalid-node-condition
+   #:item-node
    #:leaf-node
    #:lisp-documentation-node
+   #:list-node
    #:lore-node-class
    #:map-children
    #:modification-not-allowed

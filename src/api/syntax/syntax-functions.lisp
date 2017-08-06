@@ -46,3 +46,8 @@
   (ret (cl-lore.api.raw:make-leaf
         text
         cl-lore.api.raw:<emphasis-trait>)))
+
+
+(cl-lore.api.raw:def-syntax item (text)
+  (ret (cl-lore.api.raw:make-item
+        text)))

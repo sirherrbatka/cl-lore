@@ -44,3 +44,14 @@
                             parents)
   (let ((data (cl-lore.protocol.structure:access-content element)))
     (process-element generator output data parents)))
+
+
+(defmethod process-element ((generator fundamental-output-generator)
+                            (output fundamental-output)
+                            (element cl-lore.protocol.structure:item-node)
+                            parents)
+  (contextual-process-element generator
+                              output
+                              element
+                              (car parents)
+                              parents))

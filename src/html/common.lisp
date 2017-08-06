@@ -60,17 +60,18 @@
      (element cl-lore.protocol.structure:title-row-node)
      parents)
   (fbind ((form (curry #'format (read-out-stream output))))
-    (form "<tr>")
-    (cl-lore.protocol.structure:map-children
-     (lambda (x)
-       (form "<th>")
-       (cl-lore.protocol.output:process-element generator
-                                                output
-                                                x
-                                                (cons element parents))
-       (form "</th>"))
-     element)
-    (form "</tr>")))
+    (let ((parents (cons element parents)))
+      (form "<tr>")
+      (cl-lore.protocol.structure:map-children
+       (lambda (x)
+         (form "<th>")
+         (cl-lore.protocol.output:process-element generator
+                                                  output
+                                                  x
+                                                  parents)
+         (form "</th>"))
+       element)
+      (form "</tr>"))))
 
 
 (defmethod cl-lore.protocol.output:process-element
@@ -85,6 +86,33 @@
      (cl-lore.protocol.structure:access-title element)
      parents))
   (call-next-method))
+
+
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol.structure:list-node)
+     parents)
+  (fbind ((form (curry #'format (read-out-stream output))))
+    (form "<ul>")
+    (call-next-method)
+    (form "</ul>")))
+
+
+(defmethod cl-lore.protocol.output:contextual-process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol.structure:item-node)
+     (parent cl-lore.protocol.structure:list-node)
+     parents)
+  (fbind ((form (curry #'format (read-out-stream output))))
+    (form "<li>")
+    (cl-lore.protocol.output:process-element
+     generator
+     output
+     (cl-lore.protocol.structure:access-content element)
+     parents)
+    (form "</li>")))
 
 
 (defmethod cl-lore.protocol.output:process-element :after

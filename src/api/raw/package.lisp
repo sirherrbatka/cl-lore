@@ -26,7 +26,9 @@
    #:get-chunk
    #:make-chunk
    #:make-column
+   #:make-item
    #:make-leaf
+   #:make-lore-list
    #:make-node
    #:make-root
    #:make-row
