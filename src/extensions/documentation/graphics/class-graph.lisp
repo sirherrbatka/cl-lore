@@ -18,25 +18,21 @@
 
 
 (defmethod cl-dot:graph-object-node ((graph (eql 'class))
-                                     (object closer-mop:standard-class))
-  (graph-object-node-impl object))
-
-
-(defmethod cl-dot:graph-object-node ((graph (eql 'class))
-                                     (object closer-common-lisp:structure-class))
+                                     (object closer-mop:class))
   (graph-object-node-impl object))
 
 
 (defmethod cl-dot:graph-object-points-to ((graph (eql 'class))
-                                          (object closer-mop:standard-class))
+                                          (object closer-mop:class))
   (mapcar (lambda (x)
             (make-instance 'cl-dot:attributed
                            :object x
                            :attributes '(:weight 1
                                          :arrowhead :empty)))
-          (remove (find-class 'standard-object)
-                  (closer-mop:class-direct-superclasses object)
-                  :test #'eq)))
+          (~>> (closer-mop:class-direct-superclasses object)
+               (remove (find-class 'standard-object)) 
+               (remove (find-class 'error))
+               (remove (find-class 'condition)))))
 
 
 (defun make-class-inheritance (class-name &optional attributes)

@@ -42,7 +42,7 @@
     (iterate
       (for (symb desc) in data)
       (format out "<li>~a &ndash; ~a</li>"
-              (cl-lore.html:escape-text symb)
+              (string-upcase (cl-lore.html:escape-text symb))
               (cl-lore.html:escape-text desc)))
     (format out "</ul>")))
 

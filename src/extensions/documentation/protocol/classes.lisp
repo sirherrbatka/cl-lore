@@ -19,7 +19,7 @@
 (defmethod docstample:get-visiting-order list
     ((visitor lore-visitor)
      (type docstample:operator-node))
-  '(:arguments-and-values :description :side-effects
+  '(:arguments-and-values :description :returns :side-effects
     :exceptional-situations :examples :notes))
 
 
