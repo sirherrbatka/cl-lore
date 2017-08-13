@@ -73,14 +73,41 @@
             (cl-lore.html:escape-text data))))
 
 
+(defmethod docstample:visit
+    :around
+    ((visitor lore-visitor)
+     (type docstample:operator-node)
+     (symbol (eql :notes))
+     data
+     (output cl-lore.html:html-output))
+  (with-accessors ((out cl-lore.html:read-out-stream)) output
+    (format out "<b>Notes:</b>~%")
+    (call-next-method)))
+
+
 (defmethod docstample:visit ((visitor lore-visitor)
                              (type docstample:operator-node)
                              (symbol (eql :notes))
                              (data string)
                              (output cl-lore.html:html-output))
   (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Notes:</b>~%~a"
+    (format out "~a"
             (cl-lore.html:escape-text data))))
+
+
+(defmethod docstample:visit ((visitor lore-visitor)
+                             (type docstample:operator-node)
+                             (symbol (eql :notes))
+                             (data list)
+                             (output cl-lore.html:html-output))
+  (with-accessors ((out cl-lore.html:read-out-stream)) output
+    (format out "<ul>")
+    (iterate
+      (for ex in data)
+      (format out "<li>~a</li>"
+              ex))
+    (format out "</ul>")))
+            
 
 
 (defmethod docstample:visit ((visitor lore-visitor)

@@ -10,7 +10,8 @@
   :depends-on (:iterate :alexandria :serapeum
                :scribble :cl-who :docstample
                :closer-mop :lass :cl-fad
-               :cl-dot :trivial-arguments)
+               :cl-dot :trivial-arguments
+               :cl-svg)
   :serial T
   :pathname "src"
   :components ((:file "package")
@@ -89,7 +90,14 @@
                                            (:module "api"
                                             :components ((:file "package")
                                                          (:file "variables")
-                                                         (:file "syntax")))))))
+                                                         (:file "syntax")))))
+                             (:module "sequence-graphs"
+                              :components ((:module "graphics"
+                                            :components ((:file "package")
+                                                         (:file "drawning")))
+                                           (:module "api"
+                                            :components ((:file "package")
+                                                         (:file "variables")))))))
                (:module "mechanics"
                 :components ((:file "package")
                              (:file "style")
