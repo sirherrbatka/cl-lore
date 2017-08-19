@@ -5,7 +5,7 @@
   ((%name :type string
           :initarg :name
           :documentation "Unique name for saved file."
-          :reader read-name)))
+          :accessor access-name)))
 
 
 (defclass vector-image (fundamental-image)
@@ -20,3 +20,8 @@
 
 
 (defgeneric file-name (image))
+
+
+(defgeneric has-name-p (image)
+  (:method ((image fundamental-image))
+    (slot-boundp image '%name)))

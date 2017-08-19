@@ -3,7 +3,8 @@
 
 (cl-lore.api.syntax:syntax
  cl-lore.extensions.documentation.protocol
- cl-lore.extensions.documentation.api)
+ cl-lore.extensions.documentation.api
+ cl-lore.extensions.sequence-graphs.api)
 
 
 (defparameter *docs* (docstample:make-accumulator))
@@ -73,6 +74,11 @@
     @row[[a,2] [b,2]]
     @end{table}
 
+    (sequence-graph '("first" "second" "third")
+                    (seq :block '(:axis-name "first")
+                         (seq :sync '(:axis-name "second" :name "call")
+                              (seq :block '(:axis-name "second")))))
+
     @end{section}
     @end{section})
 
@@ -106,4 +112,4 @@
       @include{test-chunk}
       @include{functions})))
 
-(cl-lore.protocol.output::save-output #P"/home/shka/lore/" (test-syntax))
+(cl-lore.protocol.output:save-output #P"/home/shka/lore/" (test-syntax))

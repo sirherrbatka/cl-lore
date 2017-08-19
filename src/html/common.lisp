@@ -197,3 +197,27 @@
 
 (define-trait-wrap cl-lore.protocol.structure:paragraph-trait
   "<p>" "</p>")
+
+
+(defmethod cl-lore.protocol.output:process-element
+    :before ((generator html-output-generator)
+             (output html-output)
+             (element cl-lore.protocol.structure:image-node)
+             parents)
+  (cl-lore.protocol.output:add-image
+   output
+   (cl-lore.protocol.structure:access-content element)))
+
+
+(defmethod cl-lore.protocol.output:process-element
+    ((generator html-output-generator)
+     (output html-output)
+     (element cl-lore.protocol.structure:image-node)
+     parents)
+  (fbind ((form (curry #'format (read-out-stream output))))
+    (form "<img src=\"")
+    (~> element
+        cl-lore.protocol.structure:access-content
+        cl-lore.graphics:file-name
+        form)
+    (form "\">")))

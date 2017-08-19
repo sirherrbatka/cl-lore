@@ -21,3 +21,16 @@
       (format out "~%</body>~%</html>")
       output)))
 
+
+(defmethod cl-lore.protocol.output:process-element
+    ((generator mechanics-html-output-generator)
+     (output cl-lore.html:html-output)
+     (element cl-lore.protocol.structure:image-node)
+     parents)
+  (fbind ((form (curry #'format (read-out-stream output))))
+    (form "<img src=\"")
+    (~> element
+        cl-lore.protocol.structure:access-content
+        cl-lore.graphics:file-name
+        form)
+    (form "\" class=\"centered\">")))

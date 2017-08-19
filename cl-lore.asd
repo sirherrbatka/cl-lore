@@ -95,6 +95,10 @@
                               :components ((:module "graphics"
                                             :components ((:file "package")
                                                          (:file "drawning")))
+                                           (:module "protocol"
+                                            :components ((:file "package")
+                                                         (:file "nodes")
+                                                         (:file "make")))
                                            (:module "api"
                                             :components ((:file "package")
                                                          (:file "variables")))))))

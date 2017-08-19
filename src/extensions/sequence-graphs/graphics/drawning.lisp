@@ -59,17 +59,18 @@
   scene)
 
 (defun draw-axis (scene x y length name)
-  (let* ((shift (* 4 (length name)))
+  (let* ((shift (/ (text-size name) 2))
          (text-box-size (+ 30 (* 2 shift))))
     (make-group scene (:fill-opacity 1.0)
-      (let ((fo (make-foreign-object scene (:x (- x shift) :y (- y 20 5) :width text-box-size :height 28))))
-        (add-element fo "<body xmlns=\"http://www.w3.org/1999/xhtml\" align=\"center\">")
-        (add-element fo name)
-        (add-element fo "</body>"))
-      (draw* (:rect :x (- x shift)
+      (text scene (:x (- x shift)
+                   :y y
+                   :style "font-family:'Iosevka'font-size:15.0px")
+        name)
+      (draw* (:rect :x (- x (/ text-box-size 2))
                     :y (- y 20)
                     :fill "none"
                     :stroke "black"
+                    :stroke-opacity 0.2
                     :width text-box-size
                     :height 28))
       (iterate
@@ -77,16 +78,18 @@
              from (+ 10 y)
              below (+ y length)
              :by 20)
-        (draw* (:rect :x (- (+ x (/ text-box-size 2)) shift)
+        (draw* (:rect :x x
                       :y position
                       :width 3
-                      :height 15)))))
+                      :height 15
+                      :fill-opacity 0.2
+                      :fill "black")))))
   scene)
 
 
 (defun draw-block (scene x y length)
   (make-group scene (:fill-opacity 1.0)
-    (draw* (:rect :x (+ 8 x)
+    (draw* (:rect :x (- x 6)
                   :y y
                   :height length
                   :width 16
@@ -187,7 +190,7 @@
 
 
 (defun text-size (string)
-  (* 8 (length string)))
+  (* 7.5 (length string)))
 
 
 (defun initialize-box-size (element)
@@ -296,7 +299,7 @@
     (impl 0 input)))
 
 
-(defclass context ()
+(defclass context (cl-lore.graphics:vector-image)
   ((%axis :accessor access-axis
           :initarg :axis
           :type list)
@@ -312,6 +315,11 @@
    (%root :accessor access-root
           :initarg :root
           :initform nil)))
+
+
+(defmethod cl-lore.graphics:file-name ((img context))
+  (concatenate 'string (cl-lore.graphics:access-name img)
+               ".svg"))
 
 
 (defun init-root (obj)
@@ -402,7 +410,7 @@
          (pos2 (access-x-position (read-to element)))
          (distance (abs (- pos1 pos2))))
     (draw-dashed-arrow (access-scene context)
-                       (+ (min pos1 pos2) 30)
+                       (+ (min pos1 pos2) 15)
                        (access-vertical-position-end element)
                        (- distance 25)
                        :direction (if (< pos1 pos2) :left :right))
@@ -415,22 +423,19 @@
          (distance (abs (- pos1 pos2)))
          (center (+ (min pos1 pos2) (/ distance 2.0))))
     (draw-solid-arrow (access-scene context)
-                      (+ (min pos1 pos2) 30)
+                      (+ (min pos1 pos2) 15)
                       (access-vertical-position-start element)
                       (- distance 25)
                       :direction (if (< pos1 pos2) :right :left))
     (let* ((name (read-name element))
-           (shift (text-size name))
-           (text-box-size (+ 30 shift))
-           (fo (make-foreign-object (access-scene context)
-                   (:x (- center (/ shift 2))
-                    :y (- (access-vertical-position-start element)
-                          30)
-                    :width text-box-size
-                    :height 28))))
-      (add-element fo "<body xmlns=\"http://www.w3.org/1999/xhtml\" align=\"center\">")
-      (add-element fo name)
-      (add-element fo "</body>"))))
+           (shift (text-size name)))
+      (text (access-scene context)
+          (:x (- center (/ shift 2))
+           :y (- (access-vertical-position-start element)
+                 6)
+           :style "font-family:'Iosevka';font-size:15.0px"
+           :fill "teal")
+        name))))
 
 
 (defmethod initialize-instance :after ((obj context) &rest initargs &key &allow-other-keys)
@@ -449,6 +454,16 @@
                (lambda (x)
                  (draw-element x obj))))
   (stream-out output (access-scene obj)))
+
+
+(defmethod cl-lore.graphics:save-image ((obj context) path)
+  (with-open-file
+      (s
+       (cl-fad:merge-pathnames-as-file path
+                                       (cl-lore.graphics:file-name obj))
+       :direction :output :if-exists :supersede)
+    (draw-diagram obj s)
+    obj))
 
 
 (defgeneric seq (name options &rest children))
@@ -485,25 +500,3 @@
                  :axis axis
                  :root root))
 
-
-;; (with-open-file (s #p"/home/shka/test.svg" :direction :output :if-exists :supersede)
-;;   (let ((context (make-context (list (make-axis "first")
-;;                                      (make-axis "second")
-;;                                      (make-axis "third")
-;;                                      (make-axis "fourth"))
-;;                                (seq :block '(:axis-name "first")
-;;                                     (seq :sync '(:name "very first, but a long call")
-;;                                          (seq :block '(:axis-name "second")
-;;                                               (seq :sync '(:name "s1")
-;;                                                    (seq :block '(:axis-name "third")
-;;                                                         (seq :async '(:name "async call")
-;;                                                              (seq :block '(:axis-name "fourth")))))
-;;                                               (seq :sync '(:name "s2")
-;;                                                    (seq :block '(:axis-name "third")))
-;;                                               (seq :sync '(:name "go back")
-;;                                                    (seq :block '(:axis-name "first")))))
-;;                                     (seq :sync '(:name "second call")
-;;                                          (seq :block '(:axis-name "second")))
-;;                                     (seq :sync '(:name "third call")
-;;                                          (seq :block '(:axis-name "second")))))))
-;;     (draw-diagram context s)))

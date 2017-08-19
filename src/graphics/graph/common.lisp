@@ -32,7 +32,7 @@
 
 (defmethod cl-lore.graphics:file-name ((image fundamental-dot-graph))
   (format nil "~a~a"
-          (cl-lore.graphics:read-name image)
+          (cl-lore.graphics:access-name image)
           (file-extension image)))
 
 

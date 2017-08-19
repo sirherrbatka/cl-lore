@@ -18,6 +18,11 @@
   (:metaclass lore-node-class))
 
 
+(defclass image-node (leaf-node)
+  ()
+  (:metaclass lore-node-class))
+
+
 (defclass tree-node (fundamental-node)
   ()
   (:metaclass lore-node-class))

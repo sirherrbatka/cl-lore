@@ -5,8 +5,8 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:access-content
    #:access-label
+   #:access-content
    #:access-title
    #:chunk-node
    #:class-node
@@ -21,6 +21,7 @@
    #:has-children
    #:has-label
    #:has-title
+   #:image-node
    #:invalid-node-condition
    #:item-node
    #:leaf-node
