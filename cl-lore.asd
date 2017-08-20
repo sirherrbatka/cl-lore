@@ -101,6 +101,7 @@
                                                          (:file "make")))
                                            (:module "api"
                                             :components ((:file "package")
+                                                         (:file "syntax")
                                                          (:file "variables")))))))
                (:module "mechanics"
                 :components ((:file "package")

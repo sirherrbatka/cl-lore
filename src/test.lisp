@@ -74,10 +74,23 @@
     @row[[a,2] [b,2]]
     @end{table}
 
-    (sequence-graph '("first" "second" "third")
-                    (seq :block '(:axis-name "first")
-                         (seq :sync '(:axis-name "second" :name "call")
-                              (seq :block '(:axis-name "second")))))
+    (sequence-graph
+     '("jeden" "dwa" "trzy")
+     (seq
+      :block
+      '(:axis-name "jeden")
+      (seq
+       :sync
+       '(:axis-name "dwa" :name "funkcja")
+       (seq
+        :block
+        '(:axis-name "dwa")
+        (seq
+         :async
+         '(:axis-name "dwa" :name "asynchroniczne")
+         (seq
+          :block
+          '(:axis-name "trzy")))))))
 
     @end{section}
     @end{section})

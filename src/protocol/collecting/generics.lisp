@@ -2,4 +2,4 @@
 
 
 (defgeneric get-chunk (chunks label))
-(defgeneric push-chunk (chunks label))
+(defgeneric push-chunk (chunks chunk))
