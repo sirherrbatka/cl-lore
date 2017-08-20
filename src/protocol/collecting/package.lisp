@@ -7,5 +7,7 @@
   (:export
    #:chunks-collection
    #:fundamental-chunks-collection
+   #:fundamental-collecting-condition
    #:get-chunk
+   #:no-chunk-with-label-condition
    #:push-chunk))
