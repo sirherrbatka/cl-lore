@@ -19,7 +19,6 @@
    #:controller-pop-tree
    #:controller-push-tree
    #:controller-return
-   #:controller-return
    #:def-syntax
    #:def-without-stack
    #:fundamental-api-error

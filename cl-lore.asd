@@ -97,10 +97,10 @@
                                                          (:file "drawning")))
                                            (:module "protocol"
                                             :components ((:file "package")
-                                                         (:file "nodes")
-                                                         (:file "make")))
+                                                         (:file "nodes")))
                                            (:module "api"
                                             :components ((:file "package")
+                                                         (:file "make")
                                                          (:file "syntax")
                                                          (:file "variables")))))))
                (:module "mechanics"

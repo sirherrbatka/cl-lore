@@ -3,7 +3,7 @@
 
 (cl-lore.api.raw:def-syntax sequence-graph (axis input)
   (ret
-   (cl-lore.extensions.sequence-graphs.protocol:make-sequence-node axis input)))
+   (make-sequence-node axis input)))
 
 
 (defalias seq #'cl-lore.extensions.sequence-graphs.graphics:seq)
