@@ -10,7 +10,29 @@
   ((%files-stack :initform nil
                  :initarg :files-stack
                  :accessor access-files-stack
-                 :type list)))
+                 :type list)
+   (%files :initform nil
+           :accessor access-files
+           :type list)))
+
+
+(defmethod read-out-stream ((output mechanics-html-output))
+  (let ((files-stack (access-files-stack output)))
+    (if (endp files-stack)
+        (call-next-method)
+        (cdr (first files-stack)))))
+
+
+(defgeneric add-another-file (output name)
+  (:method ((output mechanics-html-output) (name string))
+    (push (list* name (make-string-output-stream))
+          (access-files-stack output))))
+
+
+(defgeneric file-complete (output)
+  (:method ((output mechanics-html-output))
+    (push (pop (access-files-stack output))
+          (access-files output))))
 
 
 (defmethod cl-lore.protocol.output:make-output ((generator mechanics-html-output-generator) &rest initargs)
@@ -29,14 +51,19 @@
     (format css-out "~a" (apply #'lass:compile-and-write (access-css output))))
   ;; save contents of files
   (iterate
-    (for (name . content) in (access-files-stack output))
+    (for (name . content) in (access-files output))
     (with-open-file (file-out (cl-fad:merge-pathnames-as-file
                                path
                                (concatenate 'string name ".html"))
                               :direction :output
                               :if-exists :supersede
                               :if-does-not-exist :create)
-      (format file-out "~a" content))
+      (format file-out "<!DOCTYPE html>~%<html>~%")
+      (format file-out
+              "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>~%")
+      (format file-out "<body>~%")
+      (format file-out "~a" content)
+      (format file-out "~%</body>~%</html>"))
     ;; save images
     (iterate
       (for image in-vector (read-images output))
