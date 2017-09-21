@@ -31,12 +31,13 @@
                            (has-title element)
                            (eql depth 1))))
       (when next-file
-        (let ((stream (read-out-stream output)))
+        (let ((stream (read-out-stream output))
+              (header (aref html-headers depth)))
           (format stream "~a<a href=\"~a\">~a</a>~%~a"
-                  (~> html-headers (aref depth) car)
+                  (car header)
                   (peak-next-file-name output)
                   (access-content (access-title element))
-                  (~> html-headers (aref depth) cdr)))
+                  (cdr header)))
         (add-another-file output))
       (call-next-method)
       (when next-file
