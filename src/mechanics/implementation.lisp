@@ -16,23 +16,36 @@
       output)))
 
 
-(defmethod process-element ((generator mechanics-html-output-generator)
-                            (output mechanics-html-output)
-                            (element chunk-node)
-                            parents)
-  (let* ((level (count-if #'has-title parents))
-         (next-file (zerop (mod level 3))))
-    (when next-file
-      (add-another-file output
-                        (access-label element)))
-    (call-next-method)
-    (when next-file
-      (file-complete output))))
+(let ((html-headers #(("<h1>" . "</h1>")
+                      ("<h2>" . "</h2>")
+                      ("<h3>" . "</h3>")
+                      ("<h4>" . "</h4>")
+                      ("<h5>" . "</h5>")
+                      ("<h6>" . "</h6>"))))
+  (defmethod process-element ((generator mechanics-html-output-generator)
+                              (output mechanics-html-output)
+                              (element titled-tree-node)
+                              parents)
+    (let* ((depth (min 5 (count-if #'has-title parents)))
+           (next-file (and (not (endp parents))
+                           (has-title element)
+                           (eql depth 1))))
+      (when next-file
+        (let ((stream (read-out-stream output)))
+          (format stream "~a<a href=\"~a\">~a</a>~%~a"
+                  (~> html-headers (aref depth) car)
+                  (peak-next-file-name output)
+                  (access-content (access-title element))
+                  (~> html-headers (aref depth) cdr)))
+        (add-another-file output))
+      (call-next-method)
+      (when next-file
+        (file-complete output)))))
 
 
 (defmethod cl-lore.protocol.output:process-element
     ((generator mechanics-html-output-generator)
-     (output cl-lore.html:mechanics-html-output)
+     (output mechanics-html-output)
      (element cl-lore.protocol.structure:image-node)
      parents)
   (fbind ((form (curry #'format (read-out-stream output))))
@@ -42,3 +55,24 @@
         cl-lore.graphics:file-name
         form)
     (form "\" class=\"centered\">")))
+
+
+(defmethod process-element ((generator mechanics-html-output-generator)
+                            (output mechanics-html-output)
+                            (element root-node)
+                            parents)
+  (with-accessors ((out read-out-stream)) output
+    (let ((big-title
+            (~> element
+                access-title
+                access-content
+                cl-who:escape-string)))
+      (format out "<!DOCTYPE html>~%<html>~%")
+      (format out
+              "<head><meta charset=\"utf-8\"><title>~a</title><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>~%"
+              big-title)
+      (format out "<body>~%")
+      (format out "<div class=\"big-title\">~%~a~%</div>" (escape-text big-title))
+      (call-next-method)
+      (format out "~%</body>~%</html>")
+      output)))

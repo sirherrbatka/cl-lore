@@ -1,7 +1,7 @@
 (in-package #:cl-lore.protocol.structure)
 
 
-(defmethod has-title ((node chunk-node))
+(defmethod has-title ((node titled-tree-node))
   (slot-boundp node '%title))
 
 

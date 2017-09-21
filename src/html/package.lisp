@@ -16,4 +16,5 @@
    #:escape-text
    #:html-output
    #:html-output-generator
+   #:read-images
    #:read-out-stream))

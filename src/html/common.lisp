@@ -135,7 +135,7 @@
    (with-accessors ((out read-out-stream) (css access-css)) output)
    (with-open-file (main-out (cl-fad:merge-pathnames-as-file path "main.html")
                              :direction :output
-                             :if-exists :overwrite
+                             :if-exists :supersede
                              :if-does-not-exist :create))
    (with-open-file (css-out (cl-fad:merge-pathnames-as-file path
                                                             #P"static"
@@ -158,9 +158,7 @@
                       ("<h5>" . "</h5>")
                       ("<h6>" . "</h6>"))))
   (flet ((section-depth (parents)
-           (min 5 (iterate
-                   (for parent in parents)
-                   (count (cl-lore.protocol.structure:has-title parent))))))
+           (min 5 (count-if #'cl-lore.protocol.structure:has-title parents))))
     (defmethod cl-lore.protocol.output:apply-trait
         ((generator html-output-generator)
          (output html-output)
