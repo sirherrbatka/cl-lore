@@ -22,7 +22,10 @@
                          :type non-negative-integer)
    (%file-number :initform 0
                  :accessor access-file-number
-                 :type non-negative-integer)))
+                 :type non-negative-integer)
+   (%menu :initform nil
+          :type list
+          :accessor access-menu)))
 
 
 (defmethod read-out-stream ((output mechanics-html-output))
