@@ -29,18 +29,25 @@
     (let* ((depth (min 5 (count-if #'has-title parents)))
            (next-file (and (not (endp parents))
                            (has-title element)
-                           (eql depth 1))))
+                           (eql depth 1)))
+           (exists nil))
       (when next-file
-        (let ((stream (read-out-stream output))
-              (header (aref html-headers depth)))
-          (format stream "~a<a href=\"~a\">~a</a>~%~a"
-                  (car header)
-                  (peak-next-file-name output)
-                  (access-content (access-title element))
-                  (cdr header)))
-        (add-another-file output))
+        (multiple-value-bind (name e)
+            (peak-next-file-name output
+                                 (and (has-label element)
+                                      (access-label element)))
+          (setf exists e)
+          (unless exists
+            (let ((stream (read-out-stream output))
+                  (header (aref html-headers depth)))
+              (format stream "~a<a href=\"~a\">~a</a>~%~a"
+                      (car header)
+                      name
+                      (access-content (access-title element))
+                      (cdr header))))
+          (add-another-file output (has-label element))))
       (call-next-method)
-      (when next-file
+      (when (and next-file (not exists))
         (file-complete output)))))
 
 

@@ -14,6 +14,12 @@
    (%files :initform nil
            :accessor access-files
            :type list)
+   (%labeled-files :initform (make-hash-table :test 'equal)
+                   :reader read-labeled-files
+                   :type hash-table)
+   (%labeled-file-number :initform 0
+                         :accessor access-labeled-file-number
+                         :type non-negative-integer)
    (%file-number :initform 0
                  :accessor access-file-number
                  :type non-negative-integer)))
@@ -26,15 +32,28 @@
         (cdr (first files-stack)))))
 
 
-(defgeneric add-another-file (output)
-  (:method ((output mechanics-html-output))
-    (push (list* (next-file-name output) (make-string-output-stream))
+(defgeneric add-another-file (output labeled)
+  (:method ((output mechanics-html-output) labeled)
+    (push (list* (next-file-name output labeled)
+                 (make-string-output-stream))
           (access-files-stack output))))
 
 
-(defgeneric peak-next-file-name (output)
-  (:method ((output mechanics-html-output))
-    (format nil "~a.html" (1+ (access-file-number output)))))
+(defgeneric peak-next-file-name (output label)
+  (:method ((output mechanics-html-output) label)
+    (if (not label)
+        (values
+         (format nil "_~a.html" (~> output access-file-number 1+))
+         nil)
+        (let* ((table (read-labeled-files output))
+               (exists (nth-value 1 (gethash label table)))
+               (value (access-labeled-file-number output)))
+          (when (not exists)
+            (setf value (~> output access-labeled-file-number 1+)
+                  (gethash label table) value))
+          (values
+           (format nil "l_~a.html" value)
+           exists)))))
 
 
 (defgeneric file-complete (output)
@@ -43,9 +62,11 @@
           (access-files output))))
 
 
-(defgeneric next-file-name (output)
-  (:method ((output mechanics-html-output))
-    (format nil "~a.html" (incf (access-file-number output)))))
+(defgeneric next-file-name (output labeled)
+  (:method ((output mechanics-html-output) labeled)
+    (if labeled
+        (format nil "l_~a.html" (incf (access-labeled-file-number output)))
+        (format nil "_~a.html" (incf (access-file-number output))))))
 
 
 (defmethod cl-lore.protocol.output:make-output ((generator mechanics-html-output-generator) &rest initargs)
