@@ -38,6 +38,7 @@
                                       (access-label element)))
           (setf exists e)
           (unless exists
+            (add-to-menu output name element parents)
             (let ((stream (read-out-stream output))
                   (header (aref html-headers depth)))
               (format stream "~a<a href=\"~a\">~a</a>~%~a"

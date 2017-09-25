@@ -72,6 +72,29 @@
         (format nil "_~a.html" (incf (access-file-number output))))))
 
 
+(defgeneric add-to-menu (output file-name element parents)
+  (:method ((output mechanics-html-output)
+            (file-name string)
+            (element titled-tree-node)
+            parents)
+    (labels ((impl (input path)
+               (let ((next (find (car path) input :test #'eq :key #'car)))
+                 (if (or (endp path)
+                         (null next))
+                     input
+                     (impl next (rest path))))))
+      (let* ((position (impl (access-menu output) parents))
+             (next-position (if (null position)
+                                (progn
+                                  (assert (null parents))
+                                  (list (list element file-name nil)))
+                                (push (list element file-name nil)
+                                      (third position)))))
+        (unless (eq next-position (access-menu output))
+          (setf (access-menu output) next-position))
+        output))))
+
+
 (defmethod cl-lore.protocol.output:make-output ((generator mechanics-html-output-generator) &rest initargs)
   (apply #'make 'mechanics-html-output initargs))
 
