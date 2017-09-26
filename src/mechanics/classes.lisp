@@ -107,8 +107,9 @@
         (labels ((impl (x)
                    (out "<a href=\"~a\">~a</a>"
                         (menu-entry-file-name x)
-                        (~> x menu-entry-element access-title access-content))
+                        (~> x menu-entry-element access-title access-content escape-text))
                    (map nil #'impl (reverse (menu-entry-nested x)))))
+          (out "<a href=\"main.html\">Main</a>")
           (map nil #'impl (reverse (access-menu output))))
         (out "</div>")))))
 
@@ -130,6 +131,10 @@
       (format file-out "<!DOCTYPE html>~%<html>~%")
       (format file-out "<head><meta charset=\"utf-8\"><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>")
       (format file-out "<body>~%")
+      (format file-out "<div class=\"wrap\">")
       (format file-out (get-menu output))
+      (format file-out "<div class=\"content\">")
       (format file-out "~a" (get-output-stream-string content))
+      (format file-out "</div>")
+      (format file-out "</div>")
       (format file-out "~%</body>~%</html>"))))

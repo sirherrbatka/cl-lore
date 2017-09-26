@@ -100,6 +100,30 @@
      :font-weight 500)))
 
 
+(defparameter *menu-style*
+  `((.vertical-menu
+     :width 20%
+     :position fixed
+     (a
+      :color black
+      :display block
+      :padding 2%
+      :text-decoration none))))
+
+
+(defparameter *wrap-style*
+  `((.wrap)))
+
+
+(defparameter *content-style*
+  `((.content
+     :position absolute
+     :right 0
+     :width 80%
+     :left-margin 25%
+     :height auto)))
+
+
 (defparameter *doc-name*
   `((.doc-name
      :letter-spacing 0.1em)))
@@ -118,6 +142,7 @@
   (append *header-style*
           *function-style*
           *struct-style*
+          *menu-style*
           *generic-style*
           *class-style*
           *big-title*
@@ -126,4 +151,6 @@
           *doc-paragraph*
           *doc-name*
           *table-style*
+          *content-style*
+          *wrap-style*
           *centered*))

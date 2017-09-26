@@ -30,7 +30,8 @@
            (next-file (and (not (endp parents))
                            (has-title element)
                            (eql depth 1)))
-           (exists nil))
+           (exists nil)
+           (added-to-menu nil))
       (when next-file
         (multiple-value-bind (name e)
             (peak-next-file-name output
@@ -39,6 +40,7 @@
           (setf exists e)
           (unless exists
             (add-to-menu output name element parents)
+            (setf added-to-menu t)
             (let ((stream (read-out-stream output))
                   (header (aref html-headers depth)))
               (format stream "~a<a href=\"~a\">~a</a>~%~a"
@@ -47,6 +49,9 @@
                       (access-content (access-title element))
                       (cdr header))))
           (add-another-file output (has-label element))))
+      (when (and (not added-to-menu)
+                 (< depth 4))
+        nil)
       (call-next-method)
       (when (and next-file (not exists))
         (file-complete output)))))
