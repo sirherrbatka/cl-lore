@@ -72,27 +72,45 @@
         (format nil "_~a.html" (incf (access-file-number output))))))
 
 
+(defstruct menu-entry element file-name nested)
+
+
 (defgeneric add-to-menu (output file-name element parents)
   (:method ((output mechanics-html-output)
             (file-name string)
             (element titled-tree-node)
             parents)
     (labels ((impl (input path)
-               (let ((next (find (car path) input :test #'eq :key #'car)))
+               (let ((next (find (car path) input :test #'eq :key #'menu-entry-element)))
                  (if (or (endp path)
                          (null next))
-                     input
+                     (car input)
                      (impl next (rest path))))))
-      (let* ((position (impl (access-menu output) parents))
-             (next-position (if (null position)
-                                (progn
-                                  (assert (null parents))
-                                  (list (list element file-name nil)))
-                                (push (list element file-name nil)
-                                      (third position)))))
-        (unless (eq next-position (access-menu output))
-          (setf (access-menu output) next-position))
+      (let* ((position (impl (access-menu output) parents)))
+        (if (null position)
+            (setf (access-menu output)
+                  (list (make-menu-entry :element element
+                                         :file-name file-name
+                                         :nested nil)))
+            (push (make-menu-entry :element element
+                                   :file-name file-name
+                                   :nested nil)
+                  (menu-entry-nested position)))
         output))))
+
+
+(defgeneric get-menu (output)
+  (:method ((output mechanics-html-output))
+    (with-output-to-string (stream)
+      (fbind ((out (curry #'format stream)))
+        (out "<div class=\"vertical-menu\">")
+        (labels ((impl (x)
+                   (out "<a href=\"~a\">~a</a>"
+                        (menu-entry-file-name x)
+                        (~> x menu-entry-element access-title access-content))
+                   (map nil #'impl (reverse (menu-entry-nested x)))))
+          (map nil #'impl (reverse (access-menu output))))
+        (out "</div>")))))
 
 
 (defmethod cl-lore.protocol.output:make-output ((generator mechanics-html-output-generator) &rest initargs)
@@ -112,5 +130,6 @@
       (format file-out "<!DOCTYPE html>~%<html>~%")
       (format file-out "<head><meta charset=\"utf-8\"><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>")
       (format file-out "<body>~%")
+      (format file-out (get-menu output))
       (format file-out "~a" (get-output-stream-string content))
       (format file-out "~%</body>~%</html>"))))
