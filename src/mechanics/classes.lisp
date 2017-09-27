@@ -126,7 +126,6 @@
                      (out "</ul>"))
                    (out "</li>")))
           (out "<ul>")
-          (out "<li><a href=\"main.html\">Main</a></li>")
           (map nil #'impl (reverse (access-menu output)))
           (out "</ul>"))
         (out "</div>")))))
