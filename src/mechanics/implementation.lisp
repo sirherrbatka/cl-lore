@@ -32,6 +32,7 @@
                            (eql depth 1)))
            (exists nil)
            (added-to-menu nil)
+           (file-name (current-file-name output))
            (hash (sxhash element)))
       (with-accessors ((stream read-out-stream)) output
         (when next-file
@@ -41,6 +42,7 @@
                                         (access-label element)))
             (setf exists e)
             (unless exists
+              (setf file-name name)
               (add-to-menu output (format nil "~a#~a" name hash) element parents)
               (setf added-to-menu t)
               (let ((header (aref html-headers depth)))
@@ -54,7 +56,7 @@
         (when (and (not added-to-menu)
                    (< depth 4))
           (add-to-menu output
-                       (format nil "#~a" hash)
+                       (format nil "~a#~a" file-name hash)
                        element
                        parents))
         (format stream "<div id=\"~a\">" hash)

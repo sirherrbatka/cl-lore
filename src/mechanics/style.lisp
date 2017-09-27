@@ -108,7 +108,15 @@
       :color black
       :display block
       :padding 2%
-      :text-decoration none))))
+      :text-decoration none)
+     (ul
+      :overflow hidden
+      :list-style-type none
+      :margin 0
+      :padding 0)
+     (li
+      :overflow left
+      :margin-left 5%))))
 
 
 (defparameter *wrap-style*

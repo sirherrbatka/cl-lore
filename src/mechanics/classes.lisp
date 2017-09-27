@@ -75,19 +75,30 @@
 (defstruct menu-entry element link nested)
 
 
+(defgeneric current-file-name (output)
+  (:method ((output mechanics-html-output))
+    (if-let ((stack (access-files-stack output)))
+      (car (first stack))
+      "main.html")))
+
+
 (defgeneric add-to-menu (output link element parents)
   (:method ((output mechanics-html-output)
             (file-name string)
             (element titled-tree-node)
             parents)
     (labels ((impl (input path)
-               (let ((next (find (car path) input
+               (let ((next (find (first path) input
                                  :test #'eq :key #'menu-entry-element)))
-                 (if (or (endp path)
-                         (null next))
-                     (car input)
-                     (impl (menu-entry-nested next) (rest path))))))
-      (let* ((position (impl (access-menu output) parents)))
+                 (if (null next)
+                     (if (endp (rest path))
+                         nil
+                         (impl input (rest path)))
+                     (if (endp (rest path))
+                         next
+                         (impl (menu-entry-nested next)
+                               (rest path)))))))
+      (let* ((position (impl (access-menu output) (reverse parents))))
         (if (null position)
             (setf (access-menu output)
                   (list (make-menu-entry :element element
@@ -106,12 +117,18 @@
       (fbind ((out (curry #'format stream)))
         (out "<div class=\"vertical-menu\">")
         (labels ((impl (x)
-                   (out "<a href=\"~a\">~a</a>"
+                   (out "<li><a href=\"~a\">~a</a>"
                         (menu-entry-link x)
                         (~> x menu-entry-element access-title access-content escape-text))
-                   (map nil #'impl (reverse (menu-entry-nested x)))))
-          (out "<a href=\"main.html\">Main</a>")
-          (map nil #'impl (reverse (access-menu output))))
+                   (unless (endp (menu-entry-nested x))
+                     (out "<ul>")
+                     (map nil #'impl (reverse (menu-entry-nested x)))
+                     (out "</ul>"))
+                   (out "</li>")))
+          (out "<ul>")
+          (out "<li><a href=\"main.html\">Main</a></li>")
+          (map nil #'impl (reverse (access-menu output)))
+          (out "</ul>"))
         (out "</div>")))))
 
 
