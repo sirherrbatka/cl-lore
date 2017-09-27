@@ -31,30 +31,37 @@
                            (has-title element)
                            (eql depth 1)))
            (exists nil)
-           (added-to-menu nil))
-      (when next-file
-        (multiple-value-bind (name e)
-            (peak-next-file-name output
-                                 (and (has-label element)
-                                      (access-label element)))
-          (setf exists e)
-          (unless exists
-            (add-to-menu output name element parents)
-            (setf added-to-menu t)
-            (let ((stream (read-out-stream output))
-                  (header (aref html-headers depth)))
-              (format stream "~a<a href=\"~a\">~a</a>~%~a"
-                      (car header)
-                      name
-                      (access-content (access-title element))
-                      (cdr header))))
-          (add-another-file output (has-label element))))
-      (when (and (not added-to-menu)
-                 (< depth 4))
-        nil)
-      (call-next-method)
-      (when (and next-file (not exists))
-        (file-complete output)))))
+           (added-to-menu nil)
+           (hash (sxhash element)))
+      (with-accessors ((stream read-out-stream)) output
+        (when next-file
+          (multiple-value-bind (name e)
+              (peak-next-file-name output
+                                   (and (has-label element)
+                                        (access-label element)))
+            (setf exists e)
+            (unless exists
+              (add-to-menu output (format nil "~a#~a" name hash) element parents)
+              (setf added-to-menu t)
+              (let ((header (aref html-headers depth)))
+                (format stream "~a<a href=\"~a#~a\">~a</a>~%~a"
+                        (car header)
+                        name
+                        hash
+                        (access-content (access-title element))
+                        (cdr header))))
+            (add-another-file output (has-label element))))
+        (when (and (not added-to-menu)
+                   (< depth 4))
+          (add-to-menu output
+                       (format nil "#~a" hash)
+                       element
+                       parents))
+        (format stream "<div id=\"~a\">" hash)
+        (call-next-method)
+        (format stream "</div>")
+        (when (and next-file (not exists))
+          (file-complete output))))))
 
 
 (defmethod cl-lore.protocol.output:process-element

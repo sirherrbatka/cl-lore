@@ -72,28 +72,29 @@
         (format nil "_~a.html" (incf (access-file-number output))))))
 
 
-(defstruct menu-entry element file-name nested)
+(defstruct menu-entry element link nested)
 
 
-(defgeneric add-to-menu (output file-name element parents)
+(defgeneric add-to-menu (output link element parents)
   (:method ((output mechanics-html-output)
             (file-name string)
             (element titled-tree-node)
             parents)
     (labels ((impl (input path)
-               (let ((next (find (car path) input :test #'eq :key #'menu-entry-element)))
+               (let ((next (find (car path) input
+                                 :test #'eq :key #'menu-entry-element)))
                  (if (or (endp path)
                          (null next))
                      (car input)
-                     (impl next (rest path))))))
+                     (impl (menu-entry-nested next) (rest path))))))
       (let* ((position (impl (access-menu output) parents)))
         (if (null position)
             (setf (access-menu output)
                   (list (make-menu-entry :element element
-                                         :file-name file-name
+                                         :link file-name
                                          :nested nil)))
             (push (make-menu-entry :element element
-                                   :file-name file-name
+                                   :link file-name
                                    :nested nil)
                   (menu-entry-nested position)))
         output))))
@@ -106,7 +107,7 @@
         (out "<div class=\"vertical-menu\">")
         (labels ((impl (x)
                    (out "<a href=\"~a\">~a</a>"
-                        (menu-entry-file-name x)
+                        (menu-entry-link x)
                         (~> x menu-entry-element access-title access-content escape-text))
                    (map nil #'impl (reverse (menu-entry-nested x)))))
           (out "<a href=\"main.html\">Main</a>")
