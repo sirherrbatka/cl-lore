@@ -108,7 +108,7 @@
      :left 0
      :top 0
      :bottom 0
-     :background darkslategray
+     :background "#3d3d3d" 
      :padding 0
      :display block
      :align center
