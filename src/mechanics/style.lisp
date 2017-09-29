@@ -102,10 +102,18 @@
 
 (defparameter *menu-style*
   `((.vertical-menu
-     :width 20%
+     :width 15%
      :position fixed
+     :margin-left 0
+     :left 0
+     :top 0
+     :bottom 0
+     :background darkslategray
+     :padding 0
+     :display block
+     :align center
      (a
-      :color black
+      :color white
       :display block
       :padding 2%
       :text-decoration none)
@@ -113,9 +121,11 @@
       :overflow hidden
       :list-style-type none
       :margin 0
+      :color white
       :padding 0)
      (li
       :overflow left
+      :color white
       :margin-left 5%))))
 
 
@@ -127,8 +137,8 @@
   `((.content
      :position absolute
      :right 0
-     :width 80%
-     :left-margin 25%
+     :width 85%
+     :left-margin 15%
      :height auto)))
 
 
