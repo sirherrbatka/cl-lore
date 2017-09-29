@@ -109,6 +109,7 @@
      :top 0
      :bottom 0
      :background "#3d3d3d" 
+     :overflow-y scroll
      :padding 0
      :display block
      :align center
