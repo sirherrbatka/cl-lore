@@ -60,7 +60,7 @@
 
 (defun draw-axis (scene x y length name)
   (let* ((shift (/ (text-size name) 2))
-         (text-box-size (+ 30 (* 2 shift))))
+         (text-box-size (+ 30 (* 2.8 shift))))
     (make-group scene (:fill-opacity 1.0)
       (text scene (:x (- x shift)
                    :y y
@@ -181,7 +181,7 @@
       (call-next-method)))
 
 
-(defmethod init-with-parent ((element block-element) (parent call) context parents) 
+(defmethod init-with-parent ((element block-element) (parent call) context parents)
   (setf (access-vertical-position-start element)
         (access-vertical-position-start parent)
 
@@ -190,7 +190,7 @@
 
 
 (defun text-size (string)
-  (* 7.5 (length string)))
+  (* 8 (length string)))
 
 
 (defun initialize-box-size (element)
