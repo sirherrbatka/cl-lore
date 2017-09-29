@@ -136,9 +136,10 @@
 (defparameter *content-style*
   `((.content
      :position absolute
-     :right 0
-     :width 85%
-     :left-margin 15%
+     :right 5%
+     :width 75%
+     :left-margin 20%
+     :right-margin 5%
      :height auto)))
 
 
