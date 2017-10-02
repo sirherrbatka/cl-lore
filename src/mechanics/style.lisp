@@ -127,6 +127,7 @@
      (li
       :overflow left
       :color white
+      :margin-bottom 5px
       :margin-left 5%))))
 
 
