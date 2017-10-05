@@ -58,7 +58,7 @@
     (flet ((print-code (code)
              (out "<pre><code>")
              (with-output-to-string (s)
-               (pprint code s)
+               (pprint (read-from-string code) s)
                (~> s get-output-stream-string trim-whitespace cl-lore.html:escape-text out))
              (out "</pre></code>")))
       (out "<b>Examples:</b>")
