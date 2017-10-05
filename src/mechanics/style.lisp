@@ -57,6 +57,12 @@
      :margin-left auto)))
 
 
+(defparameter *code*
+  `((code)
+    (pre
+     :white-space :none)))
+
+
 (defparameter *struct-style*
   (frame-style '.struct-info *struct-color*))
 
@@ -174,4 +180,5 @@
           *table-style*
           *content-style*
           *wrap-style*
+          *code*
           *centered*))

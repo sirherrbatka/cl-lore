@@ -50,8 +50,19 @@
 (defmethod docstample:visit ((visitor lore-visitor)
                              (type docstample:operator-node)
                              (symbol (eql :examples))
-                             data
-                             (output cl-lore.html:html-output)))
+                             (data list)
+                             (output cl-lore.html:html-output))
+  (fbind ((out (curry #'format
+                      (cl-lore.html::read-out-stream output)
+                      "~a")))
+    (flet ((print-code (code)
+             (out "<pre><code>")
+             (with-output-to-string (s)
+               (pprint code s)
+               (~> s get-output-stream-string trim-whitespace cl-lore.html:escape-text out))
+             (out "</pre></code>")))
+      (out "<b>Examples:</b>")
+      (map nil #'print-code data))))
 
 
 (defmethod docstample:visit ((visitor lore-visitor)
