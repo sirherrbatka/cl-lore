@@ -30,9 +30,10 @@
                            :attributes '(:weight 1
                                          :arrowhead :empty)))
           (~>> (closer-mop:class-direct-superclasses object)
-               (remove (find-class 'standard-object)) 
+               (remove (find-class 'standard-object))
                (remove (find-class 'error))
-               (remove (find-class 'condition)))))
+               (remove (find-class 'condition))
+               (remove (find-class 'standard-generic-function)))))
 
 
 (defun make-class-inheritance (class-name &optional attributes)
