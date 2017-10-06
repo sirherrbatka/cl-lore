@@ -19,5 +19,7 @@
                            ,!path nil)
                      (go :start)))
               (handler-bind ((file-error #'set-path))
+                (when (null ,!path)
+                  (error 'file-error))
                 (cl-lore.protocol.output:save-output ,!path
                                                      document))))))))
