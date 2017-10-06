@@ -60,7 +60,8 @@
                               :components ((:file "package")
                                            (:file "syntax-functions")
                                            (:file "variables")
-                                           (:file "syntax-macros")))))
+                                           (:file "syntax-macros")
+                                           (:file "control")))))
                (:module "graphics"
                 :components ((:file "package")
                              (:file "image")

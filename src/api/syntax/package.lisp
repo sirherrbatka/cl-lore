@@ -19,6 +19,7 @@
    #:end-document
    #:include
    #:item
+   #:define-save-output-function
    #:label
    #:row
    #:row
