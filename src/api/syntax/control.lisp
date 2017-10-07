@@ -23,4 +23,5 @@
                             (force-output *query-io*)
                             (list (read)))
              (,name path)))
-         ,!path))))
+         ,!path)
+       (export (quote ,name)))))
