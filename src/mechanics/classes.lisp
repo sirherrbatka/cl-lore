@@ -146,7 +146,7 @@
                               :if-exists :supersede
                               :if-does-not-exist :create)
       (format file-out "<!DOCTYPE html>~%<html>~%")
-      (format file-out "<head><meta charset=\"utf-8\"><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css?family=Source+Sans+Pro\"></head>")
+      (format file-out "<head><meta charset=\"utf-8\"><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\"> <link href=\"https://fonts.googleapis.com/css?family=Inconsolata|Lato\" rel=\"stylesheet\"></head>")
       (format file-out "<body>~%")
       (format file-out "<div class=\"wrap\">")
       (format file-out (get-menu output))
