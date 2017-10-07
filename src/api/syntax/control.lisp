@@ -2,9 +2,12 @@
 
 
 (defmacro define-save-output-function (name
-                                       (generator chunks &key output-options)
+                                       (names
+                                        generator
+                                        chunks
+                                        &key output-options)
                                        (&rest files)
-                                       document-form)
+                                       &body document-form)
   (with-gensyms (!path !output !current-path)
     `(let ((,!path nil)
            (,!current-path (uiop/pathname:pathname-directory-pathname
@@ -25,10 +28,10 @@
                  (error "Path was not set!"))
                (cl-lore.protocol.output:save-output
                 ,!path
-                (assure cl-lore.protocol.output:fundamental-output
+                (with-names ,names
                   (cl-lore.api.syntax:document
                       (,generator ,!output ,chunks :output-options ,output-options)
-                    ,document-form))))
+                    ,@document-form))))
            (set-path (path)
              :report "Set path."
              :interactive (lambda ()
