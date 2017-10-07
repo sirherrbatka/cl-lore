@@ -58,7 +58,7 @@
 
 
 (defparameter *code*
-  `((pre
+  `((code
      :font-size 75%
      :font-family "Inconsolata" monospace)))
 
