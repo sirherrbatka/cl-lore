@@ -33,6 +33,11 @@
   (:metaclass cl-lore.protocol.structure:lore-node-class))
 
 
+(defclass error-node (lisp-documentation-node)
+  ()
+  (:metaclass cl-lore.protocol.structure:lore-node-class))
+
+
 (defclass documentation-node (cl-lore.protocol.structure:sequence-node)
   ((%package-name :initarg package-name
                   :type string
@@ -62,4 +67,9 @@
 
 (defalias make-struct-documentation
   (curry #'make 'struct-node
+         :information))
+
+
+(defalias make-error-documentation
+  (curry #'make 'error-node
          :information))

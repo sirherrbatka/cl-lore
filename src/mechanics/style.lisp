@@ -4,6 +4,7 @@
 (defparameter *function-color* '(rgba 77 119 203 0.7))
 (defparameter *macro-color* '(rgba 153 51 204 0.7))
 (defparameter *class-color* '(rgba 224 153 82 0.7))
+(defparameter *error-color* '(rgba 255 83 95 0.7))
 (defparameter *struct-color* "#ff2222")
 (defparameter *generic-color* '(rgba 46 83 157 0.7))
 (defparameter *strong-separation-color* "#000000")
@@ -37,6 +38,10 @@
 
 (defparameter *class-style*
   (frame-style '.class-info *class-color*))
+
+
+(defparameter *error-style*
+  (frame-style '.error-info *error-color*))
 
 
 (defparameter *table-style*
@@ -181,4 +186,5 @@
           *content-style*
           *wrap-style*
           *code*
+          *error-style*
           *centered*))

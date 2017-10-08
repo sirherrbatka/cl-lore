@@ -31,7 +31,9 @@
   (:method ((n docstample:class-node))
     'class-lisp-information)
   (:method ((n docstample:struct-node))
-    'struct-lisp-information))
+    'struct-lisp-information)
+  (:method ((n docstample:error-node))
+    'error-lisp-information))
 
 
 (defgeneric query (index type id))

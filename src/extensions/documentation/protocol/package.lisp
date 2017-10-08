@@ -4,38 +4,36 @@
 (defpackage :cl-lore.extensions.documentation.protocol
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
-  (:export #:lisp-documentation-node
-           #:function-node
-           #:class-node
-           #:struct-node
-           #:generic-function-node
-           #:macro-node
-           #:documentation-node
-
-           #:make-function-documentation
-           #:make-generic-function-documentation
-           #:make-macro-documentation
-           #:make-class-documentation
-           #:make-struct-documentation
-
-           #:fundamental-lisp-information
-           #:named-lisp-information
-           #:standard-lisp-information
-           #:record-lisp-information
-           #:class-lisp-information
-           #:struct-lisp-information
-           #:operator-lisp-information
-           #:function-lisp-information
-           #:macro-lisp-information
-           #:generic-function-lisp-information
-           #:access-package-name
-           #:query
-
-           #:*index*
-
-           #:read-plist
-           #:read-docstring
-           #:read-name
-           #:read-node-type
-           #:read-lambda-list))
+  (:export
+   #:*index*
+   #:access-package-name
+   #:class-lisp-information
+   #:class-node
+   #:documentation-node
+   #:function-lisp-information
+   #:function-node
+   #:fundamental-lisp-information
+   #:generic-function-lisp-information
+   #:generic-function-node
+   #:macro-lisp-information
+   #:macro-node
+   #:make-class-documentation
+   #:make-error-documentation
+   #:make-function-documentation
+   #:make-generic-function-documentation
+   #:make-macro-documentation
+   #:make-struct-documentation
+   #:named-lisp-information
+   #:operator-lisp-information
+   #:query
+   #:read-docstring
+   #:read-lambda-list
+   #:read-name
+   #:read-node-type
+   #:read-plist
+   #:record-lisp-information
+   #:standard-lisp-information
+   #:struct-lisp-information
+   #:struct-node
+   #:lisp-documentation-node))
 

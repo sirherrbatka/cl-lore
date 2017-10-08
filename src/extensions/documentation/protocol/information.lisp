@@ -38,6 +38,14 @@
   ())
 
 
+(defclass condition-lisp-information (record-lisp-information)
+  ())
+
+
+(defclass error-lisp-information (condition-lisp-information)
+  ())
+
+
 (defclass operator-lisp-information (named-lisp-information
                                      standard-lisp-information)
   ((%lambda-list :type list

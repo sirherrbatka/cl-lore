@@ -259,6 +259,8 @@
 (defgeneric div-class (node)
   (:method ((node function-lisp-information))
     "function-info")
+  (:method ((node error-lisp-information))
+    "error-info")
   (:method ((node generic-function-lisp-information))
     "generic-info")
   (:method ((node class-lisp-information))

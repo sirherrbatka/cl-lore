@@ -40,6 +40,12 @@
  cl-lore.extensions.documentation.protocol:make-struct-documentation)
 
 
+(syntax
+ docerror
+ docstample:<error>
+ cl-lore.extensions.documentation.protocol:make-error-documentation)
+
+
 (defun pack (name)
   (declare (type string name))
   "Set PACKAGE for documentation section."

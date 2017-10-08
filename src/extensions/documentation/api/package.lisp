@@ -6,9 +6,10 @@
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
    #:<documentation-names>
+   #:docclass
+   #:docerror
    #:docfun
    #:docgeneric
-   #:pack
    #:docmacro
-   #:docclass
-   #:docstruct))
+   #:docstruct
+   #:pack))
