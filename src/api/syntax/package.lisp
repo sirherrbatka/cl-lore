@@ -16,6 +16,7 @@
    #:document
    #:emph
    #:end
+   #:level
    #:end-document
    #:include
    #:item

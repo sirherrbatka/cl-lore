@@ -31,6 +31,13 @@
   text)
 
 
+(defmacro level (what &body body)
+  (once-only (what)
+    `(progn (begin ,what)
+            ,@body
+            (end ,what))))
+
+
 (defun label (text)
   (setf (cl-lore.protocol.structure:access-label
          (cl-lore.api.raw:controller-front))
