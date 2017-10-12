@@ -21,9 +21,9 @@
     (let ((result (pop content)))
       (unless (string= description (car result))
         (error 'invalid-stack-state
-               "Wanted to pop ~a but last element on stack is ~a"
-               description
-               (car result)))
+               :text (format nil  "Wanted to pop ~a but last element on stack is ~a"
+                             description
+                             (car result))))
       (values (cdr result)
               (car result)))))
 

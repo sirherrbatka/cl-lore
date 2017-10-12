@@ -98,7 +98,7 @@
                          next
                          (impl (menu-entry-nested next)
                                (rest path)))))))
-      (let* ((position (impl (access-menu output) (reverse parents))))
+      (let ((position (impl (access-menu output) (reverse parents))))
         (if (null position)
             (setf (access-menu output)
                   (list (make-menu-entry :element element

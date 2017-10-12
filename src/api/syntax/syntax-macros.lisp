@@ -71,3 +71,11 @@
            (merge-tables <standard-names>
                          ,@additional-names)))
      ,@body))
+
+
+(defmacro level (what &body body)
+  (with-gensyms (!what)
+    `(let ((,!what ,what))
+       (begin ,!what)
+       ,@body
+       (end ,!what))))

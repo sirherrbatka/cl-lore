@@ -16,7 +16,7 @@
   (multiple-value-bind (result found) (gethash label (read-content chunks))
     (unless found
       (error 'no-chunk-with-label-condition
-             (concat "no chunk with label: "
-                     label)))
+             :text (concat "no chunk with label: "
+                           label)))
     result))
 
