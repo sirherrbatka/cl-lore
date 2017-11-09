@@ -118,7 +118,6 @@
       (format out "<li>~a</li>"
               ex))
     (format out "</ul>")))
-            
 
 
 (defmethod docstample:visit ((visitor lore-visitor)

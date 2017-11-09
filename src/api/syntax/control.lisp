@@ -14,9 +14,9 @@
                             (asdf-utils:current-lisp-file-pathname))))
        (defun ,name (&optional path)
          (declare (type (or null string pathname) path))
-         (check-type path (or null string pathname))
+         (check-type path (or null list string pathname))
          (unless (null path)
-           (setf ,!path (pathname path)))
+           (setf ,!path (uiop:make-pathname* :directory path)))
          (map nil (lambda (file)
                     (let ((full-path (uiop/pathname:merge-pathnames*
                                       ,!current-path file)))
@@ -26,6 +26,8 @@
              (progn
                (when (null ,!path)
                  (error "Path was not set!"))
+               (unless (uiop:directory-exists-p ,!path)
+                 (error "Directory does not exists!"))
                (cl-lore.protocol.output:save-output
                 ,!path
                 (with-names ,names
