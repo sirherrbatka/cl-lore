@@ -1,175 +1,6 @@
 (in-package #:cl-lore.extensions.documentation.protocol)
 
 
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :arguments-and-values))
-                             (data string)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "~a" data)))
-
-
-(defmethod docstample:visit :around ((visitor lore-visitor)
-                                     (type docstample:operator-node)
-                                     symbol
-                                     data
-                                     (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<div class=\"doc-paragraph\">~%")
-    (call-next-method)
-    (format out "</div>~%")))
-
-
-(defmethod docstample:visit :around ((visitor lore-visitor)
-                                     (type docstample:operator-node)
-                                     (symbol (eql :arguments-and-values))
-                                     data
-                                     (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Arguments and values:</b>~%")
-    (call-next-method)))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :arguments-and-values))
-                             (data list)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<ul>")
-    (iterate
-      (for (symb desc) in data)
-      (format out "<li>~a &ndash; ~a</li>"
-              (string-upcase (cl-lore.html:escape-text symb))
-              (cl-lore.html:escape-text desc)))
-    (format out "</ul>")))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :examples))
-                             (data list)
-                             (output cl-lore.html:html-output))
-  (fbind ((out (curry #'format
-                      (cl-lore.html::read-out-stream output)
-                      "~a")))
-    (flet ((print-code (code)
-             (out "<pre><code>")
-             (with-output-to-string (s)
-               (pprint (read-from-string code) s)
-               (~> s get-output-stream-string trim-whitespace cl-lore.html:escape-text out))
-             (out "</pre></code>")))
-      (out "<b>Examples:</b>")
-      (map nil #'print-code data))))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:record-node)
-                             (symbol (eql :description))
-                             data
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Description:</b>~%~a" (cl-lore.html:escape-text data))))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :exceptional-situations))
-                             (data string)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Execeptional Situations:</b>~%~a"
-            (cl-lore.html:escape-text data))))
-
-
-(defmethod docstample:visit
-    :around
-    ((visitor lore-visitor)
-     (type docstample:operator-node)
-     (symbol (eql :notes))
-     data
-     (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Notes:</b>~%")
-    (call-next-method)))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :notes))
-                             (data string)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "~a"
-            (cl-lore.html:escape-text data))))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :notes))
-                             (data list)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<ul>")
-    (iterate
-      (for ex in data)
-      (format out "<li>~a</li>"
-              ex))
-    (format out "</ul>")))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :side-effects))
-                             (data string)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Side Effects:</b>~%~a"
-            (cl-lore.html:escape-text data))))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :description))
-                             (data string)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Description:</b>~%~a"
-            (cl-lore.html:escape-text data))))
-
-
-(defmethod docstample:visit :around ((visitor lore-visitor)
-                                     (type docstample:operator-node)
-                                     (symbol (eql :returns))
-                                     data
-                                     (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<b>Returns:</b>~%")
-    (call-next-method)))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :returns))
-                             (data string)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "~a" (cl-lore.html:escape-text data))))
-
-
-(defmethod docstample:visit ((visitor lore-visitor)
-                             (type docstample:operator-node)
-                             (symbol (eql :returns))
-                             (data list)
-                             (output cl-lore.html:html-output))
-  (with-accessors ((out cl-lore.html:read-out-stream)) output
-    (format out "<ol>")
-    (iterate (for elt in data)
-      (format out "<li>~a</li>~%" (cl-lore.html:escape-text elt)))
-    (format out "</ol>")))
-
-
 (defmethod cl-lore.protocol.output:process-element
     ((generator cl-lore.html:html-output-generator)
      (output cl-lore.html:html-output)
@@ -190,20 +21,18 @@
   (nest
    (with-accessors ((lambda-list read-lambda-list)
                     (node-type read-node-type)
-                    (description read-docstring)
-                    (plist read-plist))
+                    (doc read-content))
        element)
    (with-accessors ((out cl-lore.html:read-out-stream)) output
      (call-next-method)
      (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
              (cl-lore.html:escape-text lambda-list))
-     (if (null plist)
-         (format out "<div class=\"doc-paragraph\">~a</div>" (cl-lore.html:escape-text description))
-         (docstample:generate-documentation-string
-          <lore-generator>
-          node-type
-          output
-          plist))))
+     (econd
+       ((strinp doc)
+        (format out "<div class=\"doc-paragraph\">~a</div>"
+                (cl-lore.html:escape-text doc)))
+       ((null doc) nil)
+       ((listp doc) (generate-documentation-string element output doc)))))
   output)
 
 
@@ -214,9 +43,8 @@
      parents)
   (nest
    (with-accessors ((lambda-list read-lambda-list)
-                    (node-type read-node-type)
                     (description read-docstring)
-                    (plist read-plist))
+                    (doc read-content))
        element)
    (with-accessors ((out cl-lore.html:read-out-stream)) output
      (call-next-method)
@@ -229,15 +57,12 @@
        (format out
                "~%<img src=\"~a\" alt=\"Inheritance\" class=\"centered\">~%<br>~%"
                (cl-lore.graphics:file-name inheritance)))
-     (if (null plist)
-         (unless (null description)
-           (format out "<div class=\"doc-paragraph\">~a</div>"
-                   (cl-lore.html:escape-text description)))
-         (docstample:generate-documentation-string
-          <lore-generator>
-          node-type
-          output
-          plist))))
+     (econd
+       ((strinp doc)
+        (format out "<div class=\"doc-paragraph\">~a</div>"
+                (cl-lore.html:escape-text doc)))
+       ((null doc) nil)
+       ((listp doc) (generate-documentation-string element output doc)))))
   output)
 
 
