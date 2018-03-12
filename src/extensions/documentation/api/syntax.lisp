@@ -6,12 +6,12 @@
      (let ((data (cl-lore.extensions.documentation.protocol:query ',type id)))
        (ret data))))
 
-(syntax docfun function)
-(syntax docgeneric generic)
-(syntax docmacro macro)
-(syntax docclass class)
-(syntax docstruct struct)
-(syntax docerror error)
+(syntax docfun :function)
+(syntax docgeneric :generic)
+(syntax docmacro :macro)
+(syntax docclass :class)
+(syntax docstruct :struct)
+(syntax docerror :error)
 
 (defun pack (name)
   (declare (type string name))

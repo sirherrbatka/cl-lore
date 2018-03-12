@@ -1,6 +1,48 @@
 (in-package #:cl-lore.extensions.documentation.protocol)
 
 
+(defgeneric to-stream (stream label content)
+  (:method (stream label content)
+    (if (listp content)
+        (progn
+          (format stream "<ul>")
+          (iterate
+            (for f in content)
+            (format stream "<li>~{~a~^, ~}</li>"
+                    (if (listp f) f (list f))))
+          (format stream "</ul>"))
+        (format stream "~a~%" (cl-lore.html:escape-text content))))
+  (:method (stream (label (eql :examples)) content)
+    (flet ((print-code (code)
+             (format stream "<pre><code>")
+             (with-output-to-string (s)
+               (pprint (read-from-string code) s)
+               (~> s
+                   get-output-stream-string
+                   trim-whitespace
+                   cl-lore.html:escape-text
+                   (format stream "~a" _)))
+             (format stream "</pre></code>")))
+      (if (listp content)
+          (map nil #'print-code content)
+          (print-code content)))))
+
+(defmethod generate-documentation-string ((element fundamental-lisp-information)
+                                          (output cl-lore.html:html-output)
+                                          (doc list))
+  (nest
+   (with-accessors ((name read-name)) element)
+   (with-accessors ((out cl-lore.html:read-out-stream)) output)
+   (iterate
+     (for (section-symbol . section-title) in docs.ext:*documentation-sections*)
+     (for form = (getf doc section-symbol))
+     (unless (null form)
+       (format out "<b>~a</b>~%"
+               (cl-lore.html:escape-text section-title))
+       (to-stream out section-symbol form)
+       (format out "<br>")))))
+
+
 (defmethod cl-lore.protocol.output:process-element
     ((generator cl-lore.html:html-output-generator)
      (output cl-lore.html:html-output)
@@ -25,10 +67,10 @@
        element)
    (with-accessors ((out cl-lore.html:read-out-stream)) output
      (call-next-method)
-     (format out "<div class=\"doc-lambda-list\"><b>Arguments:</b>~%~:a~%</div>"
+     (format out "<div class=\"doc-lambda-list\"><b>Lambda List:</b>~%~:a~%</div>"
              (cl-lore.html:escape-text lambda-list))
      (econd
-       ((strinp doc)
+       ((stringp doc)
         (format out "<div class=\"doc-paragraph\">~a</div>"
                 (cl-lore.html:escape-text doc)))
        ((null doc) nil)
@@ -58,7 +100,7 @@
                "~%<img src=\"~a\" alt=\"Inheritance\" class=\"centered\">~%<br>~%"
                (cl-lore.graphics:file-name inheritance)))
      (econd
-       ((strinp doc)
+       ((stringp doc)
         (format out "<div class=\"doc-paragraph\">~a</div>"
                 (cl-lore.html:escape-text doc)))
        ((null doc) nil)
@@ -104,4 +146,3 @@
             (div-class element))
     (call-next-method generator output element parents)
     (format out "</div>")))
-

@@ -5,45 +5,29 @@
   (arg:arglist fun))
 
 
-(defmacro with-docstring-plist ((index type id) &body body)
-  (once-only (index type id)
-    `(let* ((docstring (documentation
-                        ,id
-                        (docstample:read-symbol ,type)))
-            (plist
-              (if (null ,index)
-                  nil
-                  (when-let ((plist (docstample:query-node
-                                     ,index
-                                     ,type
-                                     ,id)))
-                    (docstample:access-forms plist)))))
-       ,@body)))
-
-
 (defgeneric assigned-information-type (docstample)
-  (:method ((n (eql 'function)))
+  (:method ((n (eql :function)))
     'function-lisp-information)
-  (:method ((n (eql 'generic)))
+  (:method ((n (eql :generic)))
     'generic-function-lisp-information)
-  (:method ((n (eql 'macro)))
+  (:method ((n (eql :macro)))
     'macro-lisp-information)
-  (:method ((n (eql 'class)))
+  (:method ((n (eql :class)))
     'class-lisp-information)
-  (:method ((n (eql 'struct)))
+  (:method ((n (eql :struct)))
     'struct-lisp-information)
-  (:method ((n (eql 'error)))
+  (:method ((n (eql :error)))
     'error-lisp-information))
 
 
 (defgeneric lore-type-to-lisp-type (type)
-  (:method ((type (eql 'class))) 'type)
-  (:method ((type (eql 'struct))) 'structure)
-  (:method ((type (eql 'macro))) 'function)
-  (:method ((type (eql 'generic))) 'function)
-  (:method ((type (eql 'condition))) 'type)
-  (:method ((type (eql 'error))) 'type)
-  (:method ((type (eql 'function))) 'function))
+  (:method ((type (eql :class))) 'type)
+  (:method ((type (eql :struct))) 'structure)
+  (:method ((type (eql :macro))) 'function)
+  (:method ((type (eql :generic))) 'function)
+  (:method ((type (eql :condition))) 'type)
+  (:method ((type (eql :error))) 'type)
+  (:method ((type (eql :function))) 'function))
 
 
 (defun query (type name)
@@ -57,4 +41,3 @@
                                   docs
                                   (documentation name
                                                  lisp-documentation-type))))))
-

@@ -56,7 +56,8 @@
 
 
 (defmethod initialize-instance :after ((obj operator-lisp-information) &rest all)
-  (setf (slot-value %lambda-list obj) (arg:arglist (read-name obj))))
+  (declare (ignore all))
+  (setf (slot-value obj '%lambda-list) (arg:arglist (read-name obj))))
 
 
 (defclass function-lisp-information (operator-lisp-information)

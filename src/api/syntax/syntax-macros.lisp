@@ -55,14 +55,14 @@
 
 
 (defmacro syntax (&rest other-syntax)
-  `(progn
-     (named-readtables:in-readtable :scribble-both)
-     (scribble:enable-sub-scribble-syntax)
-     (use-package :cl-lore.api.syntax)
-     ,@(mapcar (lambda (x)
-                 `(use-package
-                   ,(intern (symbol-name x) (find-package 'keyword))))
-               other-syntax)))
+  `(eval-always
+     (progn
+       (named-readtables:in-readtable :scribble-both)
+       (use-package :cl-lore.api.syntax)
+       ,@(mapcar (lambda (x)
+                   `(use-package
+                     ,(intern (symbol-name x) (find-package 'keyword))))
+                 other-syntax))))
 
 
 (defmacro with-names ((&rest additional-names)

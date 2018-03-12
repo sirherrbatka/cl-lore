@@ -5,7 +5,6 @@
   (:use #:common-lisp #:serapeum #:alexandria #:iterate)
   (:shadowing-import-from #:iterate #:collecting #:summing #:in)
   (:export
-   #:*index*
    #:access-package-name
    #:class-lisp-information
    #:class-node
@@ -36,4 +35,3 @@
    #:struct-lisp-information
    #:struct-node
    #:lisp-documentation-node))
-
