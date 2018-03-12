@@ -22,69 +22,39 @@
 
 
 (defgeneric assigned-information-type (docstample)
-  (:method ((n docstample:function-node))
+  (:method ((n (eql 'function)))
     'function-lisp-information)
-  (:method ((n docstample:generic-node))
+  (:method ((n (eql 'generic)))
     'generic-function-lisp-information)
-  (:method ((n docstample:macro-node))
+  (:method ((n (eql 'macro)))
     'macro-lisp-information)
-  (:method ((n docstample:class-node))
+  (:method ((n (eql 'class)))
     'class-lisp-information)
-  (:method ((n docstample:struct-node))
+  (:method ((n (eql 'struct)))
     'struct-lisp-information)
-  (:method ((n docstample:error-node))
+  (:method ((n (eql 'error)))
     'error-lisp-information))
 
 
-(defgeneric query (index type id))
+(defgeneric lore-type-to-lisp-type (type)
+  (:method ((type (eql 'class))) 'type)
+  (:method ((type (eql 'struct))) 'structure)
+  (:method ((type (eql 'macro))) 'function)
+  (:method ((type (eql 'generic))) 'function)
+  (:method ((type (eql 'condition))) 'type)
+  (:method ((type (eql 'error))) 'type)
+  (:method ((type (eql 'function))) 'function))
 
 
-(defmethod query
-    ((index (eql nil))
-     (type docstample:operator-node)
-     id)
-  (with-docstring-plist (index type id)
-    (make (assigned-information-type type)
-          :node-type type
-          :lambda-list (get-arg-list id)
-          :plist plist
-          :name id
-          :docstring docstring)))
-
-
-(defmethod query
-    ((index (eql nil))
-     (type docstample:record-node)
-     (id symbol))
-  (with-docstring-plist (index type id)
-    (make (assigned-information-type type)
-          :node-type type
-          :name id
-          :plist plist
-          :docstring docstring)))
-
-
-(defmethod query
-    ((index docstample:fundamental-accumulator)
-     (type docstample:operator-node)
-     id)
-  (with-docstring-plist (index type id)
-    (make (assigned-information-type type)
-          :node-type type
-          :lambda-list (get-arg-list id)
-          :plist plist
-          :name id
-          :docstring docstring)))
-
-
-(defmethod query
-    ((index docstample:fundamental-accumulator)
-     (type docstample:record-node)
-     (id symbol))
-  (with-docstring-plist (index type id)
-    (make (assigned-information-type type)
-          :node-type type
-          :name id
-          :plist plist
-          :docstring docstring)))
+(defun query (type name)
+  (let ((lisp-documentation-type (lore-type-to-lisp-type type)))
+    (multiple-value-bind (docs found)
+        (docs.ext:find-documentation lisp-documentation-type
+                                     name)
+      (make-instance (assigned-information-type type)
+                     :name name
+                     :content (if found
+                                  docs
+                                  (documentation name
+                                                 lisp-documentation-type))))))
 

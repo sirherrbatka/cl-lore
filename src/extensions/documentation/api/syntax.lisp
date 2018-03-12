@@ -1,50 +1,17 @@
 (in-package #:cl-lore.extensions.documentation.api)
 
 
-(defmacro syntax (name type make-function)
+(defmacro syntax (name type)
   `(cl-lore.api.raw:def-syntax ,name (id)
-     (let ((data (cl-lore.extensions.documentation.protocol:query
-                  cl-lore.extensions.documentation.protocol:*index*
-                  ,type
-                  id)))
-       (ret (,make-function data)))))
+     (let ((data (cl-lore.extensions.documentation.protocol:query ',type id)))
+       (ret data))))
 
-
-(syntax
- docfun
- docstample:<function>
- cl-lore.extensions.documentation.protocol:make-function-documentation)
-
-
-(syntax
- docgeneric
- docstample:<generic>
- cl-lore.extensions.documentation.protocol:make-generic-function-documentation)
-
-
-(syntax
- docmacro
- docstample:<macro>
- cl-lore.extensions.documentation.protocol:make-macro-documentation)
-
-
-(syntax
- docclass
- docstample:<class>
- cl-lore.extensions.documentation.protocol:make-class-documentation)
-
-
-(syntax
- docstruct
- docstample:<struct>
- cl-lore.extensions.documentation.protocol:make-struct-documentation)
-
-
-(syntax
- docerror
- docstample:<error>
- cl-lore.extensions.documentation.protocol:make-error-documentation)
-
+(syntax docfun function)
+(syntax docgeneric generic)
+(syntax docmacro macro)
+(syntax docclass class)
+(syntax docstruct struct)
+(syntax docerror error)
 
 (defun pack (name)
   (declare (type string name))

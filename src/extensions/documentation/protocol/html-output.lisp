@@ -21,7 +21,6 @@
     (format out "</div>~%")))
 
 
-
 (defmethod docstample:visit :around ((visitor lore-visitor)
                                      (type docstample:operator-node)
                                      (symbol (eql :arguments-and-values))

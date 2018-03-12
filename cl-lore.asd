@@ -7,11 +7,10 @@
   :license "MIT"
   :author "Lisp Mechanics"
   :maintainer "Lisp Mechanics"
-  :depends-on (:iterate :alexandria :serapeum
-               :scribble :cl-who :docstample
-               :closer-mop :lass :cl-fad
-               :cl-dot :trivial-arguments
-               :cl-svg)
+  :depends-on ( :iterate :alexandria :serapeum
+                :scribble :cl-who :closer-mop
+                :lass :cl-fad :cl-dot
+                :trivial-arguments :cl-svg)
   :serial T
   :pathname "src"
   :components ((:file "package")
