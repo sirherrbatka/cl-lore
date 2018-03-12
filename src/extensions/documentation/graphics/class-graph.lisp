@@ -28,7 +28,7 @@
             (make-instance 'cl-dot:attributed
                            :object x
                            :attributes '(:weight 1
-                                         :arrowhead :none)))
+                                         :arrowhead :onormal)))
           (~>> (closer-mop:class-direct-superclasses object)
                (remove (find-class 'standard-object))
                (remove (find-class 'error))
