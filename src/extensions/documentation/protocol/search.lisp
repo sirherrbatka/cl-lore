@@ -35,9 +35,12 @@
     (multiple-value-bind (docs found)
         (docs.ext:find-documentation lisp-documentation-type
                                      name)
-      (make-instance (assigned-information-type type)
-                     :name name
-                     :content (if found
-                                  docs
-                                  (documentation name
-                                                 lisp-documentation-type))))))
+      (let ((docform (if found
+                         docs
+                         (documentation name lisp-documentation-type))))
+        (when (null docform)
+          (error 'cl-lore.api.raw:node-construction-error
+                 "No documentation for object ~a" name))
+        (make-instance (assigned-information-type type)
+                       :name name
+                       :content docform)))))
