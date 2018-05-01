@@ -10,7 +10,7 @@
     (with-gensyms (!path !output !current-path)
       `(let ((,!path nil)
              (,!current-path (uiop/pathname:pathname-directory-pathname
-                              (asdf-utils:current-lisp-file-pathname))))
+                              (uiop:current-lisp-file-pathname))))
          (defun ,name (&optional path)
            (declare (type (or null string pathname) path))
            (check-type path (or null list string pathname))

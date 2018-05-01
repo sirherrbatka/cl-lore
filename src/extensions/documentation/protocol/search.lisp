@@ -5,7 +5,7 @@
   (arg:arglist fun))
 
 
-(defgeneric assigned-information-type (docstample)
+(defgeneric assigned-information-type (type)
   (:method ((n (eql :function)))
     'function-lisp-information)
   (:method ((n (eql :generic)))
