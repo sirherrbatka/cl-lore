@@ -23,7 +23,9 @@
               (map nil
                    (lambda (file)
                      (let ((full-path (uiop/pathname:merge-pathnames*
-                                       ,!current-path file)))
+                                       ,!current-path file))
+                           (cl-lore.api.raw:*chunks* ,chunks)
+                           (cl-lore.api.raw:*stack* (make 'cl-lore.protocol.stack:top-stack-controller)))
                        (load full-path)))
                    (list ,@files))
               (restart-case

@@ -12,8 +12,11 @@
 
 
 (defun controller-pop-tree (desc)
-  (cl-lore.protocol.stack:controller-pop-tree
-   *stack* desc))
+  (lret ((result (cl-lore.protocol.stack:controller-pop-tree
+                  *stack* desc)))
+    (when (and (typep result 'cl-lore.protocol.structure:chunk-node)
+               (cl-lore.protocol.structure:has-label result))
+      (push-chunk result))))
 
 
 (defun controller-push-tree (desc tree)
