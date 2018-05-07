@@ -46,3 +46,7 @@
                             (eq p-type type)))))
     (error 'invalid-node-condition
            :text "Trying to construct table with invalid content")))
+
+
+(defmethod validate ((node included-node))
+  t)

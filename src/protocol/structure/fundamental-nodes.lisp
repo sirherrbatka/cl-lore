@@ -28,6 +28,14 @@
   (:metaclass lore-node-class))
 
 
+(defclass included-node (tree-node)
+  ((%chunks :initarg :chunks
+            :reader read-chunks)
+   (%label :initarg :label
+           :reader read-label))
+  (:metaclass lore-node-class))
+
+
 (defclass sequence-node (tree-node)
   ((%children :initform (vect)
               :initarg :children

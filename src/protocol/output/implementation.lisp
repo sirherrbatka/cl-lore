@@ -55,3 +55,14 @@
                               element
                               (car parents)
                               parents))
+
+(defmethod process-element ((generator fundamental-output-generator)
+                            (output fundamental-output)
+                            (element cl-lore.protocol.structure:included-node)
+                            parents)
+  (process-element
+   generator output
+   (cl-lore.protocol.collecting:get-chunk
+    (cl-lore.protocol.structure:read-chunks element)
+    (cl-lore.protocol.structure:read-label element))
+   parents))

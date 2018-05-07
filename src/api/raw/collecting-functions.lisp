@@ -2,7 +2,9 @@
 
 
 (defun get-chunk (label)
-  (cl-lore.protocol.collecting:get-chunk *chunks* label))
+  (make-instance 'cl-lore.protocol.structure:included-node
+                 :chunks *chunks*
+                 :label label))
 
 
 (defun push-chunk (label)

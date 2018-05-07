@@ -30,6 +30,9 @@
    #:lore-node-class
    #:map-children
    #:modification-not-allowed
+   #:included-node
+   #:read-chunks
+   #:read-label
    #:paragraph-trait
    #:push-child
    #:read-traits
