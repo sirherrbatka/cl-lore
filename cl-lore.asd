@@ -10,6 +10,7 @@
   :depends-on ( :iterate :alexandria :serapeum
                 :scribble :cl-who :closer-mop
                 :lass :cl-fad :cl-dot
+                :documentation-utils-extensions
                 :trivial-arguments :cl-svg)
   :serial T
   :pathname "src"
