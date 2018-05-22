@@ -10,7 +10,17 @@
 
 
 (defmethod push-child ((node sequence-node) (child string))
-  (vector-push-extend child  (read-children node)))
+  (let ((child (trim-whitespace child)))
+    (unless (emptyp child)
+      (vector-push-extend child (read-children node)))))
+
+
+(defmethod push-child :around ((node sequence-node) (child symbol))
+  (push-child node (format nil "~a" child)))
+
+
+(defmethod push-child :around ((node sequence-node) (child list))
+  (push-child node (format nil "~a" child)))
 
 
 (defmethod push-child :before ((node sequence-node) child)
