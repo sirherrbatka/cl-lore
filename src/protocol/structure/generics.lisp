@@ -29,9 +29,11 @@
 (defgeneric validate (node)
   (:method ((node string)) nil)
   (:method ((node fundamental-node)) nil)
+  (:method ((node symbol)) nil)
+  (:method ((node list)) nil)
   (:method (node)
     (error 'invalid-node-condition
-           "Can't use type ~a because it is not fundamental-node or string"
-           (type-of node)))
+           :text (format nil "Can't use type ~a because it is not fundamental-node, symbol or string"
+                         (type-of node))))
   (:method ((node tree-node))
     (map-children #'validate node)))

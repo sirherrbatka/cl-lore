@@ -15,11 +15,11 @@
       (vector-push-extend child (read-children node)))))
 
 
-(defmethod push-child :around ((node sequence-node) (child symbol))
+(defmethod push-child ((node sequence-node) (child symbol))
   (push-child node (format nil "~a" child)))
 
 
-(defmethod push-child :around ((node sequence-node) (child list))
+(defmethod push-child ((node sequence-node) (child list))
   (push-child node (format nil "~a" child)))
 
 

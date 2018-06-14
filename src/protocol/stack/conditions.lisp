@@ -13,3 +13,7 @@
 
 (define-condition invalid-stack-state (fundamental-stack-condition)
   ())
+
+
+(defmethod print-object ((object fundamental-stack-controller) stream)
+  (format stream "~a" (read-text object)))

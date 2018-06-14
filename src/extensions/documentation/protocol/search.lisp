@@ -40,7 +40,7 @@
                          (documentation name lisp-documentation-type))))
         (when (null docform)
           (error 'cl-lore.api.raw:node-construction-error
-                 "No documentation for object ~a" name))
+                 :text (format nil "No documentation for object ~a" name)))
         (make-instance (assigned-information-type type)
                        :name name
                        :content docform)))))
