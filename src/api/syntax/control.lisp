@@ -16,7 +16,7 @@
            (check-type path (or null list string pathname))
            (let ((*package* (find-package ,package)))
              (unless (null path)
-               (setf ,!path (uiop:make-pathname* :directory path)))
+               (setf ,!path (make-pathname :directory path)))
              (,@(if dynamic-binding
                     `(let ,dynamic-binding)
                     `(progn))
@@ -35,7 +35,7 @@
                     (when (null ,!path)
                       (error "Path was not set!"))
                     (unless (uiop:directory-exists-p ,!path)
-                      (error "Directory does not exists!"))
+                      (error "Directory ~a does not exists!" ,!path))
                     (cl-lore.protocol.output:save-output
                      ,!path
                      (with-names ,names
@@ -49,5 +49,4 @@
                                  (force-output *query-io*)
                                  (list (read)))
                   (,name path)))
-              ,!path)
-             (export (quote ,name))))))))
+              ,!path)))))))

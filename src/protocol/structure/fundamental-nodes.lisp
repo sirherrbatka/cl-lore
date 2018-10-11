@@ -95,3 +95,9 @@
 (defclass title-row-node (row-node)
   ()
   (:metaclass lore-node-class))
+
+
+(defclass cell-constructor ()
+  ((%function :initarg :function
+              :type function
+              :reader read-function)))

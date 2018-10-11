@@ -37,3 +37,6 @@
                          (type-of node))))
   (:method ((node tree-node))
     (map-children #'validate node)))
+
+
+(defgeneric eval-cell-constructor (controller constructor))
