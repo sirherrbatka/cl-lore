@@ -114,7 +114,7 @@
      (element documentation-node)
      parents)
   (let ((out (cl-lore.html:read-out-stream output)))
-    (format out "Symbols in package ~a:~%"
+    (format out "Symbols in the package ~a:~%"
             (~> element
                 access-package-name
                 cl-lore.html:escape-text)))
