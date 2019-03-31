@@ -21,7 +21,9 @@
      :margin-top 0.5em
      :margin-bottom 0.5em
      :margin-right 1em
-     :padding 3px)))
+     :padding 3px
+     (ul
+      :margin 0))))
 
 
 (defparameter *function-style*
@@ -119,7 +121,7 @@
      :left 0
      :top 0
      :bottom 0
-     :background "#3d3d3d" 
+     :background "#3d3d3d"
      :overflow-y scroll
      :padding 0
      :display block
