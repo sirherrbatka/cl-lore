@@ -79,7 +79,7 @@
   (:method ((output mechanics-html-output))
     (if-let ((stack (access-files-stack output)))
       (car (first stack))
-      "index.html")))
+      "main.html")))
 
 
 (defgeneric add-to-menu (output link element parents)
