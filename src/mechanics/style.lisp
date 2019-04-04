@@ -115,7 +115,7 @@
 
 (defparameter *menu-style*
   `((.vertical-menu
-     :width 15%
+     :width 300px
      :position fixed
      :margin-left 0
      :left 0
