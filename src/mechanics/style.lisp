@@ -116,41 +116,48 @@
 (defparameter *menu-style*
   `((.vertical-menu
      :width 300px
-     :position fixed
-     :margin-left 0
+     :margin 0
+     :height 100%
      :left 0
+     :flex-grow 0
      :top 0
      :bottom 0
+     :min-height 100%
+     :display block
      :background "#3d3d3d"
      :overflow-y scroll
+     :position fixed
      :padding 0
-     :align center
      (a
       :color white
       :display block
       :padding 2%
       :text-decoration none)
      (ul
-      :overflow hidden
       :list-style-type none
       :margin 0
       :color white
       :padding 0)
      (li
-      :overflow left
       :color white
       :margin-bottom 5px
       :margin-left 5%))))
 
 
 (defparameter *wrap-style*
-  `((.wrap)))
+  `((.wrap
+     :height 100%
+     :display inline-flex
+     :flex-wrap nowrap
+     :padding 0
+     :margin 0
+     )))
 
 
 (defparameter *content-style*
   `((.content
-     :position fixed
-     :padding-left 300px)))
+     :padding-left 300px
+     :flex-grow 0)))
 
 
 (defparameter *doc-name*
