@@ -124,7 +124,6 @@
      :background "#3d3d3d"
      :overflow-y scroll
      :padding 0
-     :display block
      :align center
      (a
       :color white
@@ -150,12 +149,8 @@
 
 (defparameter *content-style*
   `((.content
-     :position absolute
-     :right 5%
-     :width 75%
-     :left-margin 20%
-     :right-margin 5%
-     :height auto)))
+     :position fixed
+     :padding-left 300px)))
 
 
 (defparameter *doc-name*
