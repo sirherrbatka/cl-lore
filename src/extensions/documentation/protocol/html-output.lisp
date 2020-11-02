@@ -81,6 +81,24 @@
 (defmethod cl-lore.protocol.output:process-element
     ((generator cl-lore.html:html-output-generator)
      (output cl-lore.html:html-output)
+     (element variable-lisp-information)
+     parents)
+  (nest
+   (with-accessors ((doc read-content)) element)
+   (with-accessors ((out cl-lore.html:read-out-stream)) output
+     (call-next-method)
+     (econd
+      ((stringp doc)
+       (format out "<div class=\"doc-paragraph\">~a</div>"
+               (cl-lore.html:escape-text doc)))
+      ((null doc) nil)
+      ((listp doc) (generate-documentation-string element output doc)))))
+  output)
+
+
+(defmethod cl-lore.protocol.output:process-element
+    ((generator cl-lore.html:html-output-generator)
+     (output cl-lore.html:html-output)
      (element record-lisp-information)
      parents)
   (nest
@@ -132,6 +150,8 @@
     "class-info")
   (:method ((node struct-lisp-information))
     "struct-info")
+  (:method ((node variable-lisp-information))
+    "variable-info")
   (:method ((node macro-lisp-information))
     "macro-info"))
 

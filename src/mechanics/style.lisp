@@ -7,6 +7,7 @@
 (defparameter *error-color* '(rgba 255 83 95 0.7))
 (defparameter *struct-color* "#ff2222")
 (defparameter *generic-color* '(rgba 46 83 157 0.7))
+(defparameter *variable-color* '(rgba 255 201 126 0.7))
 (defparameter *strong-separation-color* "#000000")
 (defparameter *medium-separation-color* "#7a7a7a")
 (defparameter *weak-separation-color* "#c5c5c5")
@@ -33,6 +34,9 @@
 (defparameter *generic-style*
   (frame-style '.generic-info *generic-color*))
 
+
+(defparameter *variable-style*
+  (frame-style '.variable-info *variable-color*))
 
 (defparameter *macro-style*
   (frame-style '.macro-info *macro-color*))
@@ -183,6 +187,7 @@
           *class-style*
           *big-title*
           *macro-style*
+          *variable-style*
           *top-level-style*
           *doc-paragraph*
           *doc-name*

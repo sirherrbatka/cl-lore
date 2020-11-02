@@ -33,5 +33,7 @@
    #:record-lisp-information
    #:standard-lisp-information
    #:struct-lisp-information
+   #:variable-lisp-information
+   #:make-variable-node
    #:struct-node
    #:lisp-documentation-node))

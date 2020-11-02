@@ -9,6 +9,7 @@
    #:docclass
    #:docerror
    #:docfun
+   #:docvar
    #:docgeneric
    #:docmacro
    #:docstruct

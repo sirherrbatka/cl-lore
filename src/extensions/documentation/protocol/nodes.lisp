@@ -23,6 +23,11 @@
   (:metaclass cl-lore.protocol.structure:lore-node-class))
 
 
+(defclass variable-node (lisp-documentation-node)
+  ()
+  (:metaclass cl-lore.protocol.structure:lore-node-class))
+
+
 (defclass class-node (lisp-documentation-node)
   ()
   (:metaclass cl-lore.protocol.structure:lore-node-class))
@@ -52,6 +57,11 @@
 
 (defalias make-macro-documentation
   (curry #'make 'macro-node
+         :information))
+
+
+(defalias make-variable-documentation
+  (curry #'make 'variable-node
          :information))
 
 

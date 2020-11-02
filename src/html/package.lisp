@@ -12,6 +12,7 @@
    #:*generic-class*
    #:*macro-class*
    #:*struct-class*
+   #:*variable-class*
    #:access-css
    #:escape-text
    #:html-output

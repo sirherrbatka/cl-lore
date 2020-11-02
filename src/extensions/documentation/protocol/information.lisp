@@ -73,3 +73,10 @@
 (defclass generic-function-lisp-information (operator-lisp-information)
   ()
   (:metaclass cl-lore.protocol.structure:lore-node-class))
+
+
+(defclass variable-lisp-information (named-lisp-information
+                                     standard-lisp-information)
+  ()
+  (:metaclass cl-lore.protocol.structure:lore-node-class))
+

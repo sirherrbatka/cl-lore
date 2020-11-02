@@ -12,6 +12,7 @@
 (syntax docclass :class)
 (syntax docstruct :struct)
 (syntax docerror :error)
+(syntax docvar :variable)
 
 (defun pack (name)
   (declare (type string name))
