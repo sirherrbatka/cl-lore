@@ -2,10 +2,7 @@
 
 
 (defpackage :cl-lore.html
-  (:use #:common-lisp #:serapeum #:alexandria
-        #:iterate)
-  (:shadowing-import-from #:iterate #:collecting
-                          #:summing #:in)
+  (:use #:common-lisp #:cl-lore.aux-package)
   (:export
    #:*class-class
    #:*function-class*

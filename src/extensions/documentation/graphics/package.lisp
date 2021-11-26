@@ -1,8 +1,7 @@
 (in-package #:cl-user)
 
 
-(defpackage :cl-lore.extensions.documentation.graphics
-  (:use #:common-lisp #:serapeum #:alexandria #:iterate)
-  (:shadowing-import-from #:iterate #:collecting #:summing #:in)
+(defpackage #:cl-lore.extensions.documentation.graphics
+  (:use #:common-lisp #:cl-lore.aux-package)
   (:export
    #:make-class-inheritance))

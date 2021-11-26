@@ -2,9 +2,7 @@
 
 
 (defpackage #:cl-lore.utils
-  (:use #:common-lisp #:serapeum #:alexandria #:iterate)
-  (:shadowing-import-from #:iterate #:collecting #:summing #:in)
+  (:use #:common-lisp #:cl-lore.aux-package)
   (:export
    #:find-in-tree
    #:insert-into-tree))
-

@@ -2,8 +2,7 @@
 
 
 (defpackage #:cl-lore.protocol.output
-  (:use #:common-lisp #:serapeum #:alexandria #:iterate)
-  (:shadowing-import-from #:iterate #:collecting #:summing #:in)
+  (:use #:common-lisp #:cl-lore.aux-package)
   (:export
    #:add-image
    #:apply-trait

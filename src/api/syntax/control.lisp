@@ -26,7 +26,7 @@
                                        ,!current-path file))
                            (cl-lore.api.raw:*chunks* ,chunks)
                            (cl-lore.api.raw:*node-definitions*
-                             (merge-tables <standard-names> ,@names))
+                             (serapeum:merge-tables <standard-names> ,@names))
                            (cl-lore.api.raw:*stack* (make 'cl-lore.protocol.stack:top-stack-controller)))
                        (load full-path)))
                    (list ,@files))

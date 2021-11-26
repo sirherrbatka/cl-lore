@@ -2,8 +2,7 @@
 
 
 (defpackage :cl-lore.extensions.sequence-graphs.graphics
-  (:use #:common-lisp #:alexandria #:iterate #:cl-svg)
-  (:shadowing-import-from #:iterate #:collecting #:summing #:in)
+  (:use #:common-lisp #:cl-lore.aux-package #:cl-svg)
   (:shadowing-import-from #:alexandria #:rotate)
   (:export
    #:make-context

@@ -2,8 +2,7 @@
 
 
 (defpackage :cl-lore.extensions.documentation.protocol
-  (:use #:common-lisp #:serapeum #:alexandria #:iterate)
-  (:shadowing-import-from #:iterate #:collecting #:summing #:in)
+  (:use #:common-lisp #:cl-lore.aux-package)
   (:export
    #:access-package-name
    #:class-lisp-information
